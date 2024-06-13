@@ -23,6 +23,8 @@
 		48C128B22C1AFA5D00EA91F8 /* ProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C128B12C1AFA5D00EA91F8 /* ProfileImageView.swift */; };
 		48C128B42C1B03DB00EA91F8 /* ProfileImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C128B32C1B03DB00EA91F8 /* ProfileImageViewController.swift */; };
 		48C128B62C1B339F00EA91F8 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C128B52C1B339F00EA91F8 /* MainViewController.swift */; };
+		48C128B82C1B3CD100EA91F8 /* ReusableIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C128B72C1B3CD100EA91F8 /* ReusableIdentifier.swift */; };
+		48C128BA2C1B3D0A00EA91F8 /* ProfileImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C128B92C1B3D0A00EA91F8 /* ProfileImageCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +43,8 @@
 		48C128B12C1AFA5D00EA91F8 /* ProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageView.swift; sourceTree = "<group>"; };
 		48C128B32C1B03DB00EA91F8 /* ProfileImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageViewController.swift; sourceTree = "<group>"; };
 		48C128B52C1B339F00EA91F8 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		48C128B72C1B3CD100EA91F8 /* ReusableIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableIdentifier.swift; sourceTree = "<group>"; };
+		48C128B92C1B3D0A00EA91F8 /* ProfileImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +81,7 @@
 		48C128832C1AE56300EA91F8 /* MeaningOut */ = {
 			isa = PBXGroup;
 			children = (
+				48C128BB2C1B3D1300EA91F8 /* Cell */,
 				48C128AE2C1AF99900EA91F8 /* Controller */,
 				48C128A72C1AE97B00EA91F8 /* Helpers */,
 				48C128842C1AE56300EA91F8 /* AppDelegate.swift */,
@@ -95,6 +100,7 @@
 				48C128A82C1AE9B900EA91F8 /* Contant.swift */,
 				48C128AC2C1AF35500EA91F8 /* PrimaryButton.swift */,
 				48C128B12C1AFA5D00EA91F8 /* ProfileImageView.swift */,
+				48C128B72C1B3CD100EA91F8 /* ReusableIdentifier.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -108,6 +114,14 @@
 				48C128B52C1B339F00EA91F8 /* MainViewController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		48C128BB2C1B3D1300EA91F8 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				48C128B92C1B3D0A00EA91F8 /* ProfileImageCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -196,8 +210,10 @@
 				48C128892C1AE56300EA91F8 /* OnboardingViewController.swift in Sources */,
 				48C128A92C1AE9B900EA91F8 /* Contant.swift in Sources */,
 				48C128AD2C1AF35500EA91F8 /* PrimaryButton.swift in Sources */,
+				48C128BA2C1B3D0A00EA91F8 /* ProfileImageCell.swift in Sources */,
 				48C128852C1AE56300EA91F8 /* AppDelegate.swift in Sources */,
 				48C128A62C1AE86B00EA91F8 /* APIKey.swift in Sources */,
+				48C128B82C1B3CD100EA91F8 /* ReusableIdentifier.swift in Sources */,
 				48C128B02C1AF9DF00EA91F8 /* ProfileNickNameViewController.swift in Sources */,
 				48C128872C1AE56300EA91F8 /* SceneDelegate.swift in Sources */,
 				48C128B62C1B339F00EA91F8 /* MainViewController.swift in Sources */,

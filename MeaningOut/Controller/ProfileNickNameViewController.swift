@@ -163,6 +163,12 @@ extension ProfileNickNameViewController:UITextFieldDelegate{
             warningLabel.text = NicknameValidation.length.rawValue
             warningLabel.textColor = NicknameValidation.length.messageColor
             doneButton.backgroundColor = AppColor.gray03
+            
+            //숫자가 지워지고 사용 가능한 닉네임인 경우
+            if textField.text!.count < 10{
+                doneButton.isEnabled = true
+                doneButton.backgroundColor = AppColor.primary
+            }
             return false
         }
 

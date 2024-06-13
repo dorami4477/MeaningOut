@@ -33,3 +33,7 @@ enum NicknameValidation:String{
     }
 }
 
+enum CVCell {
+    static let spacingWidth:CGFloat = 10
+    static let cellColumns:CGFloat = 4
+}
