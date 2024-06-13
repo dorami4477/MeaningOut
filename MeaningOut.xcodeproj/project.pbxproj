@@ -10,9 +10,13 @@
 		48C128852C1AE56300EA91F8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C128842C1AE56300EA91F8 /* AppDelegate.swift */; };
 		48C128872C1AE56300EA91F8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C128862C1AE56300EA91F8 /* SceneDelegate.swift */; };
 		48C128892C1AE56300EA91F8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C128882C1AE56300EA91F8 /* ViewController.swift */; };
-		48C1288C2C1AE56300EA91F8 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 48C1288B2C1AE56300EA91F8 /* Base */; };
 		48C1288E2C1AE56400EA91F8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 48C1288D2C1AE56400EA91F8 /* Assets.xcassets */; };
 		48C128912C1AE56400EA91F8 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 48C128902C1AE56400EA91F8 /* Base */; };
+		48C1289B2C1AE66600EA91F8 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 48C1289A2C1AE66600EA91F8 /* .gitignore */; };
+		48C1289E2C1AE6B100EA91F8 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 48C1289D2C1AE6B100EA91F8 /* IQKeyboardManagerSwift */; };
+		48C128A12C1AE6BD00EA91F8 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 48C128A02C1AE6BD00EA91F8 /* Alamofire */; };
+		48C128A42C1AE6D200EA91F8 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 48C128A32C1AE6D200EA91F8 /* SnapKit */; };
+		48C128A62C1AE86B00EA91F8 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C128A52C1AE86B00EA91F8 /* APIKey.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,10 +24,11 @@
 		48C128842C1AE56300EA91F8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		48C128862C1AE56300EA91F8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		48C128882C1AE56300EA91F8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		48C1288B2C1AE56300EA91F8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		48C1288D2C1AE56400EA91F8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		48C128902C1AE56400EA91F8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		48C128922C1AE56400EA91F8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		48C1289A2C1AE66600EA91F8 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		48C128A52C1AE86B00EA91F8 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +36,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				48C128A42C1AE6D200EA91F8 /* SnapKit in Frameworks */,
+				48C1289E2C1AE6B100EA91F8 /* IQKeyboardManagerSwift in Frameworks */,
+				48C128A12C1AE6BD00EA91F8 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +48,7 @@
 		48C128782C1AE56300EA91F8 = {
 			isa = PBXGroup;
 			children = (
+				48C1289A2C1AE66600EA91F8 /* .gitignore */,
 				48C128832C1AE56300EA91F8 /* MeaningOut */,
 				48C128822C1AE56300EA91F8 /* Products */,
 			);
@@ -59,10 +68,10 @@
 				48C128842C1AE56300EA91F8 /* AppDelegate.swift */,
 				48C128862C1AE56300EA91F8 /* SceneDelegate.swift */,
 				48C128882C1AE56300EA91F8 /* ViewController.swift */,
-				48C1288A2C1AE56300EA91F8 /* Main.storyboard */,
 				48C1288D2C1AE56400EA91F8 /* Assets.xcassets */,
 				48C1288F2C1AE56400EA91F8 /* LaunchScreen.storyboard */,
 				48C128922C1AE56400EA91F8 /* Info.plist */,
+				48C128A52C1AE86B00EA91F8 /* APIKey.swift */,
 			);
 			path = MeaningOut;
 			sourceTree = "<group>";
@@ -83,6 +92,11 @@
 			dependencies = (
 			);
 			name = MeaningOut;
+			packageProductDependencies = (
+				48C1289D2C1AE6B100EA91F8 /* IQKeyboardManagerSwift */,
+				48C128A02C1AE6BD00EA91F8 /* Alamofire */,
+				48C128A32C1AE6D200EA91F8 /* SnapKit */,
+			);
 			productName = MeaningOut;
 			productReference = 48C128812C1AE56300EA91F8 /* MeaningOut.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +125,11 @@
 				Base,
 			);
 			mainGroup = 48C128782C1AE56300EA91F8;
+			packageReferences = (
+				48C1289C2C1AE6B100EA91F8 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
+				48C1289F2C1AE6BD00EA91F8 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				48C128A22C1AE6D200EA91F8 /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = 48C128822C1AE56300EA91F8 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -125,9 +144,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				48C1289B2C1AE66600EA91F8 /* .gitignore in Resources */,
 				48C1288E2C1AE56400EA91F8 /* Assets.xcassets in Resources */,
 				48C128912C1AE56400EA91F8 /* Base in Resources */,
-				48C1288C2C1AE56300EA91F8 /* Base in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,6 +159,7 @@
 			files = (
 				48C128892C1AE56300EA91F8 /* ViewController.swift in Sources */,
 				48C128852C1AE56300EA91F8 /* AppDelegate.swift in Sources */,
+				48C128A62C1AE86B00EA91F8 /* APIKey.swift in Sources */,
 				48C128872C1AE56300EA91F8 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -147,14 +167,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		48C1288A2C1AE56300EA91F8 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				48C1288B2C1AE56300EA91F8 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		48C1288F2C1AE56400EA91F8 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -297,9 +309,9 @@
 				INFOPLIST_FILE = MeaningOut/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -307,9 +319,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dahyun.MeaningOut;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -325,9 +341,9 @@
 				INFOPLIST_FILE = MeaningOut/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -335,9 +351,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dahyun.MeaningOut;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -363,6 +383,51 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		48C1289C2C1AE6B100EA91F8 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.3;
+			};
+		};
+		48C1289F2C1AE6BD00EA91F8 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.9.1;
+			};
+		};
+		48C128A22C1AE6D200EA91F8 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		48C1289D2C1AE6B100EA91F8 /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 48C1289C2C1AE6B100EA91F8 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
+		};
+		48C128A02C1AE6BD00EA91F8 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 48C1289F2C1AE6BD00EA91F8 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		48C128A32C1AE6D200EA91F8 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 48C128A22C1AE6D200EA91F8 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 48C128792C1AE56300EA91F8 /* Project object */;
 }
