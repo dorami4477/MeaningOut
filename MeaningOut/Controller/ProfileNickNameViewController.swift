@@ -9,8 +9,10 @@ import UIKit
 
 class ProfileNickNameViewController: UIViewController {
     
+    var profileImgName = ""
+    
     let profileView = UIView()
-    let profileImageView = ProfileImageView("profile_\(Int.random(in: 0...11))", active: true)
+    lazy var profileImageView = ProfileImageView()
     let cameraImageView = {
         let img = UIImageView()
         img.image = UIImage(systemName: "camera.fill")
@@ -40,6 +42,7 @@ class ProfileNickNameViewController: UIViewController {
         configureUI()
         configureTextField()
         setTapGesture()
+        setProfileImg()
     }
     
     override func viewDidLayoutSubviews() {
@@ -48,6 +51,11 @@ class ProfileNickNameViewController: UIViewController {
         border.frame = CGRect(x: 0, y: nicktextfield.frame.size.height + 8, width: nicktextfield.frame.width, height: 1)
         border.backgroundColor = AppColor.gray03.cgColor
         nicktextfield.layer.addSublayer(border)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setProfileImg()
     }
     
     private func configureHierarchy(){
@@ -92,6 +100,19 @@ class ProfileNickNameViewController: UIViewController {
         nicktextfield.delegate = self
     }
     
+    func setProfileImg(){
+        if let name = UserDefaultsManager.profileImage{
+            profileImgName = name
+            profileImageView.image = UIImage(named: name)
+            
+        }else{
+            let randomNum = Int.random(in: 0...11)
+            profileImgName = "profile_\(randomNum)"
+            profileImageView.image = UIImage(named: profileImgName)
+            UserDefaultsManager.profileImage = profileImgName
+        }
+    }
+    
     private func setTapGesture(){
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(profileViewTapped(_:)))
         profileView.addGestureRecognizer(tapGestureRecognizer)
@@ -99,17 +120,25 @@ class ProfileNickNameViewController: UIViewController {
         doneButton.addTarget(self, action: #selector(doneButtonTapped), for: .touchUpInside)
     }
     
+    //프로필 이미지 클릭 시
     @objc func profileViewTapped(_ sender: UITapGestureRecognizer) {
         
         let profileVC = ProfileImageViewController()
+        profileVC.profileImageView.image = UIImage(named: profileImgName)
+        profileVC.selectedImg = profileImgName
         navigationController?.pushViewController(profileVC, animated: true)
     }
     
+    //완료 버튼 클릭 시
     @objc func doneButtonTapped() {
+        guard let text = nicktextfield.text else { return }
+        UserDefaultsManager.nickName = text
+        
         let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
         let sceneDelegate = windowScene?.delegate as? SceneDelegate
-         
+        
         let navigationController = UINavigationController(rootViewController: MainViewController())
+        
         
         sceneDelegate?.window?.rootViewController = navigationController
         sceneDelegate?.window?.makeKeyAndVisible()

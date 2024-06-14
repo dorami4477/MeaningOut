@@ -25,6 +25,12 @@
 		48C128B62C1B339F00EA91F8 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C128B52C1B339F00EA91F8 /* MainViewController.swift */; };
 		48C128B82C1B3CD100EA91F8 /* ReusableIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C128B72C1B3CD100EA91F8 /* ReusableIdentifier.swift */; };
 		48C128BA2C1B3D0A00EA91F8 /* ProfileImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C128B92C1B3D0A00EA91F8 /* ProfileImageCell.swift */; };
+		48C824052C1C781A00E505CF /* RecentSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C824042C1C781A00E505CF /* RecentSearchCell.swift */; };
+		48C824072C1C7AE600E505CF /* RecentSearchHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C824062C1C7AE600E505CF /* RecentSearchHeader.swift */; };
+		48C8505F2C1C580C005F9CAF /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C8505E2C1C580C005F9CAF /* UserDefaultsManager.swift */; };
+		48C850612C1C60B1005F9CAF /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C850602C1C60B1005F9CAF /* TabBarController.swift */; };
+		48C850632C1C61C7005F9CAF /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C850622C1C61C7005F9CAF /* SearchViewController.swift */; };
+		48C850652C1C61D3005F9CAF /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C850642C1C61D3005F9CAF /* SettingViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +51,12 @@
 		48C128B52C1B339F00EA91F8 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		48C128B72C1B3CD100EA91F8 /* ReusableIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableIdentifier.swift; sourceTree = "<group>"; };
 		48C128B92C1B3D0A00EA91F8 /* ProfileImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageCell.swift; sourceTree = "<group>"; };
+		48C824042C1C781A00E505CF /* RecentSearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchCell.swift; sourceTree = "<group>"; };
+		48C824062C1C7AE600E505CF /* RecentSearchHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchHeader.swift; sourceTree = "<group>"; };
+		48C8505E2C1C580C005F9CAF /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
+		48C850602C1C60B1005F9CAF /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		48C850622C1C61C7005F9CAF /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		48C850642C1C61D3005F9CAF /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +113,7 @@
 				48C128AC2C1AF35500EA91F8 /* PrimaryButton.swift */,
 				48C128B12C1AFA5D00EA91F8 /* ProfileImageView.swift */,
 				48C128B72C1B3CD100EA91F8 /* ReusableIdentifier.swift */,
+				48C8505E2C1C580C005F9CAF /* UserDefaultsManager.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -112,6 +125,9 @@
 				48C128AF2C1AF9DF00EA91F8 /* ProfileNickNameViewController.swift */,
 				48C128B32C1B03DB00EA91F8 /* ProfileImageViewController.swift */,
 				48C128B52C1B339F00EA91F8 /* MainViewController.swift */,
+				48C850602C1C60B1005F9CAF /* TabBarController.swift */,
+				48C850622C1C61C7005F9CAF /* SearchViewController.swift */,
+				48C850642C1C61D3005F9CAF /* SettingViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -120,6 +136,8 @@
 			isa = PBXGroup;
 			children = (
 				48C128B92C1B3D0A00EA91F8 /* ProfileImageCell.swift */,
+				48C824042C1C781A00E505CF /* RecentSearchCell.swift */,
+				48C824062C1C7AE600E505CF /* RecentSearchHeader.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -205,15 +223,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				48C850632C1C61C7005F9CAF /* SearchViewController.swift in Sources */,
 				48C128B42C1B03DB00EA91F8 /* ProfileImageViewController.swift in Sources */,
 				48C128B22C1AFA5D00EA91F8 /* ProfileImageView.swift in Sources */,
+				48C850652C1C61D3005F9CAF /* SettingViewController.swift in Sources */,
 				48C128892C1AE56300EA91F8 /* OnboardingViewController.swift in Sources */,
+				48C8505F2C1C580C005F9CAF /* UserDefaultsManager.swift in Sources */,
+				48C850612C1C60B1005F9CAF /* TabBarController.swift in Sources */,
 				48C128A92C1AE9B900EA91F8 /* Contant.swift in Sources */,
 				48C128AD2C1AF35500EA91F8 /* PrimaryButton.swift in Sources */,
 				48C128BA2C1B3D0A00EA91F8 /* ProfileImageCell.swift in Sources */,
 				48C128852C1AE56300EA91F8 /* AppDelegate.swift in Sources */,
 				48C128A62C1AE86B00EA91F8 /* APIKey.swift in Sources */,
 				48C128B82C1B3CD100EA91F8 /* ReusableIdentifier.swift in Sources */,
+				48C824072C1C7AE600E505CF /* RecentSearchHeader.swift in Sources */,
+				48C824052C1C781A00E505CF /* RecentSearchCell.swift in Sources */,
 				48C128B02C1AF9DF00EA91F8 /* ProfileNickNameViewController.swift in Sources */,
 				48C128872C1AE56300EA91F8 /* SceneDelegate.swift in Sources */,
 				48C128B62C1B339F00EA91F8 /* MainViewController.swift in Sources */,
