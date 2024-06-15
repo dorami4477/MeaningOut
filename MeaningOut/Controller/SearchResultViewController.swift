@@ -14,7 +14,6 @@ class SearchResultViewController: UIViewController {
     var sort = "sim"
     
     var startNum = 1
-    var isEnd = false
     
     var searhResult:Shopping?{
         didSet{
@@ -183,8 +182,14 @@ extension SearchResultViewController:UICollectionViewDelegate, UICollectionViewD
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchResultCell.identifier, for: indexPath) as! SearchResultCell
         guard let resultItems = searhResult?.items else { return UICollectionViewCell() }
         
+        
+        if let fav = UserDefaultsManager.favorite[resultItems[indexPath.item].productId]{
+            cell.favorite = fav
+        }else{
+            UserDefaultsManager.favorite[resultItems[indexPath.item].productId] = false
+            cell.favorite = false
+        }
         cell.data = resultItems[indexPath.item]
-        cell.favorite = UserDefaultsManager.favorite
         return cell
     }
     

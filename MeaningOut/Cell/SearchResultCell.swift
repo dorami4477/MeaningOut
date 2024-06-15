@@ -13,13 +13,11 @@ class SearchResultCell: UICollectionViewCell {
     var data:Item?{
         didSet{
             configureData()
-            favorite = UserDefaultsManager.favorite
             setFavoriteUI()
         }
     }
 
-    var favorite:[String:Bool] = [:]
-    
+    var favorite = false
     
     let mainImageView = {
         let img = UIImageView()
@@ -64,10 +62,8 @@ class SearchResultCell: UICollectionViewCell {
         configureHierarchy()
         configureLayout()
         configureUI()
-        
-        
     }
-
+    
 
     private func configureHierarchy(){
         [mainImageView, favoritesButton, mallNameLabel, titleLabel, priceLabel].forEach { contentView.addSubview($0) }
@@ -108,25 +104,19 @@ class SearchResultCell: UICollectionViewCell {
         titleLabel.text = data.title
         mallNameLabel.text = data.mallName
         priceLabel.text = data.price
+        
     }
     
     @objc func favButtonTapped(){
-        if var fav = favorite[data!.productId]{
-            fav.toggle()
-            favorite[data!.productId] = fav
-
-        }else{
-            favorite[data!.productId] = true
-        }
-        setFavoriteUI()
         
-        UserDefaultsManager.favorite = favorite
+        favorite.toggle()
+        setFavoriteUI()
+        UserDefaultsManager.favorite[data!.productId] = favorite
     }
     
     func setFavoriteUI(){
-        guard let data else { return }
-        if let favData = favorite[data.productId], favData{
-            
+        if favorite{
+        
             favoritesButton.backgroundColor = AppColor.white
             favoritesButton.setImage(UIImage(systemName: "bag.fill.badge.minus"), for: .normal)
             favoritesButton.tintColor = AppColor.gray01

@@ -25,7 +25,6 @@ class SettingCell: UITableViewCell {
     let favNumLabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14)
-        label.text = UserDefaultsManager.favorite.count.formatted() + "개의 상품"
         return label
     }()
     
@@ -33,8 +32,14 @@ class SettingCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configureHierarchy()
         configureLayout()
+        favoriteCounts()
     }
     
+    func favoriteCounts(){
+        let onlyTrue = UserDefaultsManager.favorite.filter { $1 == true }
+        print(onlyTrue)
+        favNumLabel.text = onlyTrue.count.formatted() + "개의 상품"
+    }
     
     private func configureHierarchy(){
         [titleLabel, favNumLabel, iconImageView].forEach { contentView.addSubview($0)}

@@ -71,6 +71,8 @@ extension SettingViewController:UITableViewDelegate, UITableViewDataSource{
             cell.titleLabel.text = list[indexPath.row - 1]
             if indexPath.row != 1{
                 cell.hiddenFavorite()
+            }else{
+                cell.favoriteCounts()
             }
             return cell
         }
