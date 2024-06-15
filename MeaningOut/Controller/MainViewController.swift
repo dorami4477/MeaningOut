@@ -32,6 +32,12 @@ class MainViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        if recentSearchTerms.count == 0{
+            tableView.isHidden = true
+        }else{
+            tableView.isHidden = false
+        }
+        
         tableView.reloadData()
     }
     private func configureHierarchy(){
@@ -74,7 +80,17 @@ class MainViewController: UIViewController {
     @objc func deleteAllButtonClicked(){
         recentSearchTerms.removeAll()
         UserDefaultsManager.searchTerms = []
-        tableView.reloadData()
+        tableView.isHidden = true
+    }
+    
+    @objc func deleteButtonClicked(_ sender:UIButton){
+        recentSearchTerms.remove(at:sender.tag)
+        UserDefaultsManager.searchTerms = recentSearchTerms
+        if recentSearchTerms.count == 0{
+            tableView.isHidden = true
+        }else{
+            tableView.reloadData()
+        }
     }
 }
 
@@ -95,6 +111,9 @@ extension MainViewController:UITableViewDelegate, UITableViewDataSource{
         let cell = tableView.dequeueReusableCell(withIdentifier: RecentSearchCell.identifier, for: indexPath) as! RecentSearchCell
         cell.selectionStyle = .none
         cell.titleLabel.text = recentSearchTerms[indexPath.row]
+        cell.deleteButton.tag = indexPath.row
+        cell.deleteButton.addTarget(self, action: #selector(deleteButtonClicked), for: .touchUpInside)
+        
         return cell
     }
     
@@ -104,8 +123,10 @@ extension MainViewController:UITableViewDelegate, UITableViewDataSource{
         navigationController?.pushViewController(searchVC, animated: true)
     }
     
+
 }
 
+// MARK: - SearchBar
 extension MainViewController:UISearchBarDelegate{
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         let searchVC = SearchResultViewController()

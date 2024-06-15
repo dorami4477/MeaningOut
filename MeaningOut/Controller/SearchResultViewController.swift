@@ -101,8 +101,9 @@ class SearchResultViewController: UIViewController {
                     self.searhResult?.items.append(contentsOf: value.items)
                 }
                 
-                if self.startNum == 1{
-                    self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
+                if self.startNum == 1 && self.searhResult?.total != 0{
+                        self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
+                  
                 }
             case .failure(let error):
                 print(error)

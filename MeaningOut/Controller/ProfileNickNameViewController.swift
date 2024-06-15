@@ -153,7 +153,7 @@ class ProfileNickNameViewController: UIViewController {
         
         
         // save버튼 done 버튼 분기
-        if let saveBtn = sender as? UIBarButtonItem{
+        if let _ = sender as? UIBarButtonItem{
             if warningLabel.text == NicknameValidation.pass.rawValue{
                 navigationController?.popViewController(animated: true)
             }
@@ -164,10 +164,10 @@ class ProfileNickNameViewController: UIViewController {
             let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
             let sceneDelegate = windowScene?.delegate as? SceneDelegate
             
-            let navigationController = UINavigationController(rootViewController: MainViewController())
+            let rootViewController = TabBarController()
             
             
-            sceneDelegate?.window?.rootViewController = navigationController
+            sceneDelegate?.window?.rootViewController = rootViewController
             sceneDelegate?.window?.makeKeyAndVisible()
         }
     }

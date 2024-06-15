@@ -8,7 +8,7 @@
 import UIKit
 
 class RecentSearchCell: UITableViewCell {
-
+    
     let iconImageView = {
         let img = UIImageView()
         img.image = UIImage(systemName: "clock")
@@ -25,7 +25,6 @@ class RecentSearchCell: UITableViewCell {
         let button = UIButton()
         button.setImage(UIImage(systemName: "xmark"), for: .normal)
         button.tintColor = .black
-        button.addTarget(self, action: #selector(deleteButtonClicked), for: .touchUpInside)
         return button
     }()
     
@@ -55,7 +54,7 @@ class RecentSearchCell: UITableViewCell {
             make.leading.equalTo(iconImageView.snp.trailing).offset(12)
         }
         deleteButton.snp.makeConstraints { make in
-            make.verticalEdges.equalToSuperview().inset(15)
+            make.centerY.equalTo(contentView.snp.centerY)
             make.trailing.equalToSuperview().offset(-20)
             make.width.equalTo(iconImageView.snp.height)
         }
@@ -64,8 +63,5 @@ class RecentSearchCell: UITableViewCell {
         
     }
 
-    @objc func deleteButtonClicked(){
-        print("삭제 클릭")
-    }
 
 }

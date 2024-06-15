@@ -87,6 +87,15 @@ extension SettingViewController:UITableViewDelegate, UITableViewDataSource{
                 for key in UserDefaults.standard.dictionaryRepresentation().keys {
                     UserDefaults.standard.removeObject(forKey: key.description)
                 }
+                
+                let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+                let sceneDelegate = windowScene?.delegate as? SceneDelegate
+                
+                let rootViewController = UINavigationController(rootViewController: OnboardingViewController())
+                
+                sceneDelegate?.window?.rootViewController = rootViewController
+                sceneDelegate?.window?.makeKeyAndVisible()
+                
             }
             let cancel = UIAlertAction(title: "취소", style: .cancel)
             
