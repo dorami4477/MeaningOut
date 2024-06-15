@@ -21,7 +21,6 @@ class RecentSearchHeader: UITableViewHeaderFooterView {
         button.setTitle("전체 삭제", for: .normal)
         button.setTitleColor(AppColor.primary, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 13)
-        button.addTarget(self, action: #selector(deleteAllButtonClicked), for: .touchUpInside)
         return button
     }()
     
@@ -48,9 +47,5 @@ class RecentSearchHeader: UITableViewHeaderFooterView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    @objc func deleteAllButtonClicked(){
-        print("전체 삭제 클릭")
     }
 }

@@ -12,10 +12,10 @@ struct Shopping:Decodable{
     let total: Int
     let start: Int
     let display: Int
-    let items: [item]
+    var items: [Item]
 }
 
-struct item:Decodable{
+struct Item:Decodable{
     let title: String
     let link: String
     let image: String
@@ -30,4 +30,9 @@ struct item:Decodable{
     let category2: String
     let category3: String
     let category4: String
+    
+    var price:String{
+        guard let priceInt = Int(lprice) else { return "0" }
+        return priceInt.formatted() + "원"
+    }
 }

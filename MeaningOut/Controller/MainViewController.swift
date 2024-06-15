@@ -20,7 +20,7 @@ class MainViewController: UIViewController {
     
     let tableView = UITableView()
     
-    var recentSearchTerms:[String] = ["맥북 거치대", "맥북 거치대"]
+    var recentSearchTerms:[String] = UserDefaultsManager.searchTerms
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +28,10 @@ class MainViewController: UIViewController {
         configureLayout()
         configureUI()
         configureTableView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        tableView.reloadData()
     }
     private func configureHierarchy(){
         view.addSubview(emptyImg)
@@ -66,6 +70,11 @@ class MainViewController: UIViewController {
         tableView.rowHeight = 44
     }
     
+    @objc func deleteAllButtonClicked(){
+        recentSearchTerms.removeAll()
+        UserDefaultsManager.searchTerms = []
+        tableView.reloadData()
+    }
 }
 
 // MARK: - TableView
@@ -73,6 +82,7 @@ extension MainViewController:UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let cell = tableView.dequeueReusableHeaderFooterView(withIdentifier: RecentSearchHeader.identifier) as! RecentSearchHeader
+        cell.deleteButton.addTarget(self, action: #selector(deleteAllButtonClicked), for: .touchUpInside)
         return cell
     }
     
@@ -87,6 +97,12 @@ extension MainViewController:UITableViewDelegate, UITableViewDataSource{
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let searchVC = SearchResultViewController()
+        searchVC.searchTerm = recentSearchTerms[indexPath.row]
+        navigationController?.pushViewController(searchVC, animated: true)
+    }
+    
 }
 
 extension MainViewController:UISearchBarDelegate{
@@ -95,6 +111,7 @@ extension MainViewController:UISearchBarDelegate{
         guard let text = searchBar.text else { return }
         searchVC.searchTerm = text
         recentSearchTerms.append(text)
+        UserDefaultsManager.searchTerms = recentSearchTerms
         navigationController?.pushViewController(searchVC, animated: true)
     }
 }

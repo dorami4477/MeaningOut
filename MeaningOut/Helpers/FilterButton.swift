@@ -18,6 +18,7 @@ class FilterButton:UIButton{
         setTitleColor(AppColor.gray01, for: .normal)
         titleLabel?.font = .systemFont(ofSize: 14)
         contentEdgeInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+
     }
     
     required init?(coder: NSCoder) {
