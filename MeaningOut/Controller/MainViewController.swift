@@ -28,6 +28,7 @@ class MainViewController: UIViewController {
         configureLayout()
         configureUI()
         configureTableView()
+        print(UserDefaultsManager.signUpDate)
     }
     
     override func viewWillAppear(_ animated: Bool) {

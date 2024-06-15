@@ -16,7 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
     
-        
+       
         if UserDefaultsManager.nickName != nil{
             let rootViewController = TabBarController()
             window?.rootViewController = rootViewController
@@ -25,7 +25,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let rootViewController = UINavigationController(rootViewController: OnboardingViewController())
             window?.rootViewController = rootViewController
         }
-       // let rootViewController = UINavigationController(rootViewController: OnboardingViewController())
+       //let rootViewController = UINavigationController(rootViewController: OnboardingViewController())
         
        // window?.rootViewController = rootViewController
         window?.makeKeyAndVisible()

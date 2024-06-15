@@ -121,8 +121,7 @@ class ProfileNickNameViewController: UIViewController {
     }
     
     //프로필 이미지 클릭 시
-    @objc func profileViewTapped(_ sender: UITapGestureRecognizer) {
-        
+    @objc func profileViewTapped(_ sender: UITapGestureRecognizer) {        
         let profileVC = ProfileImageViewController()
         profileVC.profileImageView.image = UIImage(named: profileImgName)
         profileVC.selectedImg = profileImgName
@@ -133,6 +132,7 @@ class ProfileNickNameViewController: UIViewController {
     @objc func doneButtonTapped() {
         guard let text = nicktextfield.text else { return }
         UserDefaultsManager.nickName = text
+        UserDefaultsManager.signUpDate = Date().formatted()
         
         let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
         let sceneDelegate = windowScene?.delegate as? SceneDelegate

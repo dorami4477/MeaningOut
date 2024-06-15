@@ -8,22 +8,84 @@
 import UIKit
 
 class SettingViewController: UIViewController {
-
+    
+    let tableView = UITableView()
+    
+    let list = ["나의 장바구니 목록", "자주 묻는 질문", "자주 묻는 질문", "자주 묻는 질문", "자주 묻는 질문"]
+    // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        configureHierarchy()
+        configureLayout()
+        configureUI()
+        configureTableView()
+    }
+    private func configureHierarchy(){
+        view.addSubview(tableView)
+    }
+    private func configureLayout(){
+        tableView.snp.makeConstraints { make in
+            make.verticalEdges.equalTo(view.safeAreaLayoutGuide)
+            make.horizontalEdges.equalToSuperview().inset(20)
+        }
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    private func configureUI(){
+        view.backgroundColor = .white
+        navigationItem.title = "SETTING"
     }
-    */
+    
+    private func configureTableView(){
 
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(SettingFirstCell.self, forCellReuseIdentifier: SettingFirstCell.identifier)
+        tableView.register(SettingCell.self, forCellReuseIdentifier: SettingCell.identifier)
+        tableView.rowHeight = UITableView.automaticDimension
+    }
+
+
+}
+
+// MARK: - TableView
+extension SettingViewController:UITableViewDelegate, UITableViewDataSource{
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return list.count + 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.row == 0{
+            let cell = tableView.dequeueReusableCell(withIdentifier: SettingFirstCell.identifier, for: indexPath) as! SettingFirstCell
+            cell.selectionStyle = .none
+            return cell
+        }else{
+            let cell = tableView.dequeueReusableCell(withIdentifier: SettingCell.identifier, for: indexPath) as! SettingCell
+            cell.selectionStyle = .none
+            cell.titleLabel.text = list[indexPath.row - 1]
+            return cell
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 0{
+            let profileVC = ProfileNickNameViewController()
+            navigationController?.pushViewController(profileVC, animated: true)
+        }else if indexPath.row == 5{
+            let alert = UIAlertController(title: "탈퇴하기", message: "탈퇴를 하면 데이터가 모두 초기화됩니다. 탈퇴 하시겠습니까?", preferredStyle: .alert)
+            
+            let confirm = UIAlertAction(title: "확인", style: .default){ _ in
+                for key in UserDefaults.standard.dictionaryRepresentation().keys {
+                    UserDefaults.standard.removeObject(forKey: key.description)
+                }
+            }
+            let cancel = UIAlertAction(title: "취소", style: .cancel)
+            
+            alert.addAction(cancel)
+            alert.addAction(confirm)
+            
+            present(alert, animated: true)
+        }
+    }
+    
 }

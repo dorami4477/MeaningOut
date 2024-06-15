@@ -27,6 +27,25 @@ enum UserDefaultsManager{
         }
     }
     
+    static var signUpDate:String{
+        get{
+            return  UserDefaults.standard.string(forKey: "signUpDate") ?? ""
+        }
+        set{
+            let stringFormat = "M/dd/yyyy, HH:mm a"
+            let formatter = DateFormatter()
+            formatter.dateFormat = stringFormat
+            formatter.locale = Locale(identifier: "ko")
+            guard let tempDate = formatter.date(from: newValue) else { return}
+            formatter.dateFormat = "yyyy. MM. dd 가입"
+            
+            let newDate = formatter.string(from: tempDate)
+            
+            
+            UserDefaults.standard.setValue(newDate, forKey: "signUpDate")
+        }
+    }
+    
     static var searchTerms:Array<String>{
         get{
             guard let terms = UserDefaults.standard.array(forKey: "searchTerms") as? [String] else { return []}

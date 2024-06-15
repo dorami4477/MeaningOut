@@ -33,6 +33,8 @@
 		48C824112C1D34ED00E505CF /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C824102C1D34ED00E505CF /* SearchResultCell.swift */; };
 		48C824142C1D426900E505CF /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 48C824132C1D426900E505CF /* Kingfisher */; };
 		48C824162C1D817100E505CF /* ItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C824152C1D817100E505CF /* ItemDetailViewController.swift */; };
+		48C824182C1D95A500E505CF /* SettingFirstCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C824172C1D95A500E505CF /* SettingFirstCell.swift */; };
+		48C8241A2C1D974500E505CF /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C824192C1D974500E505CF /* SettingCell.swift */; };
 		48C8505F2C1C580C005F9CAF /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C8505E2C1C580C005F9CAF /* UserDefaultsManager.swift */; };
 		48C850612C1C60B1005F9CAF /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C850602C1C60B1005F9CAF /* TabBarController.swift */; };
 		48C850652C1C61D3005F9CAF /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C850642C1C61D3005F9CAF /* SettingViewController.swift */; };
@@ -63,6 +65,8 @@
 		48C8240D2C1D2F4B00E505CF /* FilterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterButton.swift; sourceTree = "<group>"; };
 		48C824102C1D34ED00E505CF /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
 		48C824152C1D817100E505CF /* ItemDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailViewController.swift; sourceTree = "<group>"; };
+		48C824172C1D95A500E505CF /* SettingFirstCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingFirstCell.swift; sourceTree = "<group>"; };
+		48C824192C1D974500E505CF /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		48C8505E2C1C580C005F9CAF /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		48C850602C1C60B1005F9CAF /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		48C850642C1C61D3005F9CAF /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
@@ -152,6 +156,8 @@
 				48C824042C1C781A00E505CF /* RecentSearchCell.swift */,
 				48C824062C1C7AE600E505CF /* RecentSearchHeader.swift */,
 				48C824102C1D34ED00E505CF /* SearchResultCell.swift */,
+				48C824172C1D95A500E505CF /* SettingFirstCell.swift */,
+				48C824192C1D974500E505CF /* SettingCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -249,6 +255,7 @@
 			files = (
 				48C128B42C1B03DB00EA91F8 /* ProfileImageViewController.swift in Sources */,
 				48C8240C2C1C8E0A00E505CF /* Shopping.swift in Sources */,
+				48C8241A2C1D974500E505CF /* SettingCell.swift in Sources */,
 				48C128B22C1AFA5D00EA91F8 /* ProfileImageView.swift in Sources */,
 				48C850652C1C61D3005F9CAF /* SettingViewController.swift in Sources */,
 				48C128892C1AE56300EA91F8 /* OnboardingViewController.swift in Sources */,
@@ -266,6 +273,7 @@
 				48C824072C1C7AE600E505CF /* RecentSearchHeader.swift in Sources */,
 				48C824052C1C781A00E505CF /* RecentSearchCell.swift in Sources */,
 				48C128B02C1AF9DF00EA91F8 /* ProfileNickNameViewController.swift in Sources */,
+				48C824182C1D95A500E505CF /* SettingFirstCell.swift in Sources */,
 				48C128872C1AE56300EA91F8 /* SceneDelegate.swift in Sources */,
 				48C824092C1C899000E505CF /* SearchResultViewController.swift in Sources */,
 				48C128B62C1B339F00EA91F8 /* MainViewController.swift in Sources */,
