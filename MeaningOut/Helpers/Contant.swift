@@ -33,9 +33,14 @@ enum NicknameValidation:String{
     }
 }
 
-enum CVCell {
+enum ProfileCell {
     static let spacingWidth:CGFloat = 10
     static let cellColumns:CGFloat = 4
+}
+
+enum ShoppingCell {
+    static let spacingWidth:CGFloat = 20
+    static let cellColumns:CGFloat = 2
 }
 
 

@@ -71,11 +71,11 @@ class ProfileImageViewController: UIViewController {
     private func collectionViewLayout() -> UICollectionViewLayout{
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .vertical
-        let collectionCellWidth = (UIScreen.main.bounds.width - CVCell.spacingWidth * (CVCell.cellColumns + 1)) / CVCell.cellColumns
+        let collectionCellWidth = (UIScreen.main.bounds.width - ProfileCell.spacingWidth * (ProfileCell.cellColumns + 1)) / ProfileCell.cellColumns
         flowLayout.itemSize = CGSize(width: collectionCellWidth, height: collectionCellWidth)
-        flowLayout.minimumLineSpacing = CVCell.spacingWidth
-        flowLayout.minimumInteritemSpacing = CVCell.spacingWidth
-        flowLayout.sectionInset = UIEdgeInsets(top: 0, left: CVCell.spacingWidth, bottom: 0, right: CVCell.spacingWidth)
+        flowLayout.minimumLineSpacing = ProfileCell.spacingWidth
+        flowLayout.minimumInteritemSpacing = ProfileCell.spacingWidth
+        flowLayout.sectionInset = UIEdgeInsets(top: 0, left: ProfileCell.spacingWidth, bottom: 0, right: ProfileCell.spacingWidth)
         return flowLayout
     }
 
