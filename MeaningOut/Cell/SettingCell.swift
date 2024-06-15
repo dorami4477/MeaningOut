@@ -34,6 +34,8 @@ class SettingCell: UITableViewCell {
         configureHierarchy()
         configureLayout()
     }
+    
+    
     private func configureHierarchy(){
         [titleLabel, favNumLabel, iconImageView].forEach { contentView.addSubview($0)}
        
@@ -52,6 +54,11 @@ class SettingCell: UITableViewCell {
             make.verticalEdges.equalToSuperview().inset(15)
         }
 
+    }
+    
+    func hiddenFavorite(){
+        favNumLabel.isHidden = true
+        iconImageView.isHidden = true
     }
     
     required init?(coder: NSCoder) {

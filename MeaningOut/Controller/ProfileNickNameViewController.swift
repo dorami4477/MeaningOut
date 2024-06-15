@@ -98,6 +98,23 @@ class ProfileNickNameViewController: UIViewController {
     
     private func configureTextField(){
         nicktextfield.delegate = self
+        if let nickName = UserDefaultsManager.nickName{
+            
+            nicktextfield.text = nickName
+            doneButton.isHidden = true
+            
+            let save = UIBarButtonItem(title:"저장", style: .plain, target: self, action: #selector(doneButtonTapped(_:)))
+            save.tintColor = AppColor.black
+            let attributes: [NSAttributedString.Key : Any] = [ .font: UIFont.boldSystemFont(ofSize: 16) ]
+            save.setTitleTextAttributes(attributes, for: .normal)
+            navigationItem.rightBarButtonItem = save
+            
+            warningLabel.textColor = NicknameValidation.pass.messageColor
+            warningLabel.text = NicknameValidation.pass.rawValue
+            
+        }else{
+            doneButton.isHidden = false
+        }
     }
     
     func setProfileImg(){
@@ -117,7 +134,7 @@ class ProfileNickNameViewController: UIViewController {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(profileViewTapped(_:)))
         profileView.addGestureRecognizer(tapGestureRecognizer)
         
-        doneButton.addTarget(self, action: #selector(doneButtonTapped), for: .touchUpInside)
+        doneButton.addTarget(self, action: #selector(doneButtonTapped(_:)), for: .touchUpInside)
     }
     
     //프로필 이미지 클릭 시
@@ -129,19 +146,30 @@ class ProfileNickNameViewController: UIViewController {
     }
     
     //완료 버튼 클릭 시
-    @objc func doneButtonTapped() {
+    @objc func doneButtonTapped(_ sender: Any) {
+        
         guard let text = nicktextfield.text else { return }
         UserDefaultsManager.nickName = text
-        UserDefaultsManager.signUpDate = Date().formatted()
-        
-        let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
-        let sceneDelegate = windowScene?.delegate as? SceneDelegate
-        
-        let navigationController = UINavigationController(rootViewController: MainViewController())
         
         
-        sceneDelegate?.window?.rootViewController = navigationController
-        sceneDelegate?.window?.makeKeyAndVisible()
+        // save버튼 done 버튼 분기
+        if let saveBtn = sender as? UIBarButtonItem{
+            if warningLabel.text == NicknameValidation.pass.rawValue{
+                navigationController?.popViewController(animated: true)
+            }
+        }else{
+            
+            UserDefaultsManager.signUpDate = Date().formatted()
+            
+            let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+            let sceneDelegate = windowScene?.delegate as? SceneDelegate
+            
+            let navigationController = UINavigationController(rootViewController: MainViewController())
+            
+            
+            sceneDelegate?.window?.rootViewController = navigationController
+            sceneDelegate?.window?.makeKeyAndVisible()
+        }
     }
 
 }
@@ -155,11 +183,13 @@ extension ProfileNickNameViewController:UITextFieldDelegate{
             warningLabel.text = NicknameValidation.integer.rawValue
             warningLabel.textColor = NicknameValidation.integer.messageColor
             doneButton.backgroundColor = AppColor.gray03
+            isActiveBarButton(false)
             
             //숫자가 지워지고 사용가능한 닉네임인 경우
             if textField.text!.count >=  2 && textField.text!.count < 10{
                 doneButton.isEnabled = true
                 doneButton.backgroundColor = AppColor.primary
+                isActiveBarButton(true)
             }
             return false
         }
@@ -169,11 +199,13 @@ extension ProfileNickNameViewController:UITextFieldDelegate{
             warningLabel.text = NicknameValidation.specialLetters.rawValue
             warningLabel.textColor = NicknameValidation.specialLetters.messageColor
             doneButton.backgroundColor = AppColor.gray03
+            isActiveBarButton(false)
             
             //숫자가 지워지고 사용 가능한 닉네임인 경우
             if textField.text!.count >=  2 && textField.text!.count < 10{
                 doneButton.isEnabled = true
                 doneButton.backgroundColor = AppColor.primary
+                isActiveBarButton(true)
             }
             return false
         }
@@ -186,17 +218,20 @@ extension ProfileNickNameViewController:UITextFieldDelegate{
             warningLabel.text = NicknameValidation.length.rawValue
             warningLabel.textColor = NicknameValidation.length.messageColor
             doneButton.backgroundColor = AppColor.gray03
+            isActiveBarButton(false)
             return true
             //10글자 이상
         }else if newLength >= 10 {
             warningLabel.text = NicknameValidation.length.rawValue
             warningLabel.textColor = NicknameValidation.length.messageColor
             doneButton.backgroundColor = AppColor.gray03
+            isActiveBarButton(false)
             
             //숫자가 지워지고 사용 가능한 닉네임인 경우
             if textField.text!.count < 10{
                 doneButton.isEnabled = true
                 doneButton.backgroundColor = AppColor.primary
+                isActiveBarButton(true)
             }
             return false
         }
@@ -207,7 +242,29 @@ extension ProfileNickNameViewController:UITextFieldDelegate{
         warningLabel.textColor = NicknameValidation.pass.messageColor
         doneButton.isEnabled = true
         doneButton.backgroundColor = AppColor.primary
+        isActiveBarButton(true)
         return true
         
+    }
+    
+    
+    func isActiveBarButton(_ active:Bool){
+        guard let barButton = navigationItem.rightBarButtonItem else { return }
+        
+        if active{
+            
+            barButton.isEnabled = true
+            barButton.tintColor = AppColor.black
+            let attributes: [NSAttributedString.Key : Any] = [ .font: UIFont.boldSystemFont(ofSize: 16) ]
+            barButton.setTitleTextAttributes(attributes, for: .normal)
+            navigationItem.rightBarButtonItem = barButton
+            
+        }else{
+            barButton.isEnabled = false
+            barButton.tintColor = AppColor.gray02
+            let attributes: [NSAttributedString.Key : Any] = [ .font: UIFont.systemFont(ofSize: 16) ]
+            barButton.setTitleTextAttributes(attributes, for: .normal)
+            navigationItem.rightBarButtonItem = barButton
+        }
     }
 }

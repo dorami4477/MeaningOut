@@ -11,7 +11,7 @@ class SettingViewController: UIViewController {
     
     let tableView = UITableView()
     
-    let list = ["나의 장바구니 목록", "자주 묻는 질문", "자주 묻는 질문", "자주 묻는 질문", "자주 묻는 질문"]
+    let list = ["나의 장바구니 목록", "자주 묻는 질문", "1:1 문의", "알림 설정", "탈퇴하기"]
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +20,12 @@ class SettingViewController: UIViewController {
         configureUI()
         configureTableView()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        tableView.reloadRows(at: [IndexPath(row: 0, section: 0), IndexPath(row: 1, section: 0)], with: .none)
+    }
+    
     private func configureHierarchy(){
         view.addSubview(tableView)
     }
@@ -63,6 +69,9 @@ extension SettingViewController:UITableViewDelegate, UITableViewDataSource{
             let cell = tableView.dequeueReusableCell(withIdentifier: SettingCell.identifier, for: indexPath) as! SettingCell
             cell.selectionStyle = .none
             cell.titleLabel.text = list[indexPath.row - 1]
+            if indexPath.row != 1{
+                cell.hiddenFavorite()
+            }
             return cell
         }
     }
