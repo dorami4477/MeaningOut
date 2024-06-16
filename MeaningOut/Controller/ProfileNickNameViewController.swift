@@ -154,9 +154,8 @@ class ProfileNickNameViewController: UIViewController {
         
         // save버튼 done 버튼 분기
         if let _ = sender as? UIBarButtonItem{
-            if warningLabel.text == NicknameValidation.pass.rawValue{
                 navigationController?.popViewController(animated: true)
-            }
+            
         }else{
             
             UserDefaultsManager.signUpDate = Date().formatted()

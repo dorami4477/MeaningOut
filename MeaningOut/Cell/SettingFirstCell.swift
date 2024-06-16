@@ -49,6 +49,12 @@ class SettingFirstCell: UITableViewCell {
         configureHierarchy()
         configureLayout()
     }
+    
+    override func prepareForReuse() {
+        mainImageView.image = UIImage(named: UserDefaultsManager.profileImage!)
+        nickNameLabel.text = UserDefaultsManager.nickName
+    }
+    
     private func configureHierarchy(){
         contentView.addSubview(profileView)
         [mainImageView, nickNameLabel, signupDateLabel, iconImageView].forEach { profileView.addSubview($0)}
@@ -77,6 +83,7 @@ class SettingFirstCell: UITableViewCell {
         }
     }
     
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
