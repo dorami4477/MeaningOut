@@ -155,7 +155,6 @@ extension MainViewController:UISearchBarDelegate{
         guard let text = searchBar.text else { return }
         
         if !text.trimmingCharacters(in: .whitespaces).isEmpty{
-            print("anjrk")
             searchVC.searchTerm = text
             
             //중복된 값 제거

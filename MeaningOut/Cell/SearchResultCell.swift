@@ -101,6 +101,7 @@ final class SearchResultCell: UICollectionViewCell {
         self.isSkeletonable = true
         self.contentView.isSkeletonable = true
         mainImageView.isSkeletonable = true
+        favoritesButton.isSkeletonable = true
         mallNameLabel.isSkeletonable = true
         titleLabel.isSkeletonable = true
         priceLabel.isSkeletonable = true
@@ -125,12 +126,12 @@ final class SearchResultCell: UICollectionViewCell {
     private func setFavoriteUI(){
         if favorite{
             favoritesButton.backgroundColor = AppColor.white
-            favoritesButton.setImage(UIImage(systemName: IconName.bagFill), for: .normal)
+            favoritesButton.setImage(UIImage(named: IconName.bagFill), for: .normal)
             favoritesButton.tintColor = AppColor.gray01
         }else{
             
             favoritesButton.backgroundColor = AppColor.gray01.withAlphaComponent(0.5)
-            favoritesButton.setImage(UIImage(systemName: IconName.bag), for: .normal)
+            favoritesButton.setImage(UIImage(named: IconName.bag), for: .normal)
             favoritesButton.tintColor = AppColor.white
         }
     }

@@ -55,7 +55,6 @@ final class SearchResultViewController: UIViewController {
         configureCollectionView()
         setfilterButton()
         Basic.setting(self, title: searchTerm)
-        setSkeletion()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -82,10 +81,7 @@ final class SearchResultViewController: UIViewController {
         }
     }
     
-    private func setSkeletion(){
-        collectionView.isSkeletonable = true
-        collectionView.showAnimatedGradientSkeleton()
-    }
+
 
     //네트워크
     private func callRequest(){
@@ -98,7 +94,11 @@ final class SearchResultViewController: UIViewController {
         AF.request(url, method: .get, headers: header).responseDecodable(of: Shopping.self){ response in
             switch response.result{
             case .success(let value):
+                self.collectionView.isSkeletonable = true
+                self.collectionView.showAnimatedGradientSkeleton()
+
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+
                     
                     if self.startNum == 1{
                         self.searhResult = value
@@ -204,8 +204,8 @@ extension SearchResultViewController:SkeletonCollectionViewDelegate, SkeletonCol
     }
     
     func collectionSkeletonView(_ skeletonView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return UICollectionView.automaticNumberOfSkeletonItems
-        
+        //return UICollectionView.automaticNumberOfSkeletonItems
+        return 4
     }
     
     func collectionSkeletonView(_ skeletonView: UICollectionView, cellIdentifierForItemAt indexPath: IndexPath) -> SkeletonView.ReusableCellIdentifier {

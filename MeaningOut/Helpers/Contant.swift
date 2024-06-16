@@ -45,8 +45,8 @@ enum ShoppingCell {
 
 
 enum IconName {
-    static let bagFill = "bag.fill.badge.minus"
-    static let bag = "bag.badge.plus"
+    static let bagFill = "like_selected"
+    static let bag = "like_unselected"
     static let search = "magnifyingglass"
     static let person = "person"
 }

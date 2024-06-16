@@ -17,7 +17,7 @@ final class SettingCell: UITableViewCell {
 
     let iconImageView = {
         let img = UIImageView()
-        img.image = UIImage(systemName: IconName.bagFill)
+        img.image = UIImage(named: IconName.bagFill)
         img.tintColor = AppColor.gray01
         return img
     }()
@@ -37,7 +37,6 @@ final class SettingCell: UITableViewCell {
     
     func favoriteCounts(){
         let onlyTrue = UserDefaultsManager.favorite.filter { $1 == true }
-        print(onlyTrue)
         favNumLabel.text = onlyTrue.count.formatted() + "개의 상품"
         
         let attributedStr = NSMutableAttributedString(string: favNumLabel.text!)

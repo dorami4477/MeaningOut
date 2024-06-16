@@ -43,12 +43,11 @@ final class SettingViewController: UIViewController {
     }
     
     private func configureTableView(){
-
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(SettingFirstCell.self, forCellReuseIdentifier: SettingFirstCell.identifier)
         tableView.register(SettingCell.self, forCellReuseIdentifier: SettingCell.identifier)
-        tableView.rowHeight = UITableView.automaticDimension
+        
     }
 
 
@@ -57,16 +56,27 @@ final class SettingViewController: UIViewController {
 // MARK: - TableView
 extension SettingViewController:UITableViewDelegate, UITableViewDataSource{
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.row == 0{
+            return 140
+        }
+        return UITableView.automaticDimension
+    }
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return list.count + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0{
+            //프로필 셀
             let cell = tableView.dequeueReusableCell(withIdentifier: SettingFirstCell.identifier, for: indexPath) as! SettingFirstCell
             cell.selectionStyle = .none
             return cell
+            
         }else{
+            
             let cell = tableView.dequeueReusableCell(withIdentifier: SettingCell.identifier, for: indexPath) as! SettingCell
             cell.selectionStyle = .none
             cell.titleLabel.text = list[indexPath.row - 1]
@@ -81,11 +91,14 @@ extension SettingViewController:UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0{
+        //프로필 셀 클릭시
             let profileVC = ProfileNickNameViewController()
             
             profileVC.profileImgName = UserDefaultsManager.profileImage ?? ""
             navigationController?.pushViewController(profileVC, animated: true)
+            
         }else if indexPath.row == 5{
+         //탈퇴하기 셀 클릭시
             let alert = UIAlertController(title: "탈퇴하기", message: "탈퇴를 하면 데이터가 모두 초기화됩니다. 탈퇴 하시겠습니까?", preferredStyle: .alert)
             
             let confirm = UIAlertAction(title: "확인", style: .default){ _ in

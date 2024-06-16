@@ -89,6 +89,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		481004BF2C1EEA7100583FC7 /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				48C128AC2C1AF35500EA91F8 /* PrimaryButton.swift */,
+				48C128B12C1AFA5D00EA91F8 /* ProfileImageView.swift */,
+				48C8240D2C1D2F4B00E505CF /* FilterButton.swift */,
+			);
+			path = CustomView;
+			sourceTree = "<group>";
+		};
 		48C128782C1AE56300EA91F8 = {
 			isa = PBXGroup;
 			children = (
@@ -112,6 +122,7 @@
 				48C8240A2C1C8DF400E505CF /* Model */,
 				48C128BB2C1B3D1300EA91F8 /* Cell */,
 				48C128AE2C1AF99900EA91F8 /* Controller */,
+				481004BF2C1EEA7100583FC7 /* CustomView */,
 				48C128A72C1AE97B00EA91F8 /* Helpers */,
 				48C128842C1AE56300EA91F8 /* AppDelegate.swift */,
 				48C128862C1AE56300EA91F8 /* SceneDelegate.swift */,
@@ -127,11 +138,8 @@
 			isa = PBXGroup;
 			children = (
 				48C128A82C1AE9B900EA91F8 /* Contant.swift */,
-				48C128AC2C1AF35500EA91F8 /* PrimaryButton.swift */,
-				48C128B12C1AFA5D00EA91F8 /* ProfileImageView.swift */,
 				48C128B72C1B3CD100EA91F8 /* ReusableIdentifier.swift */,
 				48C8505E2C1C580C005F9CAF /* UserDefaultsManager.swift */,
-				48C8240D2C1D2F4B00E505CF /* FilterButton.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -144,9 +152,9 @@
 				48C128B32C1B03DB00EA91F8 /* ProfileImageViewController.swift */,
 				48C128B52C1B339F00EA91F8 /* MainViewController.swift */,
 				48C824082C1C899000E505CF /* SearchResultViewController.swift */,
-				48C850602C1C60B1005F9CAF /* TabBarController.swift */,
-				48C850642C1C61D3005F9CAF /* SettingViewController.swift */,
 				48C824152C1D817100E505CF /* ItemDetailViewController.swift */,
+				48C850642C1C61D3005F9CAF /* SettingViewController.swift */,
+				48C850602C1C60B1005F9CAF /* TabBarController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";

@@ -39,7 +39,6 @@ final class ProfileImageCell: UICollectionViewCell {
     private func configureLayout(){
         mainImageView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
-            make.width.height.equalTo(100)
         }
     }
 

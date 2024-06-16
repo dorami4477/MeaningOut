@@ -80,6 +80,7 @@ final class SettingFirstCell: UITableViewCell {
         iconImageView.snp.makeConstraints { make in
             make.trailing.equalToSuperview()
             make.centerY.equalTo(contentView.snp.centerY)
+
         }
     }
     

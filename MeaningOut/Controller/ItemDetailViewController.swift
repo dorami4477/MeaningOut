@@ -42,12 +42,10 @@ final class ItemDetailViewController: UIViewController {
     
     private func configureNavigationItem(){
         if favorite{
-            let fav = UIBarButtonItem(image: UIImage(systemName: IconName.bagFill), style: .plain, target: self, action: #selector(favButtonTapped))
-            fav.tintColor = AppColor.gray01
+            let fav = UIBarButtonItem(image: UIImage(named: IconName.bagFill), style: .plain, target: self, action: #selector(favButtonTapped))
             navigationItem.rightBarButtonItem = fav
         }else{
-            let fav = UIBarButtonItem(image: UIImage(systemName: IconName.bag), style: .plain, target: self, action: #selector(favButtonTapped))
-            fav.tintColor = AppColor.gray01
+            let fav = UIBarButtonItem(image: UIImage(named: IconName.bag), style: .plain, target: self, action: #selector(favButtonTapped))
             navigationItem.rightBarButtonItem = fav
         }
             
