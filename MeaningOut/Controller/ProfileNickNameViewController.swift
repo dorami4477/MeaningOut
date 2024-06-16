@@ -7,8 +7,9 @@
 
 import UIKit
 
-class ProfileNickNameViewController: UIViewController {
-    
+
+class ProfileNickNameViewController: UIViewController, UserDataDelegate {
+        
     var profileImgName = ""
     
     let profileView = UIView()
@@ -53,10 +54,6 @@ class ProfileNickNameViewController: UIViewController {
         nicktextfield.layer.addSublayer(border)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        setProfileImg()
-    }
     
     private func configureHierarchy(){
         [profileView, nicktextfield, warningLabel, doneButton].forEach{ view.addSubview($0) }
@@ -118,15 +115,13 @@ class ProfileNickNameViewController: UIViewController {
     }
     
     func setProfileImg(){
-        if let name = UserDefaultsManager.profileImage{
-            profileImgName = name
-            profileImageView.image = UIImage(named: name)
-            
+        if profileImgName != ""{
+            profileImageView.image = UIImage(named: profileImgName)
         }else{
             let randomNum = Int.random(in: 0...11)
             profileImgName = "profile_\(randomNum)"
             profileImageView.image = UIImage(named: profileImgName)
-            UserDefaultsManager.profileImage = profileImgName
+            //UserDefaultsManager.profileImage = profileImgName
         }
     }
     
@@ -142,6 +137,8 @@ class ProfileNickNameViewController: UIViewController {
         let profileVC = ProfileImageViewController()
         profileVC.profileImageView.image = UIImage(named: profileImgName)
         profileVC.selectedImg = profileImgName
+        
+        profileVC.delegate = self
         navigationController?.pushViewController(profileVC, animated: true)
     }
     
@@ -150,7 +147,7 @@ class ProfileNickNameViewController: UIViewController {
         
         guard let text = nicktextfield.text else { return }
         UserDefaultsManager.nickName = text
-        
+        UserDefaultsManager.profileImage = profileImgName
         
         // save버튼 done 버튼 분기
         if let _ = sender as? UIBarButtonItem{
@@ -169,6 +166,11 @@ class ProfileNickNameViewController: UIViewController {
             sceneDelegate?.window?.rootViewController = rootViewController
             sceneDelegate?.window?.makeKeyAndVisible()
         }
+    }
+    
+    func sendImageName(_ imageName:String) {
+        profileImgName = imageName
+        profileImageView.image = UIImage(named: profileImgName)
     }
 
 }

@@ -81,6 +81,8 @@ extension SettingViewController:UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0{
             let profileVC = ProfileNickNameViewController()
+            
+            profileVC.profileImgName = UserDefaultsManager.profileImage ?? ""
             navigationController?.pushViewController(profileVC, animated: true)
         }else if indexPath.row == 5{
             let alert = UIAlertController(title: "탈퇴하기", message: "탈퇴를 하면 데이터가 모두 초기화됩니다. 탈퇴 하시겠습니까?", preferredStyle: .alert)

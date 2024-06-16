@@ -8,6 +8,10 @@
 import UIKit
 import SnapKit
 
+protocol UserDataDelegate:AnyObject {
+    func sendImageName(_ imageName: String)
+}
+
 class ProfileImageViewController: UIViewController {
 
     let profileView = UIView()
@@ -29,6 +33,8 @@ class ProfileImageViewController: UIViewController {
     
     var selectedImg = ""
     
+    weak var delegate:UserDataDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureHierarchy()
@@ -36,6 +42,13 @@ class ProfileImageViewController: UIViewController {
         configureUI()
         setCollectionView()
     }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        print(selectedImg)
+        self.delegate?.sendImageName(selectedImg)
+    }
+    
     private func configureHierarchy(){
         view.addSubview(profileView)
         [profileImageView, cameraImageView].forEach{ profileView.addSubview($0) }
@@ -107,10 +120,12 @@ extension ProfileImageViewController:UICollectionViewDelegate, UICollectionViewD
             cell.isSelected(false)
         }
         guard let selectedCell = collectionView.cellForItem(at: indexPath) as? ProfileImageCell else { return }
+        selectedImg = profileImgName[indexPath.row]
         selectedCell.isSelected(true)
         profileImageView.image = selectedCell.mainImageView.image
 
-        UserDefaultsManager.profileImage = profileImgName[indexPath.row]
+       
+       // UserDefaultsManager.profileImage = profileImgName[indexPath.row]
     }
     
 }
