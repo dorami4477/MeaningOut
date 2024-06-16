@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RecentSearchHeader: UITableViewHeaderFooterView {
+final class RecentSearchHeader: UITableViewHeaderFooterView {
 
     let titleLabel = {
         let label = UILabel()

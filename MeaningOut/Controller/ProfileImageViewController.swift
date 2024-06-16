@@ -12,11 +12,11 @@ protocol UserDataDelegate:AnyObject {
     func sendImageName(_ imageName: String)
 }
 
-class ProfileImageViewController: UIViewController {
+final class ProfileImageViewController: UIViewController {
 
-    let profileView = UIView()
+    private let profileView = UIView()
     let profileImageView = ProfileImageView()
-    let cameraImageView = {
+    private let cameraImageView = {
         let img = UIImageView()
         img.image = UIImage(systemName: "camera.fill")
         img.backgroundColor = AppColor.primary
@@ -27,9 +27,9 @@ class ProfileImageViewController: UIViewController {
         return img
     }()
     
-    lazy var profileCollectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
+    private lazy var profileCollectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
     
-    let profileImgName = ["profile_0", "profile_1", "profile_2", "profile_3", "profile_4", "profile_5", "profile_6","profile_7", "profile_8", "profile_9", "profile_10", "profile_11"]
+    private let profileImgNames = ["profile_0", "profile_1", "profile_2", "profile_3", "profile_4", "profile_5", "profile_6","profile_7", "profile_8", "profile_9", "profile_10", "profile_11"]
     
     var selectedImg = ""
     
@@ -39,8 +39,8 @@ class ProfileImageViewController: UIViewController {
         super.viewDidLoad()
         configureHierarchy()
         configureLayout()
-        configureUI()
         setCollectionView()
+        Basic.setting(self, title: "PROFILE SETTING")
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -75,11 +75,7 @@ class ProfileImageViewController: UIViewController {
         }
         
     }
-    private func configureUI(){
-        view.backgroundColor = .white
-        title = "PROFILE SETTING"
 
-    }
 
     private func collectionViewLayout() -> UICollectionViewLayout{
         let flowLayout = UICollectionViewFlowLayout()
@@ -99,18 +95,20 @@ class ProfileImageViewController: UIViewController {
     }
 }
 
+
+// MARK: - collectionView
 extension ProfileImageViewController:UICollectionViewDelegate, UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return profileImgName.count
+        return profileImgNames.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = profileCollectionView.dequeueReusableCell(withReuseIdentifier: ProfileImageCell.identifier, for: indexPath) as! ProfileImageCell
-        if selectedImg == profileImgName[indexPath.row]{
+        if selectedImg == profileImgNames[indexPath.row]{
             cell.isSelected(true)
         }
         
-        cell.mainImageView.image = UIImage(named: profileImgName[indexPath.row])
+        cell.mainImageView.image = UIImage(named: profileImgNames[indexPath.row])
         return cell
     }
     
@@ -120,12 +118,10 @@ extension ProfileImageViewController:UICollectionViewDelegate, UICollectionViewD
             cell.isSelected(false)
         }
         guard let selectedCell = collectionView.cellForItem(at: indexPath) as? ProfileImageCell else { return }
-        selectedImg = profileImgName[indexPath.row]
+        selectedImg = profileImgNames[indexPath.row]
         selectedCell.isSelected(true)
         profileImageView.image = selectedCell.mainImageView.image
 
-       
-       // UserDefaultsManager.profileImage = profileImgName[indexPath.row]
     }
     
 }

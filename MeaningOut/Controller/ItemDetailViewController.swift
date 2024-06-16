@@ -8,9 +8,9 @@
 import UIKit
 import WebKit
 
-class ItemDetailViewController: UIViewController {
+final class ItemDetailViewController: UIViewController {
 
-    let webView = WKWebView()
+    private let webView = WKWebView()
     var data:Item?{
         didSet{
             favorite = UserDefaultsManager.favorite[data!.productId] ?? false
@@ -20,14 +20,15 @@ class ItemDetailViewController: UIViewController {
 
     var favorite:Bool = false
     
+    // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
 
         configureHierarchy()
         configureLayout()
         configureNavigationItem()
-        
     }
+    
     private func configureHierarchy(){
         view.addSubview(webView)
     }
@@ -38,20 +39,19 @@ class ItemDetailViewController: UIViewController {
         view.backgroundColor = .white
     navigationItem.title = data?.title
     }
-    func configureNavigationItem(){
-
+    
+    private func configureNavigationItem(){
         if favorite{
-            let fav = UIBarButtonItem(image: UIImage(systemName: "bag.fill.badge.minus"), style: .plain, target: self, action: #selector(favButtonTapped))
+            let fav = UIBarButtonItem(image: UIImage(systemName: IconName.bagFill), style: .plain, target: self, action: #selector(favButtonTapped))
             fav.tintColor = AppColor.gray01
             navigationItem.rightBarButtonItem = fav
         }else{
-            let fav = UIBarButtonItem(image: UIImage(systemName: "bag.badge.plus"), style: .plain, target: self, action: #selector(favButtonTapped))
+            let fav = UIBarButtonItem(image: UIImage(systemName: IconName.bag), style: .plain, target: self, action: #selector(favButtonTapped))
             fav.tintColor = AppColor.gray01
             navigationItem.rightBarButtonItem = fav
         }
             
     }
-    
     
     private func configureWebView(){
         let url = URL(string: data!.link)!
@@ -59,10 +59,8 @@ class ItemDetailViewController: UIViewController {
         webView.load(request)
     }
     
-    
-
+    //즐겨찾기 버튼 액션
     @objc private func favButtonTapped(){
-        print("즐겨찾기 누름")
         favorite.toggle()
         configureNavigationItem()
         

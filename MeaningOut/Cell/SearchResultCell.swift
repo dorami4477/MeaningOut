@@ -8,7 +8,7 @@
 import UIKit
 import Kingfisher
 
-class SearchResultCell: UICollectionViewCell {
+final class SearchResultCell: UICollectionViewCell {
     
     var data:Item?{
         didSet{
@@ -57,6 +57,7 @@ class SearchResultCell: UICollectionViewCell {
         return label
     }()
     
+    // MARK: - init
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureHierarchy()
@@ -97,7 +98,7 @@ class SearchResultCell: UICollectionViewCell {
     }
     
     
-    func configureData(){
+    private func configureData(){
         guard let data else { return }
         let url = URL(string: data.image)
         mainImageView.kf.setImage(with: url)
@@ -107,23 +108,21 @@ class SearchResultCell: UICollectionViewCell {
         
     }
     
-    @objc func favButtonTapped(){
-        
+    @objc private func favButtonTapped(){
         favorite.toggle()
         setFavoriteUI()
         UserDefaultsManager.favorite[data!.productId] = favorite
     }
     
-    func setFavoriteUI(){
+    private func setFavoriteUI(){
         if favorite{
-        
             favoritesButton.backgroundColor = AppColor.white
-            favoritesButton.setImage(UIImage(systemName: "bag.fill.badge.minus"), for: .normal)
+            favoritesButton.setImage(UIImage(systemName: IconName.bagFill), for: .normal)
             favoritesButton.tintColor = AppColor.gray01
         }else{
             
             favoritesButton.backgroundColor = AppColor.gray01.withAlphaComponent(0.5)
-            favoritesButton.setImage(UIImage(systemName: "bag.badge.plus"), for: .normal)
+            favoritesButton.setImage(UIImage(systemName: IconName.bag), for: .normal)
             favoritesButton.tintColor = AppColor.white
         }
     }

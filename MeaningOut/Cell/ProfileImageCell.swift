@@ -7,7 +7,8 @@
 
 import UIKit
 
-class ProfileImageCell: UICollectionViewCell {
+
+final class ProfileImageCell: UICollectionViewCell {
     
     let mainImageView = {
         let imgView = UIImageView()
@@ -18,6 +19,7 @@ class ProfileImageCell: UICollectionViewCell {
         return imgView
     }()
     
+    // MARK: - init
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureHierarchy()
@@ -29,10 +31,6 @@ class ProfileImageCell: UICollectionViewCell {
         super.draw(rect)
         mainImageView.layer.cornerRadius = mainImageView.frame.width / 2
         
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     private func configureHierarchy(){
@@ -59,6 +57,10 @@ class ProfileImageCell: UICollectionViewCell {
             mainImageView.layer.borderWidth = 1
             mainImageView.layer.opacity = 0.5
         }
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
 }

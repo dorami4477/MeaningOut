@@ -8,7 +8,7 @@
 import UIKit
 import Alamofire
 
-class SearchResultViewController: UIViewController {
+final class SearchResultViewController: UIViewController {
 
     var searchTerm = ""
     var sort = "sim"
@@ -29,14 +29,14 @@ class SearchResultViewController: UIViewController {
         return label
     }()
     
-    let filter01Button = FilterButton(title: "정확도")
-    let filter02Button = FilterButton(title: "날짜순")
-    let filter03Button = FilterButton(title: "가격높은순")
-    let filter04Button = FilterButton(title: "가격낮은순")
+    private let filter01Button = FilterButton(title: "정확도")
+    private let filter02Button = FilterButton(title: "날짜순")
+    private let filter03Button = FilterButton(title: "가격높은순")
+    private let filter04Button = FilterButton(title: "가격낮은순")
     
-    lazy var filterButtons:[UIButton] = [filter01Button, filter02Button, filter03Button, filter04Button]
+    private lazy var filterButtons:[UIButton] = [filter01Button, filter02Button, filter03Button, filter04Button]
     
-    lazy var filterStackView = {
+    private lazy var filterStackView = {
         let sv = UIStackView()
         sv.axis = .horizontal
         sv.spacing = 10
@@ -44,17 +44,17 @@ class SearchResultViewController: UIViewController {
         return sv
     }()
     
-    lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
+    private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
     
+    // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         configureHierarchy()
         configureLayout()
-        configureUI()
         callRequest()
         configureCollectionView()
         setfilterButton()
-        
+        Basic.setting(self, title: searchTerm)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -79,12 +79,9 @@ class SearchResultViewController: UIViewController {
             make.top.equalTo(filterStackView.snp.bottom).offset(10)
         }
     }
-    private func configureUI(){
-        view.backgroundColor = .white
-        title = searchTerm
-    }
-    
-    func callRequest(){
+
+    //네트워크
+    private func callRequest(){
         let url = "\(APIInfo.url)query=\(searchTerm)&sort=\(sort)&display=30&start=\(startNum)"
         
         let header:HTTPHeaders = ["X-Naver-Client-Id": APIInfo.clientId, "X-Naver-Client-Secret": APIInfo.clientSecret]
@@ -110,25 +107,9 @@ class SearchResultViewController: UIViewController {
         }
     }
     
-    private func configureCollectionView(){
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.prefetchDataSource = self
-        collectionView.register(SearchResultCell.self, forCellWithReuseIdentifier: SearchResultCell.identifier)
-    }
-    
-    private func collectionViewLayout() -> UICollectionViewLayout{
-        let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.scrollDirection = .vertical
-        let collectionCellWidth = (UIScreen.main.bounds.width - ShoppingCell.spacingWidth * (ShoppingCell.cellColumns + 1)) / ShoppingCell.cellColumns
-        flowLayout.itemSize = CGSize(width: collectionCellWidth, height: collectionCellWidth * 1.7)
-        flowLayout.minimumLineSpacing = ShoppingCell.spacingWidth
-        flowLayout.minimumInteritemSpacing = ShoppingCell.spacingWidth
-        flowLayout.sectionInset = UIEdgeInsets(top: 0, left: ShoppingCell.spacingWidth, bottom: 0, right: ShoppingCell.spacingWidth)
-        return flowLayout
-    }
 
-    func setfilterButton(){
+
+    private func setfilterButton(){
         filter01Button.backgroundColor = AppColor.gray01
         filter01Button.setTitleColor(AppColor.white, for: .normal)
         
@@ -137,7 +118,7 @@ class SearchResultViewController: UIViewController {
         }
     }
     
-    @objc func filterTapped(_ sender:UIButton){
+    @objc private func filterTapped(_ sender:UIButton){
         switch sender{
         case filter01Button:
             sort = "sim"
@@ -162,16 +143,38 @@ class SearchResultViewController: UIViewController {
         filterButtons.forEach {
             $0.backgroundColor = AppColor.white
             $0.setTitleColor(AppColor.gray01, for: .normal)
+            $0.layer.borderWidth = 1
         }
         
+        sender.layer.borderWidth = 0
         sender.backgroundColor = AppColor.gray01
         sender.setTitleColor(AppColor.white, for: .normal)
     }
     
 }
 
-
+// MARK: - CollectionView
 extension SearchResultViewController:UICollectionViewDelegate, UICollectionViewDataSource{
+    
+    private func configureCollectionView(){
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.prefetchDataSource = self
+        collectionView.register(SearchResultCell.self, forCellWithReuseIdentifier: SearchResultCell.identifier)
+    }
+    
+    private func collectionViewLayout() -> UICollectionViewLayout{
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .vertical
+        let collectionCellWidth = (UIScreen.main.bounds.width - ShoppingCell.spacingWidth * (ShoppingCell.cellColumns + 1)) / ShoppingCell.cellColumns
+        flowLayout.itemSize = CGSize(width: collectionCellWidth, height: collectionCellWidth * 1.7)
+        flowLayout.minimumLineSpacing = ShoppingCell.spacingWidth
+        flowLayout.minimumInteritemSpacing = ShoppingCell.spacingWidth
+        flowLayout.sectionInset = UIEdgeInsets(top: 0, left: ShoppingCell.spacingWidth, bottom: 0, right: ShoppingCell.spacingWidth)
+        return flowLayout
+    }
+    
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let resultItems = searhResult?.items else { return 0 }
 
@@ -202,6 +205,7 @@ extension SearchResultViewController:UICollectionViewDelegate, UICollectionViewD
     }
 }
 
+// MARK: - CollectionViewPrefetching
 extension SearchResultViewController:UICollectionViewDataSourcePrefetching{
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
 

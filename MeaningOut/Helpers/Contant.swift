@@ -47,4 +47,15 @@ enum ShoppingCell {
 enum IconName {
     static let bagFill = "bag.fill.badge.minus"
     static let bag = "bag.badge.plus"
+    static let search = "magnifyingglass"
+    static let person = "person"
+}
+
+enum Basic {
+    static func setting(_ viewController:UIViewController, title:String){
+        viewController.view.backgroundColor = .white
+        viewController.navigationController?.navigationBar.tintColor = .black
+        viewController.navigationController?.navigationBar.topItem?.title = ""
+        viewController.navigationItem.title = title
+    }
 }

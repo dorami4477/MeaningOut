@@ -8,13 +8,13 @@
 import UIKit
 
 
-class ProfileNickNameViewController: UIViewController, UserDataDelegate {
+final class ProfileNickNameViewController: UIViewController{
         
     var profileImgName = ""
     
-    let profileView = UIView()
+    private let profileView = UIView()
     lazy var profileImageView = ProfileImageView()
-    let cameraImageView = {
+    private let cameraImageView = {
         let img = UIImageView()
         img.image = UIImage(systemName: "camera.fill")
         img.backgroundColor = AppColor.primary
@@ -29,12 +29,12 @@ class ProfileNickNameViewController: UIViewController, UserDataDelegate {
         tf.placeholder = "닉네임을 입력해주세요 :)"
         return tf
     }()
-    let warningLabel = {
+    private let warningLabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 13)
         return label
     }()
-    let doneButton = PrimaryButton(title: "완료", active: false)
+    private let doneButton = PrimaryButton(title: "완료", active: false)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +44,7 @@ class ProfileNickNameViewController: UIViewController, UserDataDelegate {
         configureTextField()
         setTapGesture()
         setProfileImg()
+        Basic.setting(self, title: "PROFILE SETTING")
     }
     
     override func viewDidLayoutSubviews() {
@@ -88,8 +89,6 @@ class ProfileNickNameViewController: UIViewController, UserDataDelegate {
         }
     }
     private func configureUI(){
-        view.backgroundColor = .white
-        title = "PROFILE SETTING"
         doneButton.isEnabled = false
     }
     
@@ -114,17 +113,17 @@ class ProfileNickNameViewController: UIViewController, UserDataDelegate {
         }
     }
     
-    func setProfileImg(){
+    private func setProfileImg(){
         if profileImgName != ""{
             profileImageView.image = UIImage(named: profileImgName)
         }else{
             let randomNum = Int.random(in: 0...11)
             profileImgName = "profile_\(randomNum)"
             profileImageView.image = UIImage(named: profileImgName)
-            //UserDefaultsManager.profileImage = profileImgName
         }
     }
     
+    //탭 제스쳐 세팅
     private func setTapGesture(){
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(profileViewTapped(_:)))
         profileView.addGestureRecognizer(tapGestureRecognizer)
@@ -133,7 +132,7 @@ class ProfileNickNameViewController: UIViewController, UserDataDelegate {
     }
     
     //프로필 이미지 클릭 시
-    @objc func profileViewTapped(_ sender: UITapGestureRecognizer) {        
+    @objc private func profileViewTapped(_ sender: UITapGestureRecognizer) {
         let profileVC = ProfileImageViewController()
         profileVC.profileImageView.image = UIImage(named: profileImgName)
         profileVC.selectedImg = profileImgName
@@ -143,13 +142,13 @@ class ProfileNickNameViewController: UIViewController, UserDataDelegate {
     }
     
     //완료 버튼 클릭 시
-    @objc func doneButtonTapped(_ sender: Any) {
+    @objc private func doneButtonTapped(_ sender: Any) {
         
         guard let text = nicktextfield.text else { return }
         UserDefaultsManager.nickName = text
         UserDefaultsManager.profileImage = profileImgName
         
-        // save버튼 done 버튼 분기
+        // save버튼 done버튼 분기
         if let _ = sender as? UIBarButtonItem{
                 navigationController?.popViewController(animated: true)
             
@@ -167,12 +166,17 @@ class ProfileNickNameViewController: UIViewController, UserDataDelegate {
             sceneDelegate?.window?.makeKeyAndVisible()
         }
     }
-    
+
+}
+
+
+
+// MARK: - UserDataDelegate
+extension ProfileNickNameViewController:UserDataDelegate{
     func sendImageName(_ imageName:String) {
         profileImgName = imageName
         profileImageView.image = UIImage(named: profileImgName)
     }
-
 }
 
 // MARK: - TextFieldDelegate

@@ -8,9 +8,9 @@
 import UIKit
 import SnapKit
 
-class OnboardingViewController: UIViewController {
+final class OnboardingViewController: UIViewController {
     
-    let titleLabel = {
+    private let titleLabel = {
         let label = UILabel()
         label.text = "MeaningOut"
         label.font = .systemFont(ofSize: 38, weight: .black)
@@ -19,13 +19,13 @@ class OnboardingViewController: UIViewController {
         return label
     }()
     
-    let mainImageView = {
+    private let mainImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "launch")
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
-    let startbutton = PrimaryButton(title: "시작하기", active: true)
+    private let startbutton = PrimaryButton(title: "시작하기", active: true)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,7 +61,7 @@ class OnboardingViewController: UIViewController {
         view.backgroundColor = .white
     }
 
-    @objc func startButtonTapped(){
+    @objc private func startButtonTapped(){
         let nextVc = ProfileNickNameViewController()
         navigationController?.pushViewController(nextVc, animated: true)
     }

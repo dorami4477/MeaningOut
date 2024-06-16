@@ -8,20 +8,29 @@
 import UIKit
 import SnapKit
 
-class MainViewController: UIViewController {
+final class MainViewController: UIViewController {
 
 
-    let emptyImg = {
+    private let emptyImg = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "empty")
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
-    let tableView = UITableView()
+    private let emptyLebel = {
+        let label = UILabel()
+        label.font = .boldSystemFont(ofSize: 16)
+        label.textAlignment = .center
+        label.text = "최근 검색어가 없어요."
+        return label
+    }()
+    
+    private let tableView = UITableView()
     
     var recentSearchTerms:[String] = UserDefaultsManager.searchTerms
     
+    // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         configureHierarchy()
@@ -30,27 +39,37 @@ class MainViewController: UIViewController {
         configureTableView()
     }
     
+    // MARK: - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         if recentSearchTerms.count == 0{
             tableView.isHidden = true
         }else{
             tableView.isHidden = false
         }
-        
         tableView.reloadData()
     }
+    
+    
     private func configureHierarchy(){
         view.addSubview(emptyImg)
+        view.addSubview(emptyLebel)
         view.addSubview(tableView)
     }
     private func configureLayout(){
         emptyImg.snp.makeConstraints { make in
-            make.edges.equalTo(view.safeAreaLayoutGuide)
+            make.horizontalEdges.equalToSuperview()
+            make.centerY.equalTo(view.snp.centerY)
+            make.height.equalTo(emptyImg.snp.width).multipliedBy(0.75)
+        }
+        emptyLebel.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview()
+            make.top.equalTo(emptyImg.snp.bottom).offset(10)
         }
         tableView.snp.makeConstraints { make in
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
     }
+    
     private func configureUI(){
         view.backgroundColor = .white
         navigationItem.title = UserDefaultsManager.nickName! + "'s MEANING OUT"
@@ -60,6 +79,7 @@ class MainViewController: UIViewController {
         self.navigationController?.navigationBar.shadowImage = nil
         searchCon.searchBar.delegate = self
     }
+    
     private func configureTableView(){
         if recentSearchTerms.count == 0{
             tableView.isHidden = true
@@ -76,13 +96,15 @@ class MainViewController: UIViewController {
         tableView.rowHeight = 44
     }
     
-    @objc func deleteAllButtonClicked(){
+    //전체 삭제 액션
+    @objc private func deleteAllButtonClicked(){
         recentSearchTerms.removeAll()
         UserDefaultsManager.searchTerms = []
         tableView.isHidden = true
     }
     
-    @objc func deleteButtonClicked(_ sender:UIButton){
+    //셀 삭제 액션
+    @objc private func deleteButtonClicked(_ sender:UIButton){
         recentSearchTerms.remove(at:sender.tag)
         UserDefaultsManager.searchTerms = recentSearchTerms
         if recentSearchTerms.count == 0{
@@ -99,6 +121,7 @@ extension MainViewController:UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let cell = tableView.dequeueReusableHeaderFooterView(withIdentifier: RecentSearchHeader.identifier) as! RecentSearchHeader
         cell.deleteButton.addTarget(self, action: #selector(deleteAllButtonClicked), for: .touchUpInside)
+
         return cell
     }
     
@@ -127,12 +150,15 @@ extension MainViewController:UITableViewDelegate, UITableViewDataSource{
 
 // MARK: - SearchBar
 extension MainViewController:UISearchBarDelegate{
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         let searchVC = SearchResultViewController()
         guard let text = searchBar.text else { return }
         searchVC.searchTerm = text
-        recentSearchTerms.append(text)
+        recentSearchTerms.insert(text, at:0)
         UserDefaultsManager.searchTerms = recentSearchTerms
         navigationController?.pushViewController(searchVC, animated: true)
+        searchBar.text = ""
     }
+    
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SettingFirstCell: UITableViewCell {
+final class SettingFirstCell: UITableViewCell {
 
     let profileView = UIView()
     
@@ -24,14 +24,14 @@ class SettingFirstCell: UITableViewCell {
     
     let nickNameLabel = {
         let label = UILabel()
-        label.font = .boldSystemFont(ofSize: 17)
+        label.font = .boldSystemFont(ofSize: 16)
         label.text = UserDefaultsManager.nickName
         return label
     }()
     
     let signupDateLabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 14)
+        label.font = .systemFont(ofSize: 13)
         label.textColor = AppColor.gray02
         label.text = UserDefaultsManager.signUpDate
         return label

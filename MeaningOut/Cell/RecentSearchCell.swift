@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RecentSearchCell: UITableViewCell {
+final class RecentSearchCell: UITableViewCell {
     
     let iconImageView = {
         let img = UIImageView()
@@ -28,16 +28,13 @@ class RecentSearchCell: UITableViewCell {
         return button
     }()
     
+    // MARK: - init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configureHierarchy()
         configureLayout()
-        configureUI()
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     private func configureHierarchy(){
         contentView.addSubview(iconImageView)
         contentView.addSubview(titleLabel)
@@ -59,9 +56,9 @@ class RecentSearchCell: UITableViewCell {
             make.width.equalTo(iconImageView.snp.height)
         }
     }
-    private func configureUI(){
-        
+
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
-
-
 }

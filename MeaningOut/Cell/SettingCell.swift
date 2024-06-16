@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SettingCell: UITableViewCell {
+final class SettingCell: UITableViewCell {
 
     let titleLabel = {
         let label = UILabel()
