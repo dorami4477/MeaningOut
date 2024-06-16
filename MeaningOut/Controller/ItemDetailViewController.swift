@@ -37,7 +37,7 @@ final class ItemDetailViewController: UIViewController {
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
         view.backgroundColor = .white
-    navigationItem.title = data?.title
+        navigationItem.title = data?.title
     }
     
     private func configureNavigationItem(){

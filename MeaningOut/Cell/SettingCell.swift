@@ -39,6 +39,10 @@ final class SettingCell: UITableViewCell {
         let onlyTrue = UserDefaultsManager.favorite.filter { $1 == true }
         print(onlyTrue)
         favNumLabel.text = onlyTrue.count.formatted() + "개의 상품"
+        
+        let attributedStr = NSMutableAttributedString(string: favNumLabel.text!)
+        attributedStr.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 14), range: (favNumLabel.text! as NSString).range(of: onlyTrue.count.formatted() + "개"))
+        favNumLabel.attributedText = attributedStr
     }
     
     private func configureHierarchy(){

@@ -31,7 +31,6 @@ struct Item:Decodable{
     let category3: String
     let category4: String
     
-    
     var price:String{
         guard let priceInt = Int(lprice) else { return "0" }
         return priceInt.formatted() + "원"

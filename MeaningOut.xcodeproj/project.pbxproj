@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		481004BE2C1ED56600583FC7 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 481004BD2C1ED56600583FC7 /* SkeletonView */; };
 		48C128852C1AE56300EA91F8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C128842C1AE56300EA91F8 /* AppDelegate.swift */; };
 		48C128872C1AE56300EA91F8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C128862C1AE56300EA91F8 /* SceneDelegate.swift */; };
 		48C128892C1AE56300EA91F8 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C128882C1AE56300EA91F8 /* OnboardingViewController.swift */; };
@@ -81,6 +82,7 @@
 				48C128A42C1AE6D200EA91F8 /* SnapKit in Frameworks */,
 				48C1289E2C1AE6B100EA91F8 /* IQKeyboardManagerSwift in Frameworks */,
 				48C128A12C1AE6BD00EA91F8 /* Alamofire in Frameworks */,
+				481004BE2C1ED56600583FC7 /* SkeletonView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -191,6 +193,7 @@
 				48C128A02C1AE6BD00EA91F8 /* Alamofire */,
 				48C128A32C1AE6D200EA91F8 /* SnapKit */,
 				48C824132C1D426900E505CF /* Kingfisher */,
+				481004BD2C1ED56600583FC7 /* SkeletonView */,
 			);
 			productName = MeaningOut;
 			productReference = 48C128812C1AE56300EA91F8 /* MeaningOut.app */;
@@ -225,6 +228,7 @@
 				48C1289F2C1AE6BD00EA91F8 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				48C128A22C1AE6D200EA91F8 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				48C824122C1D426900E505CF /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				481004BC2C1ED56600583FC7 /* XCRemoteSwiftPackageReference "SkeletonView" */,
 			);
 			productRefGroup = 48C128822C1AE56300EA91F8 /* Products */;
 			projectDirPath = "";
@@ -501,6 +505,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		481004BC2C1ED56600583FC7 /* XCRemoteSwiftPackageReference "SkeletonView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Juanpe/SkeletonView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.31.0;
+			};
+		};
 		48C1289C2C1AE6B100EA91F8 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager.git";
@@ -536,6 +548,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		481004BD2C1ED56600583FC7 /* SkeletonView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 481004BC2C1ED56600583FC7 /* XCRemoteSwiftPackageReference "SkeletonView" */;
+			productName = SkeletonView;
+		};
 		48C1289D2C1AE6B100EA91F8 /* IQKeyboardManagerSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 48C1289C2C1AE6B100EA91F8 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;

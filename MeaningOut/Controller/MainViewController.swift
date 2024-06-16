@@ -150,15 +150,25 @@ extension MainViewController:UITableViewDelegate, UITableViewDataSource{
 
 // MARK: - SearchBar
 extension MainViewController:UISearchBarDelegate{
-    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         let searchVC = SearchResultViewController()
         guard let text = searchBar.text else { return }
-        searchVC.searchTerm = text
-        recentSearchTerms.insert(text, at:0)
-        UserDefaultsManager.searchTerms = recentSearchTerms
-        navigationController?.pushViewController(searchVC, animated: true)
-        searchBar.text = ""
+        
+        if !text.trimmingCharacters(in: .whitespaces).isEmpty{
+            print("anjrk")
+            searchVC.searchTerm = text
+            
+            //중복된 값 제거
+            if let index = recentSearchTerms.firstIndex(where:{ $0 == text }){
+                recentSearchTerms.remove(at: index)
+            }
+            
+            recentSearchTerms.insert(text, at:0)
+            UserDefaultsManager.searchTerms = recentSearchTerms
+            
+            navigationController?.pushViewController(searchVC, animated: true)
+            searchBar.text = ""
+        }
     }
     
 }

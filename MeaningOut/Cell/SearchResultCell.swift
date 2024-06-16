@@ -62,7 +62,8 @@ final class SearchResultCell: UICollectionViewCell {
         super.init(frame: frame)
         configureHierarchy()
         configureLayout()
-        configureUI()
+        buttonAction()
+        setSkeletion()
     }
     
 
@@ -89,14 +90,21 @@ final class SearchResultCell: UICollectionViewCell {
         priceLabel.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(4)
             make.leading.equalToSuperview()
-            make.bottom.greaterThanOrEqualToSuperview().inset(12)
         }
         
     }
-    private func configureUI(){
+    private func buttonAction(){
         favoritesButton.addTarget(self, action: #selector(favButtonTapped), for: .touchUpInside)
     }
     
+    private func setSkeletion(){
+        self.isSkeletonable = true
+        self.contentView.isSkeletonable = true
+        mainImageView.isSkeletonable = true
+        mallNameLabel.isSkeletonable = true
+        titleLabel.isSkeletonable = true
+        priceLabel.isSkeletonable = true
+    }
     
     private func configureData(){
         guard let data else { return }
@@ -126,6 +134,23 @@ final class SearchResultCell: UICollectionViewCell {
             favoritesButton.tintColor = AppColor.white
         }
     }
+    
+    //검색한 텍스트스타일 변경
+    func changeText(text:String){
+        
+        guard let mallText = mallNameLabel.text else { return }
+        let attributedStr = NSMutableAttributedString(string: mallText)
+        attributedStr.addAttribute(.backgroundColor, value: UIColor.yellow, range: (mallText.lowercased() as NSString).range(of: text.lowercased()))
+        attributedStr.addAttribute(.foregroundColor, value: UIColor.black, range: (mallText.lowercased() as NSString).range(of: text.lowercased()))
+        mallNameLabel.attributedText = attributedStr
+        
+        guard let titleText = titleLabel.text else { return }
+        let attributedStr2 = NSMutableAttributedString(string: titleText)
+        attributedStr2.addAttribute(.backgroundColor, value: UIColor.yellow, range: (titleText.lowercased() as NSString).range(of: text.lowercased()))
+        attributedStr2.addAttribute(.foregroundColor, value: UIColor.black, range: (titleText.lowercased() as NSString).range(of: text.lowercased()))
+        titleLabel.attributedText = attributedStr2
+    }
+    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
