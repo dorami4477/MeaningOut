@@ -59,3 +59,11 @@ enum Basic {
         viewController.navigationItem.title = title
     }
 }
+
+
+enum FilterName:String {
+    case accuracy = "정확도"
+    case date = "날짜순"
+    case highest = "가격높은순"
+    case lowest = "가격낮은순"
+}

@@ -29,12 +29,12 @@ final class SearchResultViewController: UIViewController {
         return label
     }()
     
-    private let filter01Button = FilterButton(title: "정확도")
-    private let filter02Button = FilterButton(title: "날짜순")
-    private let filter03Button = FilterButton(title: "가격높은순")
-    private let filter04Button = FilterButton(title: "가격낮은순")
+    private let filter01Button = FilterButton(title: FilterName.accuracy.rawValue)
+    private let filter02Button = FilterButton(title: FilterName.date.rawValue)
+    private let filter03Button = FilterButton(title: FilterName.highest.rawValue)
+    private let filter04Button = FilterButton(title: FilterName.lowest.rawValue)
     
-    private lazy var filterButtons:[UIButton] = [filter01Button, filter02Button, filter03Button, filter04Button]
+    private lazy var filterButtons:[FilterButton] = [filter01Button, filter02Button, filter03Button, filter04Button]
     
     private lazy var filterStackView = {
         let sv = UIStackView()
@@ -147,20 +147,17 @@ final class SearchResultViewController: UIViewController {
 }
 
 // MARK: - filter
+
 extension SearchResultViewController{
     
     private func setfilterButton(){
-        filter01Button.backgroundColor = AppColor.gray01
-        filter01Button.setTitleColor(AppColor.white, for: .normal)
-        filter01Button.layer.borderWidth = 0
-        
         filterButtons.forEach {
             $0.addTarget(self, action: #selector(filterTapped(_:)), for: .touchUpInside)
         }
     }
     
     //필터 액션
-    @objc private func filterTapped(_ sender:UIButton){
+    @objc private func filterTapped(_ sender:FilterButton){
         switch sender{
         case filter01Button:
             sort = "sim"
@@ -183,14 +180,9 @@ extension SearchResultViewController{
         }
         
         filterButtons.forEach {
-            $0.backgroundColor = AppColor.white
-            $0.setTitleColor(AppColor.gray01, for: .normal)
-            $0.layer.borderWidth = 1
+            $0.updateButtonAppearance(false, title: $0.currentTitle!)
         }
-        
-        sender.layer.borderWidth = 0
-        sender.backgroundColor = AppColor.gray01
-        sender.setTitleColor(AppColor.white, for: .normal)
+        sender.updateButtonAppearance(true, title: sender.currentTitle!)
     }
 
 }
@@ -199,6 +191,7 @@ extension SearchResultViewController{
 // MARK: - CollectionView + skeleton
 extension SearchResultViewController:SkeletonCollectionViewDelegate, SkeletonCollectionViewDataSource{
 
+    //skeleton 함수
     func numSections(in collectionSkeletonView: UICollectionView) -> Int {
         return 1
     }
@@ -212,14 +205,14 @@ extension SearchResultViewController:SkeletonCollectionViewDelegate, SkeletonCol
         return SearchResultCell.identifier
     }
     
-
-    
     private func configureCollectionView(){
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.prefetchDataSource = self
         collectionView.register(SearchResultCell.self, forCellWithReuseIdentifier: SearchResultCell.identifier)
     }
+    
+    
     
     //컬렉션뷰 레이아웃
     private func collectionViewLayout() -> UICollectionViewLayout{
