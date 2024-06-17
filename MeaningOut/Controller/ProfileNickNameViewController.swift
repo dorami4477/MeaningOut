@@ -45,6 +45,7 @@ final class ProfileNickNameViewController: UIViewController{
         setTapGesture()
         setProfileImg()
         Basic.setting(self, title: "PROFILE SETTING")
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -170,7 +171,6 @@ final class ProfileNickNameViewController: UIViewController{
 }
 
 
-
 // MARK: - UserDataDelegate
 extension ProfileNickNameViewController:UserDataDelegate{
     func sendImageName(_ imageName:String) {
@@ -185,9 +185,7 @@ extension ProfileNickNameViewController:UITextFieldDelegate{
         
         //숫자확인
         guard Int(string) == nil else{
-            warningLabel.text = NicknameValidation.integer.rawValue
-            warningLabel.textColor = NicknameValidation.integer.messageColor
-            doneButton.backgroundColor = AppColor.gray03
+            isNicknamePassed(message: .integer)
             isActiveBarButton(false)
             
             //숫자가 지워지고 사용가능한 닉네임인 경우
@@ -201,9 +199,7 @@ extension ProfileNickNameViewController:UITextFieldDelegate{
         
         //특수문자 확인
         if string == "@" || string == "#" || string == "$" || string == "%" {
-            warningLabel.text = NicknameValidation.specialLetters.rawValue
-            warningLabel.textColor = NicknameValidation.specialLetters.messageColor
-            doneButton.backgroundColor = AppColor.gray03
+            isNicknamePassed(message: .specialLetters)
             isActiveBarButton(false)
             
             //숫자가 지워지고 사용 가능한 닉네임인 경우
@@ -218,18 +214,15 @@ extension ProfileNickNameViewController:UITextFieldDelegate{
         //글자의 길이 확인
         guard let text = textField.text else { return true }
         let newLength = text.count + string.count - range.length
-            //2글자 미만  //** 한글일 경우 문제
+        
+        //2글자 미만
         if newLength < 2 {
-            warningLabel.text = NicknameValidation.length.rawValue
-            warningLabel.textColor = NicknameValidation.length.messageColor
-            doneButton.backgroundColor = AppColor.gray03
+            isNicknamePassed(message: .length)
             isActiveBarButton(false)
             return true
-            //10글자 이상
+        //10글자 이상
         }else if newLength >= 10 {
-            warningLabel.text = NicknameValidation.length.rawValue
-            warningLabel.textColor = NicknameValidation.length.messageColor
-            doneButton.backgroundColor = AppColor.gray03
+            isNicknamePassed(message: .length)
             isActiveBarButton(false)
             
             //숫자가 지워지고 사용 가능한 닉네임인 경우
@@ -240,16 +233,24 @@ extension ProfileNickNameViewController:UITextFieldDelegate{
             }
             return false
         }
-
         
         //전부 통과
-        warningLabel.text = NicknameValidation.pass.rawValue
-        warningLabel.textColor = NicknameValidation.pass.messageColor
+        isNicknamePassed(message: .pass)
         doneButton.isEnabled = true
-        doneButton.backgroundColor = AppColor.primary
         isActiveBarButton(true)
         return true
         
+    }
+    
+    
+    func isNicknamePassed(message:NicknameValidation){
+        warningLabel.text = message.rawValue
+        warningLabel.textColor = message.messageColor
+        if message == .pass{
+            doneButton.backgroundColor = AppColor.primary
+        }else{
+            doneButton.backgroundColor = AppColor.gray03
+        }
     }
     
     
@@ -257,7 +258,6 @@ extension ProfileNickNameViewController:UITextFieldDelegate{
         guard let barButton = navigationItem.rightBarButtonItem else { return }
         
         if active{
-            
             barButton.isEnabled = true
             barButton.tintColor = AppColor.black
             let attributes: [NSAttributedString.Key : Any] = [ .font: UIFont.boldSystemFont(ofSize: 16) ]
@@ -272,4 +272,8 @@ extension ProfileNickNameViewController:UITextFieldDelegate{
             navigationItem.rightBarButtonItem = barButton
         }
     }
+    
+
 }
+
+
