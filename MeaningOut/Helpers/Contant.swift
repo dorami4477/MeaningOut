@@ -55,7 +55,7 @@ enum Basic {
     static func setting(_ viewController:UIViewController, title:String){
         viewController.view.backgroundColor = .white
         viewController.navigationController?.navigationBar.tintColor = .black
-        viewController.navigationController?.navigationBar.topItem?.title = ""
+        viewController.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         viewController.navigationItem.title = title
     }
 }

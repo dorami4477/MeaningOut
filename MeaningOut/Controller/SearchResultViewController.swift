@@ -12,17 +12,37 @@ import SkeletonView
 final class SearchResultViewController: UIViewController {
 
     var searchTerm = ""
-    var sort = "sim"
-    var startNum = 1
+    private var sort = "sim"
+    private var startNum = 1
     
     var searhResult:Shopping?{
         didSet{
             resultCountLabel.text = searhResult!.total.formatted() + "개의 검색 결과"
+            if searhResult!.total == 0{
+                collectionView.isHidden = true
+            }else{
+                collectionView.isHidden = false
+            }
             collectionView.reloadData()
         }
     }
     
-    let resultCountLabel = {
+    private let emptyImg = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "empty")
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+    
+    private let emptyLebel = {
+        let label = UILabel()
+        label.font = .boldSystemFont(ofSize: 16)
+        label.textAlignment = .center
+        label.text = "찾으시는 상품이 없습니다."
+        return label
+    }()
+    
+    private let resultCountLabel = {
         let label = UILabel()
         label.textColor = AppColor.primary
         label.font = .boldSystemFont(ofSize: 13)
@@ -63,11 +83,21 @@ final class SearchResultViewController: UIViewController {
     
     
     private func configureHierarchy(){
-        [resultCountLabel, filterStackView, collectionView ].forEach { view.addSubview($0) }
+        [resultCountLabel, filterStackView, emptyImg, emptyLebel, collectionView ].forEach { view.addSubview($0) }
         [filter01Button, filter02Button, filter03Button,filter04Button ].forEach { filterStackView.addArrangedSubview($0) }
     }
     
     private func configureLayout(){
+        emptyImg.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview()
+            make.centerY.equalTo(view.snp.centerY)
+            make.height.equalTo(emptyImg.snp.width).multipliedBy(0.75)
+        }
+        emptyLebel.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview()
+            make.top.equalTo(emptyImg.snp.bottom).offset(10)
+        }
+        
         resultCountLabel.snp.makeConstraints { make in
             make.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(20)
         }
@@ -146,8 +176,8 @@ final class SearchResultViewController: UIViewController {
     
 }
 
-// MARK: - filter
 
+// MARK: - filter
 extension SearchResultViewController{
     
     private func setfilterButton(){
@@ -161,23 +191,18 @@ extension SearchResultViewController{
         switch sender{
         case filter01Button:
             sort = "sim"
-            startNum = 1
-            callRequest()
         case filter02Button:
             sort = "date"
-            startNum = 1
-            callRequest()
         case filter03Button:
             sort = "dsc"
-            startNum = 1
-            callRequest()
         case filter04Button:
             sort = "asc"
-            startNum = 1
-            callRequest()
         default:
             print("error")
         }
+        
+        startNum = 1
+        callRequest()
         
         filterButtons.forEach {
             $0.updateButtonAppearance(false, title: $0.currentTitle!)

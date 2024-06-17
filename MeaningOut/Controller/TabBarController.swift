@@ -16,6 +16,10 @@ final class TabBarController:UITabBarController{
             tabBar.tintColor = AppColor.primary
             tabBar.unselectedItemTintColor = .gray
             
+            let appearance = UINavigationBarAppearance()
+            appearance.backgroundColor = AppColor.white
+            UINavigationBar.appearance().scrollEdgeAppearance = appearance
+            
             let main = MainViewController()
             let nav1 = UINavigationController(rootViewController: main)
             nav1.tabBarItem = UITabBarItem(title: "검색", image: UIImage(systemName: IconName.search), tag: 0)

@@ -111,7 +111,7 @@ final class SearchResultCell: UICollectionViewCell {
         guard let data else { return }
         let url = URL(string: data.image)
         mainImageView.kf.setImage(with: url)
-        titleLabel.text = data.title
+        titleLabel.text = data.titleBoldTag
         mallNameLabel.text = data.mallName
         priceLabel.text = data.price
         
@@ -143,12 +143,14 @@ final class SearchResultCell: UICollectionViewCell {
         let attributedStr = NSMutableAttributedString(string: mallText)
         attributedStr.addAttribute(.backgroundColor, value: UIColor.yellow, range: (mallText.lowercased() as NSString).range(of: text.lowercased()))
         attributedStr.addAttribute(.foregroundColor, value: UIColor.black, range: (mallText.lowercased() as NSString).range(of: text.lowercased()))
+        attributedStr.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 13), range: (mallText.lowercased() as NSString).range(of: text.lowercased()))
         mallNameLabel.attributedText = attributedStr
         
         guard let titleText = titleLabel.text else { return }
         let attributedStr2 = NSMutableAttributedString(string: titleText)
         attributedStr2.addAttribute(.backgroundColor, value: UIColor.yellow, range: (titleText.lowercased() as NSString).range(of: text.lowercased()))
         attributedStr2.addAttribute(.foregroundColor, value: UIColor.black, range: (titleText.lowercased() as NSString).range(of: text.lowercased()))
+        attributedStr2.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 14), range: (titleText.lowercased() as NSString).range(of: text.lowercased()))
         titleLabel.attributedText = attributedStr2
     }
     

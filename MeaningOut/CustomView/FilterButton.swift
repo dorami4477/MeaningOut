@@ -14,13 +14,13 @@ class FilterButton: UIButton {
         
         layer.borderColor = AppColor.gray03.cgColor
         layer.borderWidth = 1
-        layer.cornerRadius = 15
+        layer.cornerRadius = 17
         clipsToBounds = true
         
         setTitle(title, for: .normal)
 
         if title == FilterName.accuracy.rawValue{
-            updateButtonAppearance(false, title:title)
+            updateButtonAppearance(true, title:title)
         }else{
             updateButtonAppearance(false, title:title)
         }

@@ -37,10 +37,12 @@ final class MainViewController: UIViewController {
         configureLayout()
         configureUI()
         configureTableView()
+        Basic.setting(self, title: UserDefaultsManager.nickName! + "'s MEANING OUT")
     }
     
     // MARK: - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
+        
         if recentSearchTerms.count == 0{
             tableView.isHidden = true
         }else{
@@ -73,6 +75,7 @@ final class MainViewController: UIViewController {
     private func configureUI(){
         view.backgroundColor = .white
         navigationItem.title = UserDefaultsManager.nickName! + "'s MEANING OUT"
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         let searchCon = UISearchController(searchResultsController: nil)
         searchCon.searchBar.placeholder = "브랜드, 상품 등을 입력하세요."
         self.navigationItem.searchController = searchCon
