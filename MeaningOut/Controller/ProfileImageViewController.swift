@@ -41,11 +41,11 @@ final class ProfileImageViewController: UIViewController {
         configureLayout()
         setCollectionView()
         Basic.setting(self, title: "PROFILE SETTING")
+        self.navigationController?.navigationBar.isHidden = false;
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        print(selectedImg)
         self.delegate?.sendImageName(selectedImg)
     }
     

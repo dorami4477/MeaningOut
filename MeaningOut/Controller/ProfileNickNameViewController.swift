@@ -45,7 +45,6 @@ final class ProfileNickNameViewController: UIViewController{
         setTapGesture()
         setProfileImg()
         Basic.setting(self, title: "PROFILE SETTING")
-        
     }
     
     override func viewDidLayoutSubviews() {
@@ -54,6 +53,7 @@ final class ProfileNickNameViewController: UIViewController{
         border.frame = CGRect(x: 0, y: nicktextfield.frame.size.height + 8, width: nicktextfield.frame.width, height: 1)
         border.backgroundColor = AppColor.gray03.cgColor
         nicktextfield.layer.addSublayer(border)
+        
     }
     
     
@@ -91,6 +91,7 @@ final class ProfileNickNameViewController: UIViewController{
     }
     private func configureUI(){
         doneButton.isEnabled = false
+        self.navigationController?.navigationBar.isHidden = false;
     }
     
     private func configureTextField(){
@@ -142,7 +143,7 @@ final class ProfileNickNameViewController: UIViewController{
         navigationController?.pushViewController(profileVC, animated: true)
     }
     
-    //완료 버튼 클릭 시
+    //Done or Save 버튼 클릭 시
     @objc private func doneButtonTapped(_ sender: Any) {
         
         guard let text = nicktextfield.text else { return }

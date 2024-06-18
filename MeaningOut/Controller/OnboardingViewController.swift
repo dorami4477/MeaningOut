@@ -32,8 +32,14 @@ final class OnboardingViewController: UIViewController {
         configureHierarchy()
         configureLayout()
         configureUI()
-        startbutton.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
+        setButtonAction()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = true;
+    }
+    
     private func configureHierarchy(){
         view.addSubview(mainImageView)
         view.addSubview(titleLabel)
@@ -59,8 +65,13 @@ final class OnboardingViewController: UIViewController {
     }
     private func configureUI(){
         view.backgroundColor = .white
+        self.navigationController?.navigationBar.isHidden = true;
     }
 
+    private func setButtonAction(){
+        startbutton.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
+    }
+    
     @objc private func startButtonTapped(){
         let nextVc = ProfileNickNameViewController()
         navigationController?.pushViewController(nextVc, animated: true)

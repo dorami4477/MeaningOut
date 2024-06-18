@@ -23,7 +23,6 @@ final class SearchResultViewController: UIViewController {
             }else{
                 collectionView.isHidden = false
             }
-            collectionView.reloadData()
         }
     }
     
@@ -71,6 +70,7 @@ final class SearchResultViewController: UIViewController {
         super.viewDidLoad()
         configureHierarchy()
         configureLayout()
+        showSkeletonView()
         callRequest()
         configureCollectionView()
         setfilterButton()
@@ -112,39 +112,41 @@ final class SearchResultViewController: UIViewController {
     }
     
 
+    private func showSkeletonView(){
+        collectionView.isSkeletonable = true
+        collectionView.showAnimatedGradientSkeleton()
+    }
 
     //네트워크
     private func callRequest(){
+        
         let url = "\(APIInfo.url)query=\(searchTerm)&sort=\(sort)&display=30&start=\(startNum)"
         
         let header:HTTPHeaders = ["X-Naver-Client-Id": APIInfo.clientId, "X-Naver-Client-Secret": APIInfo.clientSecret]
         
         
-        
         AF.request(url, method: .get, headers: header).responseDecodable(of: Shopping.self){ response in
             switch response.result{
             case .success(let value):
-                self.collectionView.isSkeletonable = true
-                self.collectionView.showAnimatedGradientSkeleton()
-
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-
                     
                     if self.startNum == 1{
                         self.searhResult = value
                     }else{
-                        
                         self.searhResult?.items.append(contentsOf: value.items)
                     }
+                
+                    self.collectionView.reloadData()
+                    
                     
                     if self.startNum == 1 && self.searhResult?.total != 0{
                         self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
                         
                     }
+                
+                    //스켈레톤뷰 종료
                     self.collectionView.stopSkeletonAnimation()
                     self.collectionView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.5))
-                }
-                
+              
                 
             case .failure(let error):
                 print(error)
@@ -202,6 +204,7 @@ extension SearchResultViewController{
         }
         
         startNum = 1
+        showSkeletonView()
         callRequest()
         
         filterButtons.forEach {
@@ -213,31 +216,14 @@ extension SearchResultViewController{
 }
 
 
-// MARK: - CollectionView + skeleton
-extension SearchResultViewController:SkeletonCollectionViewDelegate, SkeletonCollectionViewDataSource{
-
-    //skeleton 함수
-    func numSections(in collectionSkeletonView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    func collectionSkeletonView(_ skeletonView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        //return UICollectionView.automaticNumberOfSkeletonItems
-        return 4
-    }
-    
-    func collectionSkeletonView(_ skeletonView: UICollectionView, cellIdentifierForItemAt indexPath: IndexPath) -> SkeletonView.ReusableCellIdentifier {
-        return SearchResultCell.identifier
-    }
-    
+// MARK: - CollectionView Setting
+extension SearchResultViewController{
     private func configureCollectionView(){
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.prefetchDataSource = self
         collectionView.register(SearchResultCell.self, forCellWithReuseIdentifier: SearchResultCell.identifier)
     }
-    
-    
     
     //컬렉션뷰 레이아웃
     private func collectionViewLayout() -> UICollectionViewLayout{
@@ -250,6 +236,24 @@ extension SearchResultViewController:SkeletonCollectionViewDelegate, SkeletonCol
         flowLayout.sectionInset = UIEdgeInsets(top: 0, left: ShoppingCell.spacingWidth, bottom: 0, right: ShoppingCell.spacingWidth)
         return flowLayout
     }
+}
+
+// MARK: - CollectionView + skeleton Delegate
+extension SearchResultViewController:SkeletonCollectionViewDelegate, SkeletonCollectionViewDataSource{
+    
+    //skeleton 함수
+    func numSections(in collectionSkeletonView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionSkeletonView(_ skeletonView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 4
+    }
+    
+    func collectionSkeletonView(_ skeletonView: UICollectionView, cellIdentifierForItemAt indexPath: IndexPath) -> SkeletonView.ReusableCellIdentifier {
+        return SearchResultCell.identifier
+    }
+
     
     //셀 개수
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

@@ -21,6 +21,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             window?.rootViewController = rootViewController
             
         }else{
+            let appearance = UINavigationBarAppearance()
+            appearance.backgroundColor = AppColor.white
+            UINavigationBar.appearance().scrollEdgeAppearance = appearance
+            
             let rootViewController = UINavigationController(rootViewController: OnboardingViewController())
             window?.rootViewController = rootViewController
         }

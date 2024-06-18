@@ -48,7 +48,7 @@ final class SettingViewController: UIViewController {
         tableView.dataSource = self
         tableView.register(SettingFirstCell.self, forCellReuseIdentifier: SettingFirstCell.identifier)
         tableView.register(SettingCell.self, forCellReuseIdentifier: SettingCell.identifier)
-        
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
 
 
