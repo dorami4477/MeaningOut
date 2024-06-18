@@ -244,7 +244,7 @@ extension ProfileNickNameViewController:UITextFieldDelegate{
     }
     
     
-    func isNicknamePassed(message:NicknameValidation){
+    private func isNicknamePassed(message:NicknameValidation){
         warningLabel.text = message.rawValue
         warningLabel.textColor = message.messageColor
         if message == .pass{
@@ -255,7 +255,7 @@ extension ProfileNickNameViewController:UITextFieldDelegate{
     }
     
     
-    func isActiveBarButton(_ active:Bool){
+    private func isActiveBarButton(_ active:Bool){
         guard let barButton = navigationItem.rightBarButtonItem else { return }
         
         if active{
