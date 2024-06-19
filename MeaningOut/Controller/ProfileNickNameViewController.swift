@@ -248,7 +248,6 @@ extension ProfileNickNameViewController:UITextFieldDelegate{
         
         //2글자 미만
         if newLength < 2 {
-            print(newLength)
             throw NicknameValidationError.lengthUnder2
         //10글자 이상
         }else if newLength >= 10 {

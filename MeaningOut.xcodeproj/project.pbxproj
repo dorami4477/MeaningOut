@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		481004BE2C1ED56600583FC7 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 481004BD2C1ED56600583FC7 /* SkeletonView */; };
+		481005192C22D53F00583FC7 /* BasketListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481005182C22D53F00583FC7 /* BasketListViewController.swift */; };
+		4810051B2C22D74D00583FC7 /* ToastMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4810051A2C22D74D00583FC7 /* ToastMessage.swift */; };
 		48C128852C1AE56300EA91F8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C128842C1AE56300EA91F8 /* AppDelegate.swift */; };
 		48C128872C1AE56300EA91F8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C128862C1AE56300EA91F8 /* SceneDelegate.swift */; };
 		48C128892C1AE56300EA91F8 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C128882C1AE56300EA91F8 /* OnboardingViewController.swift */; };
@@ -42,6 +44,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		481005182C22D53F00583FC7 /* BasketListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketListViewController.swift; sourceTree = "<group>"; };
+		4810051A2C22D74D00583FC7 /* ToastMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMessage.swift; sourceTree = "<group>"; };
 		48C128812C1AE56300EA91F8 /* MeaningOut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MeaningOut.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		48C128842C1AE56300EA91F8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		48C128862C1AE56300EA91F8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -95,6 +99,7 @@
 				48C128AC2C1AF35500EA91F8 /* PrimaryButton.swift */,
 				48C128B12C1AFA5D00EA91F8 /* ProfileImageView.swift */,
 				48C8240D2C1D2F4B00E505CF /* FilterButton.swift */,
+				4810051A2C22D74D00583FC7 /* ToastMessage.swift */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -155,6 +160,7 @@
 				48C824152C1D817100E505CF /* ItemDetailViewController.swift */,
 				48C850642C1C61D3005F9CAF /* SettingViewController.swift */,
 				48C850602C1C60B1005F9CAF /* TabBarController.swift */,
+				481005182C22D53F00583FC7 /* BasketListViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -283,6 +289,8 @@
 				48C128A62C1AE86B00EA91F8 /* APIKey.swift in Sources */,
 				48C128B82C1B3CD100EA91F8 /* ReusableIdentifier.swift in Sources */,
 				48C824072C1C7AE600E505CF /* RecentSearchHeader.swift in Sources */,
+				481005192C22D53F00583FC7 /* BasketListViewController.swift in Sources */,
+				4810051B2C22D74D00583FC7 /* ToastMessage.swift in Sources */,
 				48C824052C1C781A00E505CF /* RecentSearchCell.swift in Sources */,
 				48C128B02C1AF9DF00EA91F8 /* ProfileNickNameViewController.swift in Sources */,
 				48C824182C1D95A500E505CF /* SettingFirstCell.swift in Sources */,

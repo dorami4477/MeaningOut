@@ -27,6 +27,10 @@ final class ItemDetailViewController: UIViewController {
         configureHierarchy()
         configureLayout()
         configureNavigationItem()
+        
+        if data != nil{
+            let _ = ToastMessage.init(self, message: "네트워크 통신이 실패하였습니다.\n 잠시 후 다시 시도해주세요.")
+        }
     }
     
     private func configureHierarchy(){
