@@ -14,14 +14,18 @@ final class ProfileNickNameViewController: UIViewController{
     
     private let profileView = UIView()
     lazy var profileImageView = ProfileImageView()
+    private let cameraView = {
+       let view = UIView()
+        view.backgroundColor = AppColor.primary
+        view.layer.cornerRadius = 14
+        view.clipsToBounds = true
+        return view
+    }()
     private let cameraImageView = {
         let img = UIImageView()
         img.image = UIImage(systemName: "camera.fill")
-        img.backgroundColor = AppColor.primary
         img.tintColor = AppColor.white
-        img.layer.cornerRadius = 15
-        img.clipsToBounds = true
-        img.contentMode = .center
+        img.contentMode = .scaleAspectFit
         return img
     }()
     let nicktextfield = {
@@ -59,7 +63,8 @@ final class ProfileNickNameViewController: UIViewController{
     
     private func configureHierarchy(){
         [profileView, nicktextfield, warningLabel, doneButton].forEach{ view.addSubview($0) }
-        [profileImageView, cameraImageView].forEach{ profileView.addSubview($0) }
+        [profileImageView, cameraView].forEach{ profileView.addSubview($0) }
+        cameraView.addSubview(cameraImageView)
     }
     
     private func configureLayout(){
@@ -71,9 +76,12 @@ final class ProfileNickNameViewController: UIViewController{
         profileImageView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        cameraImageView.snp.makeConstraints { make in
+        cameraView.snp.makeConstraints { make in
             make.trailing.bottom.equalToSuperview()
-            make.width.height.equalTo(30)
+            make.width.height.equalTo(28)
+        }
+        cameraImageView.snp.makeConstraints { make in
+            make.edges.equalToSuperview().inset(4)
         }
         nicktextfield.snp.makeConstraints { make in
             make.top.equalTo(profileImageView.snp.bottom).offset(30)
