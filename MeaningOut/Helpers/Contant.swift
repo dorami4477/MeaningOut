@@ -17,21 +17,30 @@ enum AppColor {
     static let passGreen = UIColor(red: 0.29, green: 0.77, blue: 0.00, alpha: 1.00)
 }
 
-enum NicknameValidation:String{
-    case pass = "사용할 수 있는 닉네임이에요."
-    case length = "2글자 이상 10글자 미만으로 설정해주세요."
-    case specialLetters = "닉네임에 @, #, $, % 는 포함할 수 없어요."
-    case integer = "닉네임에 숫자는 포함 할 수 없어요."
+
+
+enum NicknameValidationError:Error{
+    case lengthOver10
+    case specialLetters
+    case integer
+    case lengthUnder2
     
-    var messageColor:UIColor{
+    var message:String{
         switch self {
-        case .pass:
-            return AppColor.passGreen
-        default:
-            return AppColor.primary
+        case .lengthOver10:
+            return "2글자 이상 10글자 미만으로 설정해주세요."
+        case .specialLetters:
+            return "닉네임에 @, #, $, % 는 포함할 수 없어요."
+        case .integer:
+            return "닉네임에 숫자는 포함 할 수 없어요."
+        case .lengthUnder2:
+            return "2글자 이상 10글자 미만으로 설정해주세요."
         }
+
     }
 }
+
+
 
 enum ProfileCell {
     static let spacingWidth:CGFloat = 10
@@ -62,8 +71,8 @@ enum Basic {
 
 
 enum FilterName:String {
-    case accuracy = "정확도"
+    case sim = "정확도"
     case date = "날짜순"
-    case highest = "가격높은순"
-    case lowest = "가격낮은순"
+    case dsc = "가격높은순"
+    case asc = "가격낮은순"
 }

@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 final class ProfileNickNameViewController: UIViewController{
         
     var profileImgName = ""
@@ -115,8 +114,8 @@ final class ProfileNickNameViewController: UIViewController{
             save.setTitleTextAttributes(attributes, for: .normal)
             navigationItem.rightBarButtonItem = save
             
-            warningLabel.textColor = NicknameValidation.pass.messageColor
-            warningLabel.text = NicknameValidation.pass.rawValue
+            warningLabel.textColor = AppColor.passGreen
+            warningLabel.text = "사용할 수 있는 닉네임이에요."
             
         }else{
             doneButton.isHidden = false
@@ -192,76 +191,91 @@ extension ProfileNickNameViewController:UserDataDelegate{
 extension ProfileNickNameViewController:UITextFieldDelegate{
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
-        //숫자확인
-        guard Int(string) == nil else{
-            isNicknamePassed(message: .integer)
-            isActiveBarButton(false)
+        do {
+            let result = try validateNickname(textField, range: range, string: string)
+            warningLabel.text = "사용할 수 있는 닉네임이에요."
+            warningLabel.textColor = AppColor.passGreen
+            doneButton.backgroundColor = AppColor.primary
+            activeButton()
+            return result
             
+        } catch NicknameValidationError.lengthOver10 {
+            setErrorUI(.lengthOver10)
+            return false
+            
+        } catch NicknameValidationError.specialLetters {
+            setErrorUI(.specialLetters)
+            return false
+            
+        } catch NicknameValidationError.integer {
+            setErrorUI(.integer)
+            return false
+            
+        } catch NicknameValidationError.lengthUnder2 {
+            setErrorUI(.lengthOver10)
+            isActiveBarButton(false)
+            return true
+            
+        } catch{
+            return false
+        }
+        
+        
+
+    }
+    
+    
+    func validateNickname(_ textField: UITextField, range: NSRange, string: String) throws -> Bool{
+        guard Int(string) == nil else{
             //숫자가 지워지고 사용가능한 닉네임인 경우
             if textField.text!.count >=  2 && textField.text!.count < 10{
-                doneButton.isEnabled = true
-                doneButton.backgroundColor = AppColor.primary
-                isActiveBarButton(true)
+                activeButton()
             }
-            return false
+            throw NicknameValidationError.integer
         }
         
         //특수문자 확인
         if string == "@" || string == "#" || string == "$" || string == "%" {
-            isNicknamePassed(message: .specialLetters)
-            isActiveBarButton(false)
-            
-            //숫자가 지워지고 사용 가능한 닉네임인 경우
+            //특수문자가 지워지고 사용 가능한 닉네임인 경우
             if textField.text!.count >=  2 && textField.text!.count < 10{
-                doneButton.isEnabled = true
-                doneButton.backgroundColor = AppColor.primary
-                isActiveBarButton(true)
+                activeButton()
             }
-            return false
+            throw NicknameValidationError.specialLetters
         }
         
-        //글자의 길이 확인
         guard let text = textField.text else { return true }
         let newLength = text.count + string.count - range.length
         
         //2글자 미만
         if newLength < 2 {
-            isNicknamePassed(message: .length)
-            isActiveBarButton(false)
-            return true
+            print(newLength)
+            throw NicknameValidationError.lengthUnder2
         //10글자 이상
         }else if newLength >= 10 {
-            isNicknamePassed(message: .length)
-            isActiveBarButton(false)
-            
             //숫자가 지워지고 사용 가능한 닉네임인 경우
             if textField.text!.count < 10{
-                doneButton.isEnabled = true
-                doneButton.backgroundColor = AppColor.primary
-                isActiveBarButton(true)
+                activeButton()
             }
-            return false
+            throw NicknameValidationError.lengthOver10
         }
         
-        //전부 통과
-        isNicknamePassed(message: .pass)
-        doneButton.isEnabled = true
-        isActiveBarButton(true)
+        //통과
         return true
-        
     }
     
-    
-    private func isNicknamePassed(message:NicknameValidation){
-        warningLabel.text = message.rawValue
-        warningLabel.textColor = message.messageColor
-        if message == .pass{
-            doneButton.backgroundColor = AppColor.primary
-        }else{
-            doneButton.backgroundColor = AppColor.gray03
-        }
+    private func activeButton(){
+        doneButton.isEnabled = true
+        doneButton.backgroundColor = AppColor.primary
+        isActiveBarButton(true)
     }
-    
+
+    private func setErrorUI(_ error:NicknameValidationError){
+        warningLabel.text = error.message
+        warningLabel.textColor = AppColor.primary
+        doneButton.backgroundColor = AppColor.primary
+        doneButton.backgroundColor = AppColor.gray03
+
+    }
     
     private func isActiveBarButton(_ active:Bool){
         guard let barButton = navigationItem.rightBarButtonItem else { return }

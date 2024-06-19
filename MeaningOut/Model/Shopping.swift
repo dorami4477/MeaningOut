@@ -42,4 +42,5 @@ struct Item:Decodable{
         guard let priceInt = Int(lprice) else { return "0" }
         return priceInt.formatted() + "원"
     }
+    
 }

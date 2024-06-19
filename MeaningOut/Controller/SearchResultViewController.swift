@@ -48,10 +48,10 @@ final class SearchResultViewController: UIViewController {
         return label
     }()
     
-    private let filter01Button = FilterButton(title: FilterName.accuracy.rawValue)
+    private let filter01Button = FilterButton(title: FilterName.sim.rawValue)
     private let filter02Button = FilterButton(title: FilterName.date.rawValue)
-    private let filter03Button = FilterButton(title: FilterName.highest.rawValue)
-    private let filter04Button = FilterButton(title: FilterName.lowest.rawValue)
+    private let filter03Button = FilterButton(title: FilterName.dsc.rawValue)
+    private let filter04Button = FilterButton(title: FilterName.asc.rawValue)
     
     private lazy var filterButtons:[FilterButton] = [filter01Button, filter02Button, filter03Button, filter04Button]
     
@@ -75,6 +75,7 @@ final class SearchResultViewController: UIViewController {
         configureCollectionView()
         setfilterButton()
         Basic.setting(self, title: searchTerm)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -192,13 +193,13 @@ extension SearchResultViewController{
     @objc private func filterTapped(_ sender:FilterButton){
         switch sender{
         case filter01Button:
-            sort = "sim"
+            sort = "\(FilterName.sim)"
         case filter02Button:
-            sort = "date"
+            sort = "\(FilterName.date)"
         case filter03Button:
-            sort = "dsc"
+            sort = "\(FilterName.dsc)"
         case filter04Button:
-            sort = "asc"
+            sort = "\(FilterName.asc)"
         default:
             print("error")
         }

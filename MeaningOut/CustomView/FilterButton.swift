@@ -19,7 +19,7 @@ class FilterButton: UIButton {
         
         setTitle(title, for: .normal)
 
-        if title == FilterName.accuracy.rawValue{
+        if title == FilterName.sim.rawValue{
             updateButtonAppearance(true, title:title)
         }else{
             updateButtonAppearance(false, title:title)
