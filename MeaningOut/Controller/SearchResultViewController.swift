@@ -15,6 +15,8 @@ final class SearchResultViewController: UIViewController {
     private var sort = "sim"
     private var startNum = 1
     
+    let networkManager = NetworkManger.shared
+    
     var searhResult:Shopping?{
         didSet{
             resultCountLabel.text = searhResult!.total.formatted() + "개의 검색 결과"
@@ -71,10 +73,17 @@ final class SearchResultViewController: UIViewController {
         configureHierarchy()
         configureLayout()
         showSkeletonView()
-        callRequest()
         configureCollectionView()
         setfilterButton()
         Basic.setting(self, title: searchTerm)
+        networkManager.callRequest(searchTerm: searchTerm, sort: sort, startNum: startNum) { result in
+            switch result {
+            case .success(let value):
+                self.sucessNetwork(value)
+            case .failure :
+                let _ = ToastMessage(self, message: "네트워크 통신이 실패하였습니다.\n 잠시 후 다시 시도해주세요.")
+            }
+        }
         
     }
     
@@ -119,6 +128,23 @@ final class SearchResultViewController: UIViewController {
     }
 
     //네트워크
+    func sucessNetwork(_ value: Shopping){
+        if self.startNum == 1{
+            self.searhResult = value
+        }else{
+            self.searhResult?.items.append(contentsOf: value.items)
+        }
+    
+        self.collectionView.reloadData()
+        
+        if self.startNum == 1 && self.searhResult?.total != 0{
+            self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
+        }
+        //스켈레톤뷰 종료
+        self.collectionView.stopSkeletonAnimation()
+        self.collectionView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.5))
+    }
+    /*
     private func callRequest(){
         
         let url = "\(APIInfo.url)query=\(searchTerm)&sort=\(sort)&display=30&start=\(startNum)"
@@ -155,7 +181,7 @@ final class SearchResultViewController: UIViewController {
             }
         }
     }
-    
+    */
     
 }
 
@@ -186,7 +212,14 @@ extension SearchResultViewController{
         
         startNum = 1
         showSkeletonView()
-        callRequest()
+        networkManager.callRequest(searchTerm: searchTerm, sort: sort, startNum: startNum) { result in
+            switch result {
+            case .success(let value):
+                self.sucessNetwork(value)
+            case .failure :
+                let _ = ToastMessage(self, message: "네트워크 통신이 실패하였습니다.\n 잠시 후 다시 시도해주세요.")
+            }
+        }
         
         filterButtons.forEach {
             $0.updateButtonAppearance(false, title: $0.currentTitle!)
@@ -279,7 +312,14 @@ extension SearchResultViewController:UICollectionViewDataSourcePrefetching{
         for item in indexPaths{
             if searhResult.items.count - 2 == item.item && searhResult.total != startNum{
                 startNum += 30
-                callRequest()
+                networkManager.callRequest(searchTerm: searchTerm, sort: sort, startNum: startNum) { result in
+                    switch result {
+                    case .success(let value):
+                        self.sucessNetwork(value)
+                    case .failure :
+                        let _ = ToastMessage(self, message: "네트워크 통신이 실패하였습니다.\n 잠시 후 다시 시도해주세요.")
+                    }
+                }
             }
         }
     }

@@ -24,7 +24,7 @@ final class SettingViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        tableView.reloadRows(at: [IndexPath(row: 0, section: 0), IndexPath(row: 1, section: 0)], with: .none)
+        tableView.reloadData()
     }
     
     private func configureHierarchy(){
@@ -97,6 +97,11 @@ extension SettingViewController:UITableViewDelegate, UITableViewDataSource{
             
             profileVC.profileImgName = UserDefaultsManager.profileImage ?? ""
             navigationController?.pushViewController(profileVC, animated: true)
+            
+        }else if indexPath.row == 1{
+        //장바구니 목록 셀 클릭시
+            let basketList = BasketListViewController()
+            navigationController?.pushViewController(basketList, animated: true)
             
         }else if indexPath.row == 5{
          //탈퇴하기 셀 클릭시
