@@ -24,7 +24,7 @@
 		48C128A92C1AE9B900EA91F8 /* Contant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C128A82C1AE9B900EA91F8 /* Contant.swift */; };
 		48C128AD2C1AF35500EA91F8 /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C128AC2C1AF35500EA91F8 /* PrimaryButton.swift */; };
 		48C128B02C1AF9DF00EA91F8 /* ProfileNickNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C128AF2C1AF9DF00EA91F8 /* ProfileNickNameViewController.swift */; };
-		48C128B22C1AFA5D00EA91F8 /* ProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C128B12C1AFA5D00EA91F8 /* ProfileImageView.swift */; };
+		48C128B22C1AFA5D00EA91F8 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C128B12C1AFA5D00EA91F8 /* ProfileView.swift */; };
 		48C128B42C1B03DB00EA91F8 /* ProfileImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C128B32C1B03DB00EA91F8 /* ProfileImageViewController.swift */; };
 		48C128B62C1B339F00EA91F8 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C128B52C1B339F00EA91F8 /* MainViewController.swift */; };
 		48C128B82C1B3CD100EA91F8 /* ReusableIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C128B72C1B3CD100EA91F8 /* ReusableIdentifier.swift */; };
@@ -60,7 +60,7 @@
 		48C128A82C1AE9B900EA91F8 /* Contant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contant.swift; sourceTree = "<group>"; };
 		48C128AC2C1AF35500EA91F8 /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
 		48C128AF2C1AF9DF00EA91F8 /* ProfileNickNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNickNameViewController.swift; sourceTree = "<group>"; };
-		48C128B12C1AFA5D00EA91F8 /* ProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageView.swift; sourceTree = "<group>"; };
+		48C128B12C1AFA5D00EA91F8 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		48C128B32C1B03DB00EA91F8 /* ProfileImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageViewController.swift; sourceTree = "<group>"; };
 		48C128B52C1B339F00EA91F8 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		48C128B72C1B3CD100EA91F8 /* ReusableIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableIdentifier.swift; sourceTree = "<group>"; };
@@ -99,11 +99,19 @@
 			isa = PBXGroup;
 			children = (
 				48C128AC2C1AF35500EA91F8 /* PrimaryButton.swift */,
-				48C128B12C1AFA5D00EA91F8 /* ProfileImageView.swift */,
+				48C128B12C1AFA5D00EA91F8 /* ProfileView.swift */,
 				48C8240D2C1D2F4B00E505CF /* FilterButton.swift */,
 				4810051A2C22D74D00583FC7 /* ToastMessage.swift */,
 			);
 			path = CustomView;
+			sourceTree = "<group>";
+		};
+		48218CDB2C2940D5003ADF9A /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				48218CB12C25021A003ADF9A /* NetworkManger.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 		48C128782C1AE56300EA91F8 = {
@@ -126,6 +134,7 @@
 		48C128832C1AE56300EA91F8 /* MeaningOut */ = {
 			isa = PBXGroup;
 			children = (
+				48218CDB2C2940D5003ADF9A /* Network */,
 				48C8240A2C1C8DF400E505CF /* Model */,
 				48C128BB2C1B3D1300EA91F8 /* Cell */,
 				48C128AE2C1AF99900EA91F8 /* Controller */,
@@ -184,7 +193,6 @@
 			isa = PBXGroup;
 			children = (
 				48C8240B2C1C8E0A00E505CF /* Shopping.swift */,
-				48218CB12C25021A003ADF9A /* NetworkManger.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -277,7 +285,7 @@
 				48C128B42C1B03DB00EA91F8 /* ProfileImageViewController.swift in Sources */,
 				48C8240C2C1C8E0A00E505CF /* Shopping.swift in Sources */,
 				48C8241A2C1D974500E505CF /* SettingCell.swift in Sources */,
-				48C128B22C1AFA5D00EA91F8 /* ProfileImageView.swift in Sources */,
+				48C128B22C1AFA5D00EA91F8 /* ProfileView.swift in Sources */,
 				48C850652C1C61D3005F9CAF /* SettingViewController.swift in Sources */,
 				48C128892C1AE56300EA91F8 /* OnboardingViewController.swift in Sources */,
 				48C8505F2C1C580C005F9CAF /* UserDefaultsManager.swift in Sources */,

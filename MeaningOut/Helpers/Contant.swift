@@ -8,7 +8,7 @@
 import UIKit
 
 enum AppColor {
-    static let primary = UIColor(red: 0.94, green: 0.54, blue: 0.28, alpha: 1.00)
+    static let primary = UIColor(red: 0.73, green: 0.19, blue: 0.87, alpha: 1.00)
     static let black = UIColor(red: 0.00, green: 0.00, blue: 0.00, alpha: 1.00)
     static let gray01 = UIColor(red: 0.30, green: 0.30, blue: 0.30, alpha: 1.00)
     static let gray02 = UIColor(red: 0.51, green: 0.51, blue: 0.51, alpha: 1.00)

@@ -14,22 +14,7 @@ protocol UserDataDelegate:AnyObject {
 
 final class ProfileImageViewController: UIViewController {
 
-    private let profileView = UIView()
-    let profileImageView = ProfileImageView()
-    private let cameraView = {
-       let view = UIView()
-        view.backgroundColor = AppColor.primary
-        view.layer.cornerRadius = 14
-        view.clipsToBounds = true
-        return view
-    }()
-    private let cameraImageView = {
-        let img = UIImageView()
-        img.image = UIImage(systemName: "camera.fill")
-        img.tintColor = AppColor.white
-        img.contentMode = .scaleAspectFit
-        return img
-    }()
+    let profileView = ProfileView()
     
     private lazy var profileCollectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
     
@@ -55,8 +40,6 @@ final class ProfileImageViewController: UIViewController {
     
     private func configureHierarchy(){
         view.addSubview(profileView)
-        [profileImageView, cameraView].forEach{ profileView.addSubview($0) }
-        cameraView.addSubview(cameraImageView)
         view.addSubview(profileCollectionView)
     }
     private func configureLayout(){
@@ -65,17 +48,6 @@ final class ProfileImageViewController: UIViewController {
             make.centerX.equalTo(view.snp.centerX)
             make.width.height.equalTo(100)
         }
-        profileImageView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-        cameraView.snp.makeConstraints { make in
-            make.trailing.bottom.equalToSuperview()
-            make.width.height.equalTo(28)
-        }
-        cameraImageView.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(4)
-        }
-
         profileCollectionView.snp.makeConstraints { make in
             make.top.equalTo(profileView.snp.bottom).offset(30)
             make.horizontalEdges.equalToSuperview()
@@ -128,7 +100,7 @@ extension ProfileImageViewController:UICollectionViewDelegate, UICollectionViewD
         guard let selectedCell = collectionView.cellForItem(at: indexPath) as? ProfileImageCell else { return }
         selectedImg = profileImgNames[indexPath.row]
         selectedCell.isSelected(true)
-        profileImageView.image = selectedCell.mainImageView.image
+        profileView.profileImageView.image = selectedCell.mainImageView.image
 
     }
     

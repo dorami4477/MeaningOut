@@ -12,7 +12,7 @@ final class OnboardingViewController: UIViewController {
     
     private let titleLabel = {
         let label = UILabel()
-        label.text = "MeaningOut"
+        label.text = "FavoriteBOX"
         label.font = .systemFont(ofSize: 38, weight: .black)
         label.textColor = AppColor.primary
         label.textAlignment = .center

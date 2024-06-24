@@ -37,7 +37,7 @@ final class MainViewController: UIViewController {
         configureLayout()
         configureUI()
         configureTableView()
-        Basic.setting(self, title: UserDefaultsManager.nickName! + "'s MEANING OUT")
+        Basic.setting(self, title: UserDefaultsManager.nickName! + "'s FavoriteBOX")
     }
     
     // MARK: - viewWillAppear

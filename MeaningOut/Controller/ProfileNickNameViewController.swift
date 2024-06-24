@@ -11,22 +11,8 @@ final class ProfileNickNameViewController: UIViewController{
         
     var profileImgName = ""
     
-    private let profileView = UIView()
-    lazy var profileImageView = ProfileImageView()
-    private let cameraView = {
-       let view = UIView()
-        view.backgroundColor = AppColor.primary
-        view.layer.cornerRadius = 14
-        view.clipsToBounds = true
-        return view
-    }()
-    private let cameraImageView = {
-        let img = UIImageView()
-        img.image = UIImage(systemName: "camera.fill")
-        img.tintColor = AppColor.white
-        img.contentMode = .scaleAspectFit
-        return img
-    }()
+    let profileView = ProfileView()
+    
     let nicktextfield = {
         let tf = UITextField()
         tf.placeholder = "닉네임을 입력해주세요 :)"
@@ -62,8 +48,6 @@ final class ProfileNickNameViewController: UIViewController{
     
     private func configureHierarchy(){
         [profileView, nicktextfield, warningLabel, doneButton].forEach{ view.addSubview($0) }
-        [profileImageView, cameraView].forEach{ profileView.addSubview($0) }
-        cameraView.addSubview(cameraImageView)
     }
     
     private func configureLayout(){
@@ -72,18 +56,8 @@ final class ProfileNickNameViewController: UIViewController{
             make.centerX.equalTo(view.snp.centerX)
             make.width.height.equalTo(100)
         }
-        profileImageView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-        cameraView.snp.makeConstraints { make in
-            make.trailing.bottom.equalToSuperview()
-            make.width.height.equalTo(28)
-        }
-        cameraImageView.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(4)
-        }
         nicktextfield.snp.makeConstraints { make in
-            make.top.equalTo(profileImageView.snp.bottom).offset(30)
+            make.top.equalTo(profileView.snp.bottom).offset(30)
             make.horizontalEdges.equalToSuperview().inset(20)
         }
         warningLabel.snp.makeConstraints { make in
@@ -124,11 +98,11 @@ final class ProfileNickNameViewController: UIViewController{
     
     private func setProfileImg(){
         if profileImgName != ""{
-            profileImageView.image = UIImage(named: profileImgName)
+            profileView.profileImageView.image = UIImage(named: profileImgName)
         }else{
             let randomNum = Int.random(in: 0...11)
             profileImgName = "profile_\(randomNum)"
-            profileImageView.image = UIImage(named: profileImgName)
+            profileView.profileImageView.image = UIImage(named: profileImgName)
         }
     }
     
@@ -143,7 +117,7 @@ final class ProfileNickNameViewController: UIViewController{
     //프로필 이미지 클릭 시
     @objc private func profileViewTapped(_ sender: UITapGestureRecognizer) {
         let profileVC = ProfileImageViewController()
-        profileVC.profileImageView.image = UIImage(named: profileImgName)
+        profileVC.profileView.profileImageView.image = UIImage(named: profileImgName)
         profileVC.selectedImg = profileImgName
         
         profileVC.delegate = self
@@ -183,7 +157,7 @@ final class ProfileNickNameViewController: UIViewController{
 extension ProfileNickNameViewController:UserDataDelegate{
     func sendImageName(_ imageName:String) {
         profileImgName = imageName
-        profileImageView.image = UIImage(named: profileImgName)
+        profileView.profileImageView.image = UIImage(named: profileImgName)
     }
 }
 

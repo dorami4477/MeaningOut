@@ -37,7 +37,7 @@ class FilterButton: UIButton {
         config.buttonSize = .mini
         
         if isSelectedToggle {
-            config.baseBackgroundColor = AppColor.gray01
+            config.baseBackgroundColor = AppColor.primary
             config.baseForegroundColor = AppColor.white
         } else {
             config.baseBackgroundColor = AppColor.white

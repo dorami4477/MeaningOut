@@ -23,16 +23,10 @@
                                     <constraint firstAttribute="width" secondItem="73Z-2i-cXx" secondAttribute="height" multiplier="4:3" id="sUF-gx-ICd"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MeaningOut" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KwU-32-rAQ">
-                                <rect key="frame" x="30" y="205.33333333333334" width="333" height="45.666666666666657"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FavoriteBOX" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KwU-32-rAQ">
+                                <rect key="frame" x="30" y="205" width="333" height="46"/>
                                 <fontDescription key="fontDescription" type="system" weight="black" pointSize="38"/>
-                                <color key="textColor" red="0.93725490196078431" green="0.53725490196078429" blue="0.27843137254901962" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="박다현" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bc9-mh-Ggs">
-                                <rect key="frame" x="30" y="571" width="333" height="23"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
-                                <color key="textColor" red="0.93725490196078431" green="0.53725490196078429" blue="0.27843137254901962" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" red="0.73333333333333328" green="0.19215686274509802" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -40,13 +34,10 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="KwU-32-rAQ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="1K5-YP-6D4"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Bc9-mh-Ggs" secondAttribute="trailing" constant="30" id="5v0-kC-JSv"/>
                             <constraint firstItem="73Z-2i-cXx" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="9Er-5i-Mgb"/>
-                            <constraint firstItem="Bc9-mh-Ggs" firstAttribute="top" secondItem="73Z-2i-cXx" secondAttribute="bottom" constant="20" id="RU3-CC-aHE"/>
                             <constraint firstItem="73Z-2i-cXx" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="ri0-68-KAI"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="73Z-2i-cXx" secondAttribute="trailing" constant="30" id="u0b-ab-0GZ"/>
                             <constraint firstItem="73Z-2i-cXx" firstAttribute="top" secondItem="KwU-32-rAQ" secondAttribute="bottom" constant="50" id="xp8-NS-vNA"/>
-                            <constraint firstItem="Bc9-mh-Ggs" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="y4v-hf-Sj5"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="KwU-32-rAQ" secondAttribute="trailing" constant="30" id="zFW-Jd-0ST"/>
                         </constraints>
                     </view>
