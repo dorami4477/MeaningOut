@@ -105,9 +105,7 @@ extension SettingViewController:UITableViewDelegate, UITableViewDataSource{
             
         }else if indexPath.row == 5{
          //탈퇴하기 셀 클릭시
-            let alert = UIAlertController(title: "탈퇴하기", message: "탈퇴를 하면 데이터가 모두 초기화됩니다. 탈퇴 하시겠습니까?", preferredStyle: .alert)
-            
-            let confirm = UIAlertAction(title: "확인", style: .default){ _ in
+            showAlert(title: "탈퇴하기", message: "탈퇴를 하면 데이터가 모두 초기화됩니다. 탈퇴 하시겠습니까?", buttonTilte: "확인") { _ in
                 for key in UserDefaults.standard.dictionaryRepresentation().keys {
                     UserDefaults.standard.removeObject(forKey: key.description)
                 }
@@ -119,14 +117,8 @@ extension SettingViewController:UITableViewDelegate, UITableViewDataSource{
                 
                 sceneDelegate?.window?.rootViewController = rootViewController
                 sceneDelegate?.window?.makeKeyAndVisible()
-                
             }
-            let cancel = UIAlertAction(title: "취소", style: .cancel)
             
-            alert.addAction(cancel)
-            alert.addAction(confirm)
-            
-            present(alert, animated: true)
         }
     }
     
