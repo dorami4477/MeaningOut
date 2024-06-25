@@ -28,6 +28,8 @@ final class MainViewController: UIViewController {
     
     private let tableView = UITableView()
     
+    private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout())
+    
     var recentSearchTerms:[String] = UserDefaultsManager.searchTerms
     
     // MARK: - viewDidLoad
@@ -38,24 +40,28 @@ final class MainViewController: UIViewController {
         configureUI()
         configureTableView()
         Basic.setting(self, title: UserDefaultsManager.nickName! + "'s FavoriteBOX")
+        configureCollectionView()
     }
     
     // MARK: - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         
         if recentSearchTerms.count == 0{
-            tableView.isHidden = true
+            //tableView.isHidden = true
+            collectionView.isHidden = true
         }else{
-            tableView.isHidden = false
+            //tableView.isHidden = false
+            collectionView.isHidden = false
         }
-        tableView.reloadData()
+        //tableView.reloadData()
+        collectionView.reloadData()
     }
     
     
     private func configureHierarchy(){
         view.addSubview(emptyImg)
         view.addSubview(emptyLebel)
-        view.addSubview(tableView)
+      //  view.addSubview(tableView)
     }
     private func configureLayout(){
         emptyImg.snp.makeConstraints { make in
@@ -67,14 +73,14 @@ final class MainViewController: UIViewController {
             make.horizontalEdges.equalToSuperview()
             make.top.equalTo(emptyImg.snp.bottom).offset(10)
         }
-        tableView.snp.makeConstraints { make in
+      /*  tableView.snp.makeConstraints { make in
             make.edges.equalTo(view.safeAreaLayoutGuide)
-        }
+        }*/
     }
     
     private func configureUI(){
         view.backgroundColor = .white
-        navigationItem.title = UserDefaultsManager.nickName! + "'s MEANING OUT"
+        navigationItem.title = UserDefaultsManager.nickName! + "'s FovoriteBOX"
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         let searchCon = UISearchController(searchResultsController: nil)
         searchCon.searchBar.placeholder = "브랜드, 상품 등을 입력하세요."
@@ -111,12 +117,73 @@ final class MainViewController: UIViewController {
         recentSearchTerms.remove(at:sender.tag)
         UserDefaultsManager.searchTerms = recentSearchTerms
         if recentSearchTerms.count == 0{
-            tableView.isHidden = true
+            //tableView.isHidden = true
+            collectionView.isHidden = true
         }else{
-            tableView.reloadData()
+            //tableView.reloadData()
+            collectionView.reloadData()
         }
     }
+    
+    func configureCollectionView(){
+        view.addSubview(collectionView)
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.register(RecentSearchTermCell.self, forCellWithReuseIdentifier: RecentSearchTermCell.identifier)
+        collectionView.snp.makeConstraints { make in
+            make.edges.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+    }
 }
+
+extension MainViewController:UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecentSearchTermCell.identifier, for: indexPath) as? RecentSearchTermCell else {
+                    return .zero
+                }
+                cell.titleLabel.text = recentSearchTerms[indexPath.row]
+                cell.titleLabel.sizeToFit()
+                cell.deleteButton.sizeToFit()
+                
+                let cellWidth = cell.titleLabel.frame.width + cell.deleteButton.frame.width + 35
+
+                return CGSize(width: cellWidth, height: 55)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return recentSearchTerms.count
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecentSearchTermCell.identifier, for: indexPath) as! RecentSearchTermCell
+            cell.titleLabel.text = recentSearchTerms[indexPath.row]
+            cell.bubbleView.backgroundColor = AppColor.bubble.randomElement()
+            cell.deleteButton.tag = indexPath.row
+            cell.deleteButton.addTarget(self, action: #selector(deleteButtonClicked), for: .touchUpInside)
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let searchVC = SearchResultViewController()
+        searchVC.searchTerm = recentSearchTerms[indexPath.row]
+        navigationController?.pushViewController(searchVC, animated: true)
+    }
+    
+    func flowLayout() -> UICollectionViewLayout{
+        let layout = LeftAlignedCollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.minimumLineSpacing = 5
+        layout.minimumInteritemSpacing = 5
+        layout.sectionInset = UIEdgeInsets(top: 10, left: 30, bottom: 10, right: 30)
+        return layout
+    }
+    
+}
+
+
 
 // MARK: - TableView
 extension MainViewController:UITableViewDelegate, UITableViewDataSource{

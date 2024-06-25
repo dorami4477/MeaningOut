@@ -8,14 +8,16 @@
 import UIKit
 
 enum AppColor {
-    static let primary = UIColor(red: 0.73, green: 0.19, blue: 0.87, alpha: 1.00)
+    static let primary = UIColor(red: 0.51, green: 0.25, blue: 1.00, alpha: 1.00)
     static let black = UIColor(red: 0.00, green: 0.00, blue: 0.00, alpha: 1.00)
     static let gray01 = UIColor(red: 0.30, green: 0.30, blue: 0.30, alpha: 1.00)
     static let gray02 = UIColor(red: 0.51, green: 0.51, blue: 0.51, alpha: 1.00)
     static let gray03 = UIColor(red: 0.80, green: 0.80, blue: 0.80, alpha: 1.00)
     static let white = UIColor(red: 1.00, green: 1.00, blue: 1.00, alpha: 1.00)
     static let passGreen = UIColor(red: 0.29, green: 0.77, blue: 0.00, alpha: 1.00)
+    static let bubble:[UIColor] = [UIColor(red: 0.38, green: 0.00, blue: 0.67, alpha: 1.00), UIColor(red: 0.51, green: 0.25, blue: 1.00, alpha: 1.00), UIColor(red: 0.70, green: 0.29, blue: 0.84, alpha: 1.00), UIColor(red: 0.91, green: 0.37, blue: 0.51, alpha: 1.00), UIColor(red: 0.95, green: 0.65, blue: 0.19, alpha: 1.00)]
 }
+
 
 
 

@@ -144,44 +144,6 @@ final class SearchResultViewController: UIViewController {
         self.collectionView.stopSkeletonAnimation()
         self.collectionView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.5))
     }
-    /*
-    private func callRequest(){
-        
-        let url = "\(APIInfo.url)query=\(searchTerm)&sort=\(sort)&display=30&start=\(startNum)"
-        
-        let header:HTTPHeaders = ["X-Naver-Client-Id": APIInfo.clientId, "X-Naver-Client-Secret": APIInfo.clientSecret]
-        
-        
-        AF.request(url, method: .get, headers: header).responseDecodable(of: Shopping.self){ response in
-            switch response.result{
-            case .success(let value):
-                    
-                    if self.startNum == 1{
-                        self.searhResult = value
-                    }else{
-                        self.searhResult?.items.append(contentsOf: value.items)
-                    }
-                
-                    self.collectionView.reloadData()
-                    
-                    
-                    if self.startNum == 1 && self.searhResult?.total != 0{
-                        self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
-                        
-                    }
-                
-                    //스켈레톤뷰 종료
-                    self.collectionView.stopSkeletonAnimation()
-                    self.collectionView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.5))
-              
-                
-            case .failure(let error):
-                print(error)
-                let _ = ToastMessage.init(self, message: "네트워크 통신이 실패하였습니다.\n 잠시 후 다시 시도해주세요.")
-            }
-        }
-    }
-    */
     
 }
 
