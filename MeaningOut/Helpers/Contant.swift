@@ -62,14 +62,6 @@ enum IconName {
     static let person = "person"
 }
 
-enum Basic {
-    static func setting(_ viewController:UIViewController, title:String){
-        viewController.view.backgroundColor = .white
-        viewController.navigationController?.navigationBar.tintColor = .black
-        viewController.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
-        viewController.navigationItem.title = title
-    }
-}
 
 
 enum FilterName:String {

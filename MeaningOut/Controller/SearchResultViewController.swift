@@ -9,7 +9,7 @@ import UIKit
 import Alamofire
 import SkeletonView
 
-final class SearchResultViewController: UIViewController {
+final class SearchResultViewController: BaseViewController{
 
     var searchTerm = ""
     private var sort = "sim"
@@ -70,12 +70,10 @@ final class SearchResultViewController: UIViewController {
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureHierarchy()
-        configureLayout()
         showSkeletonView()
         configureCollectionView()
         setfilterButton()
-        Basic.setting(self, title: searchTerm)
+        navigationItem.title = searchTerm
         networkManager.callRequest(searchTerm: searchTerm, sort: sort, startNum: startNum) { result in
             switch result {
             case .success(let value):
@@ -92,12 +90,12 @@ final class SearchResultViewController: UIViewController {
     }
     
     
-    private func configureHierarchy(){
+    override func configureHierarchy(){
         [resultCountLabel, filterStackView, emptyImg, emptyLebel, collectionView ].forEach { view.addSubview($0) }
         [filter01Button, filter02Button, filter03Button,filter04Button ].forEach { filterStackView.addArrangedSubview($0) }
     }
     
-    private func configureLayout(){
+    override func configureLayout(){
         emptyImg.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview()
             make.centerY.equalTo(view.snp.centerY)

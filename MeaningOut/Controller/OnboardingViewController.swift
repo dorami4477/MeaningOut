@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class OnboardingViewController: UIViewController {
+final class OnboardingViewController: BaseViewController {
     
     private let titleLabel = {
         let label = UILabel()
@@ -29,9 +29,6 @@ final class OnboardingViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureHierarchy()
-        configureLayout()
-        configureUI()
         setButtonAction()
     }
     
@@ -40,13 +37,13 @@ final class OnboardingViewController: UIViewController {
         self.navigationController?.navigationBar.isHidden = true;
     }
     
-    private func configureHierarchy(){
+    override func configureHierarchy(){
         view.addSubview(mainImageView)
         view.addSubview(titleLabel)
         view.addSubview(startbutton)
     }
-    private func configureLayout(){
-
+    
+    override func configureLayout(){
         mainImageView.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(30)
             make.centerY.equalTo(view.snp.centerY)
@@ -61,10 +58,9 @@ final class OnboardingViewController: UIViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide).inset(20)
             make.height.equalTo(44)
         }
-        
     }
-    private func configureUI(){
-        view.backgroundColor = .white
+    
+    override func configureView(){
         self.navigationController?.navigationBar.isHidden = true;
     }
 

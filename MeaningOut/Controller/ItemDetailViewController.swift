@@ -8,7 +8,7 @@
 import UIKit
 import WebKit
 
-final class ItemDetailViewController: UIViewController {
+final class ItemDetailViewController: BaseViewController {
 
     private let webView = WKWebView()
     var data:Item?{
@@ -26,22 +26,17 @@ final class ItemDetailViewController: UIViewController {
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        configureHierarchy()
-        configureLayout()
         configureNavigationItem()
-
+        navigationItem.title = data?.titleBoldTag
     }
     
-    private func configureHierarchy(){
+    override func configureHierarchy(){
         view.addSubview(webView)
     }
-    private func configureLayout(){
+    override func configureLayout(){
         webView.snp.makeConstraints { make in
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
-        view.backgroundColor = .white
-        navigationItem.title = data?.titleBoldTag
     }
     
     private func configureNavigationItem(){

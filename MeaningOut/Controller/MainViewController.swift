@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class MainViewController: UIViewController {
+final class MainViewController: BaseViewController {
 
 
     private let emptyImg = {
@@ -35,17 +35,13 @@ final class MainViewController: UIViewController {
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureHierarchy()
-        configureLayout()
-        configureUI()
         configureTableView()
-        Basic.setting(self, title: UserDefaultsManager.nickName! + "'s FavoriteBOX")
         configureCollectionView()
     }
     
     // MARK: - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
-        
+        super.viewWillAppear(animated)
         if recentSearchTerms.count == 0{
             //tableView.isHidden = true
             collectionView.isHidden = true
@@ -58,12 +54,12 @@ final class MainViewController: UIViewController {
     }
     
     
-    private func configureHierarchy(){
+    override func configureHierarchy(){
         view.addSubview(emptyImg)
         view.addSubview(emptyLebel)
       //  view.addSubview(tableView)
     }
-    private func configureLayout(){
+    override func configureLayout(){
         emptyImg.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview()
             make.centerY.equalTo(view.snp.centerY)
@@ -78,13 +74,12 @@ final class MainViewController: UIViewController {
         }*/
     }
     
-    private func configureUI(){
-        view.backgroundColor = .white
-        navigationItem.title = UserDefaultsManager.nickName! + "'s FovoriteBOX"
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+    override func configureView(){
         let searchCon = UISearchController(searchResultsController: nil)
         searchCon.searchBar.placeholder = "브랜드, 상품 등을 입력하세요."
         self.navigationItem.searchController = searchCon
+        guard let name = UserDefaultsManager.nickName else { return }
+        navigationItem.title = "\(name)'s FavoriteBOX"
         self.navigationController?.navigationBar.shadowImage = nil
         searchCon.searchBar.delegate = self
     }

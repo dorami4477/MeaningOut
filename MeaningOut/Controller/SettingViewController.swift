@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class SettingViewController: UIViewController {
+final class SettingViewController: BaseViewController {
     
     private let tableView = UITableView()
     
@@ -16,9 +16,6 @@ final class SettingViewController: UIViewController {
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureHierarchy()
-        configureLayout()
-        configureUI()
         configureTableView()
     }
     
@@ -27,20 +24,18 @@ final class SettingViewController: UIViewController {
         tableView.reloadData()
     }
     
-    private func configureHierarchy(){
+    override func configureHierarchy(){
         view.addSubview(tableView)
     }
-    private func configureLayout(){
+    override func configureLayout(){
         tableView.snp.makeConstraints { make in
             make.verticalEdges.equalTo(view.safeAreaLayoutGuide)
             make.horizontalEdges.equalToSuperview().inset(20)
         }
     }
     
-    private func configureUI(){
-        view.backgroundColor = .white
+    override func configureView(){
         navigationItem.title = "SETTING"
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
     }
     
     private func configureTableView(){

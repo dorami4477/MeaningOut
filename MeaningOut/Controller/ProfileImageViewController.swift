@@ -12,7 +12,7 @@ protocol UserDataDelegate:AnyObject {
     func sendImageName(_ imageName: String)
 }
 
-final class ProfileImageViewController: UIViewController {
+final class ProfileImageViewController: BaseViewController {
 
     let profileView = ProfileView()
     
@@ -26,11 +26,7 @@ final class ProfileImageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureHierarchy()
-        configureLayout()
         setCollectionView()
-        Basic.setting(self, title: "PROFILE SETTING")
-        self.navigationController?.navigationBar.isHidden = false;
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -38,11 +34,12 @@ final class ProfileImageViewController: UIViewController {
         self.delegate?.sendImageName(selectedImg)
     }
     
-    private func configureHierarchy(){
+    override func configureHierarchy(){
         view.addSubview(profileView)
         view.addSubview(profileCollectionView)
     }
-    private func configureLayout(){
+    
+    override func configureLayout(){
         profileView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(30)
             make.centerX.equalTo(view.snp.centerX)
@@ -53,9 +50,12 @@ final class ProfileImageViewController: UIViewController {
             make.horizontalEdges.equalToSuperview()
             make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
-        
     }
 
+    override func configureView() {
+        navigationItem.title = "PROFILE SETTING"
+        self.navigationController?.navigationBar.isHidden = false;
+    }
 
     private func collectionViewLayout() -> UICollectionViewLayout{
         let flowLayout = UICollectionViewFlowLayout()

@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ProfileNickNameViewController: UIViewController{
+final class ProfileNickNameViewController: BaseViewController{
         
     var profileImgName = ""
     
@@ -27,13 +27,9 @@ final class ProfileNickNameViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureHierarchy()
-        configureLayout()
-        configureUI()
         configureTextField()
         setTapGesture()
         setProfileImg()
-        Basic.setting(self, title: "PROFILE SETTING")
     }
     
     override func viewDidLayoutSubviews() {
@@ -42,15 +38,14 @@ final class ProfileNickNameViewController: UIViewController{
         border.frame = CGRect(x: 0, y: nicktextfield.frame.size.height + 8, width: nicktextfield.frame.width, height: 1)
         border.backgroundColor = AppColor.gray03.cgColor
         nicktextfield.layer.addSublayer(border)
-        
     }
     
     
-    private func configureHierarchy(){
+    override func configureHierarchy(){
         [profileView, nicktextfield, warningLabel, doneButton].forEach{ view.addSubview($0) }
     }
     
-    private func configureLayout(){
+    override func configureLayout(){
         profileView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(30)
             make.centerX.equalTo(view.snp.centerX)
@@ -70,8 +65,9 @@ final class ProfileNickNameViewController: UIViewController{
             make.height.equalTo(44)
         }
     }
-    private func configureUI(){
+    override func configureView(){
         doneButton.isEnabled = false
+        navigationItem.title = "PROFILE SETTING"
         self.navigationController?.navigationBar.isHidden = false;
     }
     
