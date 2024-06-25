@@ -16,7 +16,7 @@ final class ItemDetailViewController: BaseViewController {
             favorite = UserDefaultsManager.favorite[data!.productId] ?? false
             configureWebView()
             if data == nil{
-                let _ = ToastMessage(self, message: "네트워크 통신이 실패하였습니다.\n 잠시 후 다시 시도해주세요.")
+                self.showToast(message: "네트워크 통신이 실패하였습니다.\n 잠시 후 다시 시도해주세요.")
             }
         }
     }
@@ -51,7 +51,8 @@ final class ItemDetailViewController: BaseViewController {
     }
     
     private func configureWebView(){
-        let url = URL(string: data!.link)!
+        guard let data else { return }
+        guard let url = URL(string: data.link) else { return }
         let request = URLRequest(url: url)
         webView.load(request)
     }

@@ -43,9 +43,15 @@ class RecentSearchTermCell: UICollectionViewCell {
         bubbleView.layer.cornerRadius = 20
         bubbleView.layer.masksToBounds = true
         titleLabel.textColor = AppColor.white
+        bubbleView.backgroundColor = AppColor.bubble.randomElement()
         
         deleteButton.setImage(UIImage(systemName: "trash"), for: .normal)
         deleteButton.tintColor = AppColor.white
+    }
+    
+    func setData(indexRow:Int, title:String){
+        titleLabel.text = title
+        deleteButton.tag = indexRow
     }
     
     required init?(coder: NSCoder) {

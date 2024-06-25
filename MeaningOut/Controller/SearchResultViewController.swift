@@ -79,7 +79,7 @@ final class SearchResultViewController: BaseViewController{
             case .success(let value):
                 self.sucessNetwork(value)
             case .failure :
-                let _ = ToastMessage(self, message: "네트워크 통신이 실패하였습니다.\n 잠시 후 다시 시도해주세요.")
+                self.showToast(message: "네트워크 통신이 실패하였습니다.\n 잠시 후 다시 시도해주세요.")
             }
         }
         
@@ -177,7 +177,7 @@ extension SearchResultViewController{
             case .success(let value):
                 self.sucessNetwork(value)
             case .failure :
-                let _ = ToastMessage(self, message: "네트워크 통신이 실패하였습니다.\n 잠시 후 다시 시도해주세요.")
+                self.showToast(message: "네트워크 통신이 실패하였습니다.\n 잠시 후 다시 시도해주세요.")
             }
         }
         
@@ -277,7 +277,7 @@ extension SearchResultViewController:UICollectionViewDataSourcePrefetching{
                     case .success(let value):
                         self.sucessNetwork(value)
                     case .failure :
-                        let _ = ToastMessage(self, message: "네트워크 통신이 실패하였습니다.\n 잠시 후 다시 시도해주세요.")
+                        self.showToast(message: "네트워크 통신이 실패하였습니다.\n 잠시 후 다시 시도해주세요.")
                     }
                 }
             }

@@ -51,6 +51,7 @@ final class SettingFirstCell: UITableViewCell {
     }
     
     override func prepareForReuse() {
+        super.prepareForReuse()
         mainImageView.image = UIImage(named: UserDefaultsManager.profileImage!)
         nickNameLabel.text = UserDefaultsManager.nickName
     }

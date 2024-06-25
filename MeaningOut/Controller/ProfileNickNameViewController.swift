@@ -11,9 +11,9 @@ final class ProfileNickNameViewController: BaseViewController{
         
     var profileImgName = ""
     
-    let profileView = ProfileView()
+    private let profileView = ProfileView()
     
-    let nicktextfield = {
+    private let nicktextfield = {
         let tf = UITextField()
         tf.placeholder = "닉네임을 입력해주세요 :)"
         return tf
@@ -195,7 +195,7 @@ extension ProfileNickNameViewController:UITextFieldDelegate{
     }
     
     
-    func validateNickname(_ textField: UITextField, range: NSRange, string: String) throws -> Bool{
+    private func validateNickname(_ textField: UITextField, range: NSRange, string: String) throws -> Bool{
         guard Int(string) == nil else{
             //숫자가 지워지고 사용가능한 닉네임인 경우
             if textField.text!.count >=  2 && textField.text!.count < 10{

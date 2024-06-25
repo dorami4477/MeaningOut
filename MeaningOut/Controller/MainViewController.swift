@@ -120,7 +120,7 @@ final class MainViewController: BaseViewController {
         }
     }
     
-    func configureCollectionView(){
+    private func configureCollectionView(){
         view.addSubview(collectionView)
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -154,9 +154,7 @@ extension MainViewController:UICollectionViewDelegate, UICollectionViewDataSourc
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecentSearchTermCell.identifier, for: indexPath) as! RecentSearchTermCell
-            cell.titleLabel.text = recentSearchTerms[indexPath.row]
-            cell.bubbleView.backgroundColor = AppColor.bubble.randomElement()
-            cell.deleteButton.tag = indexPath.row
+            cell.setData(indexRow: indexPath.row, title: recentSearchTerms[indexPath.row])
             cell.deleteButton.addTarget(self, action: #selector(deleteButtonClicked), for: .touchUpInside)
         return cell
     }

@@ -21,7 +21,7 @@ final class SettingViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        tableView.reloadData()
+        tableView.reloadRows(at: [IndexPath(row: 0, section: 0), IndexPath(row: 1, section: 0)], with: .none)
     }
     
     override func configureHierarchy(){
@@ -72,7 +72,7 @@ extension SettingViewController:UITableViewDelegate, UITableViewDataSource{
             return cell
             
         }else{
-            
+
             let cell = tableView.dequeueReusableCell(withIdentifier: SettingCell.identifier, for: indexPath) as! SettingCell
             cell.selectionStyle = .none
             cell.titleLabel.text = list[indexPath.row - 1]

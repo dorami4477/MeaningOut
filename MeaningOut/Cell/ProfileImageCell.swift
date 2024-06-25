@@ -58,6 +58,10 @@ final class ProfileImageCell: UICollectionViewCell {
         }
     }
     
+    func setMainImage(_ imageName:String){
+        mainImageView.image = UIImage(named: imageName)
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

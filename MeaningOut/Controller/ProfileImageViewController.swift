@@ -84,11 +84,10 @@ extension ProfileImageViewController:UICollectionViewDelegate, UICollectionViewD
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = profileCollectionView.dequeueReusableCell(withReuseIdentifier: ProfileImageCell.identifier, for: indexPath) as! ProfileImageCell
+        cell.setMainImage(profileImgNames[indexPath.row])
         if selectedImg == profileImgNames[indexPath.row]{
             cell.isSelected(true)
         }
-        
-        cell.mainImageView.image = UIImage(named: profileImgNames[indexPath.row])
         return cell
     }
     
