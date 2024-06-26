@@ -24,14 +24,14 @@ final class SettingFirstCell: UITableViewCell {
     
     let nickNameLabel = {
         let label = UILabel()
-        label.font = .boldSystemFont(ofSize: 16)
+        label.font = AppFont.size16Bold
         label.text = UserDefaultsManager.nickName
         return label
     }()
     
     let signupDateLabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 13)
+        label.font = AppFont.size13
         label.textColor = AppColor.gray02
         label.text = UserDefaultsManager.signUpDate
         return label

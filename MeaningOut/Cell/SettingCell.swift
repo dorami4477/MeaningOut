@@ -11,7 +11,7 @@ final class SettingCell: UITableViewCell {
 
     let titleLabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 14)
+        label.font = AppFont.size14
         return label
     }()
 
@@ -24,7 +24,7 @@ final class SettingCell: UITableViewCell {
     
     let favNumLabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 14)
+        label.font = AppFont.size14
         return label
     }()
     
@@ -38,9 +38,9 @@ final class SettingCell: UITableViewCell {
     func favoriteCounts(){
         let onlyTrue = UserDefaultsManager.favorite.filter { $1 == true }
         favNumLabel.text = onlyTrue.count.formatted() + "개의 상품"
-        
-        let attributedStr = NSMutableAttributedString(string: favNumLabel.text!)
-        attributedStr.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 14), range: (favNumLabel.text! as NSString).range(of: onlyTrue.count.formatted() + "개"))
+        guard let labelText = favNumLabel.text else { return }
+        let attributedStr = NSMutableAttributedString(string: labelText)
+        attributedStr.addAttribute(.font, value: AppFont.size14Bold, range: (labelText as NSString).range(of: onlyTrue.count.formatted() + "개"))
         favNumLabel.attributedText = attributedStr
     }
     

@@ -8,8 +8,29 @@
 import UIKit
 import SnapKit
 
-final class MainViewController: BaseViewController {
+enum NicknameValidationError:Error{
+    case lengthOver10
+    case specialLetters
+    case integer
+    case lengthUnder2
+    
+    var message:String{
+        switch self {
+        case .lengthOver10:
+            return "2글자 이상 10글자 미만으로 설정해주세요."
+        case .specialLetters:
+            return "닉네임에 @, #, $, % 는 포함할 수 없어요."
+        case .integer:
+            return "닉네임에 숫자는 포함 할 수 없어요."
+        case .lengthUnder2:
+            return "2글자 이상 10글자 미만으로 설정해주세요."
+        }
 
+    }
+}
+
+
+final class MainViewController: BaseViewController {
 
     private let emptyImg = {
         let imageView = UIImageView()
@@ -20,7 +41,7 @@ final class MainViewController: BaseViewController {
     
     private let emptyLebel = {
         let label = UILabel()
-        label.font = .boldSystemFont(ofSize: 16)
+        label.font = AppFont.size16Bold 
         label.textAlignment = .center
         label.text = "최근 검색어가 없어요."
         return label

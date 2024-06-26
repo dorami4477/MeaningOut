@@ -18,30 +18,16 @@ enum AppColor {
     static let bubble:[UIColor] = [UIColor(red: 0.38, green: 0.00, blue: 0.67, alpha: 1.00), UIColor(red: 0.51, green: 0.25, blue: 1.00, alpha: 1.00), UIColor(red: 0.70, green: 0.29, blue: 0.84, alpha: 1.00), UIColor(red: 0.91, green: 0.37, blue: 0.51, alpha: 1.00), UIColor(red: 0.95, green: 0.65, blue: 0.19, alpha: 1.00)]
 }
 
-
-
-
-enum NicknameValidationError:Error{
-    case lengthOver10
-    case specialLetters
-    case integer
-    case lengthUnder2
-    
-    var message:String{
-        switch self {
-        case .lengthOver10:
-            return "2글자 이상 10글자 미만으로 설정해주세요."
-        case .specialLetters:
-            return "닉네임에 @, #, $, % 는 포함할 수 없어요."
-        case .integer:
-            return "닉네임에 숫자는 포함 할 수 없어요."
-        case .lengthUnder2:
-            return "2글자 이상 10글자 미만으로 설정해주세요."
-        }
-
-    }
+enum AppFont{
+    static let size13 = UIFont.systemFont(ofSize: 13)
+    static let size13Bold = UIFont.boldSystemFont(ofSize: 13)
+    static let size14 = UIFont.systemFont(ofSize: 14)
+    static let size14Bold = UIFont.boldSystemFont(ofSize: 14)
+    static let size15 = UIFont.systemFont(ofSize: 15)
+    static let size15Bold = UIFont.boldSystemFont(ofSize: 15)
+    static let size16 = UIFont.systemFont(ofSize: 16)
+    static let size16Bold = UIFont.boldSystemFont(ofSize: 16)
 }
-
 
 
 enum ProfileCell {
@@ -61,7 +47,6 @@ enum IconName {
     static let search = "magnifyingglass"
     static let person = "person"
 }
-
 
 
 enum FilterName:String {

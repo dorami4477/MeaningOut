@@ -13,7 +13,7 @@ class PrimaryButton: UIButton {
         super.init(frame: .zero)
         setTitle(title, for: .normal)
         setTitleColor(AppColor.white, for: .normal)
-        titleLabel?.font = UIFont.systemFont(ofSize: 15)
+        titleLabel?.font = AppFont.size15
         layer.cornerRadius = 20
         clipsToBounds = true
         

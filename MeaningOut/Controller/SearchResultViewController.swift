@@ -19,8 +19,9 @@ final class SearchResultViewController: BaseViewController{
     
     var searhResult:Shopping?{
         didSet{
-            resultCountLabel.text = searhResult!.total.formatted() + "개의 검색 결과"
-            if searhResult!.total == 0{
+            guard let searhResult else { return }
+            resultCountLabel.text = searhResult.total.formatted() + "개의 검색 결과"
+            if searhResult.total == 0{
                 collectionView.isHidden = true
             }else{
                 collectionView.isHidden = false
@@ -37,7 +38,7 @@ final class SearchResultViewController: BaseViewController{
     
     private let emptyLebel = {
         let label = UILabel()
-        label.font = .boldSystemFont(ofSize: 16)
+        label.font = AppFont.size16Bold
         label.textAlignment = .center
         label.text = "찾으시는 상품이 없습니다."
         return label
@@ -46,7 +47,7 @@ final class SearchResultViewController: BaseViewController{
     private let resultCountLabel = {
         let label = UILabel()
         label.textColor = AppColor.primary
-        label.font = .boldSystemFont(ofSize: 13)
+        label.font = AppFont.size13Bold 
         return label
     }()
     

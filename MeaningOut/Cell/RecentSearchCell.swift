@@ -17,7 +17,7 @@ final class RecentSearchCell: UITableViewCell {
     }()
     let titleLabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 14)
+        label.font = AppFont.size14
         return label
     }()
     

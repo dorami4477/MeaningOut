@@ -38,7 +38,7 @@ class BaseViewController: UIViewController {
             let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 100, y: self.view.frame.size.height-200, width: 200, height: 65))
             toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
             toastLabel.textColor = UIColor.white
-            toastLabel.font = UIFont.systemFont(ofSize: 14.0)
+            toastLabel.font = AppFont.size14
             toastLabel.textAlignment = .center;
             toastLabel.text = message
             toastLabel.alpha = 1.0
@@ -52,4 +52,13 @@ class BaseViewController: UIViewController {
             })
         }
     
+    func changeRootVC(_ viewController:UIViewController){
+        let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+        let sceneDelegate = windowScene?.delegate as? SceneDelegate
+        
+        sceneDelegate?.window?.rootViewController = viewController
+        sceneDelegate?.window?.makeKeyAndVisible()
+    }
+    
 }
+

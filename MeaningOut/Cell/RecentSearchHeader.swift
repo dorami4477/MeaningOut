@@ -11,7 +11,7 @@ final class RecentSearchHeader: UITableViewHeaderFooterView {
 
     let titleLabel = {
         let label = UILabel()
-        label.font = .boldSystemFont(ofSize: 15)
+        label.font = AppFont.size15Bold
         label.text = "최근 검색"
         return label
     }()
@@ -20,7 +20,7 @@ final class RecentSearchHeader: UITableViewHeaderFooterView {
         let button = UIButton()
         button.setTitle("전체 삭제", for: .normal)
         button.setTitleColor(AppColor.primary, for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 13)
+        button.titleLabel?.font = AppFont.size13
         return button
     }()
     

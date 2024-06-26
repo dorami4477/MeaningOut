@@ -61,8 +61,8 @@ final class ItemDetailViewController: BaseViewController {
     @objc private func favButtonTapped(){
         favorite.toggle()
         configureNavigationItem()
-        
-        UserDefaultsManager.favorite[data!.productId] = favorite
+        guard let data else { return }
+        UserDefaultsManager.favorite[data.productId] = favorite
     }
 
 }

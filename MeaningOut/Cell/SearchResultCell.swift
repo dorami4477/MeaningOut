@@ -39,21 +39,21 @@ final class SearchResultCell: UICollectionViewCell {
     
     let mallNameLabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 13)
+        label.font = AppFont.size13
         label.textColor = AppColor.gray03
         return label
     }()
     
     let titleLabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 14)
+        label.font = AppFont.size14
         label.numberOfLines = 2
         return label
     }()
     
     let priceLabel = {
         let label = UILabel()
-        label.font = .boldSystemFont(ofSize: 16)
+        label.font = AppFont.size16Bold
         return label
     }()
     
@@ -120,7 +120,8 @@ final class SearchResultCell: UICollectionViewCell {
     @objc private func favButtonTapped(){
         favorite.toggle()
         setFavoriteUI()
-        UserDefaultsManager.favorite[data!.productId] = favorite
+        guard let data else { return }
+        UserDefaultsManager.favorite[data.productId] = favorite
     }
     
     private func setFavoriteUI(){
@@ -143,14 +144,14 @@ final class SearchResultCell: UICollectionViewCell {
         let attributedStr = NSMutableAttributedString(string: mallText)
         attributedStr.addAttribute(.backgroundColor, value: UIColor.yellow, range: (mallText.lowercased() as NSString).range(of: text.lowercased()))
         attributedStr.addAttribute(.foregroundColor, value: UIColor.black, range: (mallText.lowercased() as NSString).range(of: text.lowercased()))
-        attributedStr.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 13), range: (mallText.lowercased() as NSString).range(of: text.lowercased()))
+        attributedStr.addAttribute(.font, value: AppFont.size13Bold, range: (mallText.lowercased() as NSString).range(of: text.lowercased()))
         mallNameLabel.attributedText = attributedStr
         
         guard let titleText = titleLabel.text else { return }
         let attributedStr2 = NSMutableAttributedString(string: titleText)
         attributedStr2.addAttribute(.backgroundColor, value: UIColor.yellow, range: (titleText.lowercased() as NSString).range(of: text.lowercased()))
         attributedStr2.addAttribute(.foregroundColor, value: UIColor.black, range: (titleText.lowercased() as NSString).range(of: text.lowercased()))
-        attributedStr2.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 14), range: (titleText.lowercased() as NSString).range(of: text.lowercased()))
+        attributedStr2.addAttribute(.font, value: AppFont.size14Bold, range: (titleText.lowercased() as NSString).range(of: text.lowercased()))
         titleLabel.attributedText = attributedStr2
     }
     

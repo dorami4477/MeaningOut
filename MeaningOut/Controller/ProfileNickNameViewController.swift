@@ -20,7 +20,7 @@ final class ProfileNickNameViewController: BaseViewController{
     }()
     private let warningLabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 13)
+        label.font = AppFont.size13
         return label
     }()
     private let doneButton = PrimaryButton(title: "완료", active: false)
@@ -80,7 +80,7 @@ final class ProfileNickNameViewController: BaseViewController{
             
             let save = UIBarButtonItem(title:"저장", style: .plain, target: self, action: #selector(doneButtonTapped(_:)))
             save.tintColor = AppColor.black
-            let attributes: [NSAttributedString.Key : Any] = [ .font: UIFont.boldSystemFont(ofSize: 16) ]
+            let attributes: [NSAttributedString.Key : Any] = [ .font: AppFont.size16Bold ]
             save.setTitleTextAttributes(attributes, for: .normal)
             navigationItem.rightBarButtonItem = save
             
@@ -134,15 +134,7 @@ final class ProfileNickNameViewController: BaseViewController{
         }else{
             
             UserDefaultsManager.signUpDate = Date().formatted()
-            
-            let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
-            let sceneDelegate = windowScene?.delegate as? SceneDelegate
-            
-            let rootViewController = TabBarController()
-            
-            
-            sceneDelegate?.window?.rootViewController = rootViewController
-            sceneDelegate?.window?.makeKeyAndVisible()
+            changeRootVC(TabBarController())
         }
     }
 
@@ -252,14 +244,14 @@ extension ProfileNickNameViewController:UITextFieldDelegate{
         if active{
             barButton.isEnabled = true
             barButton.tintColor = AppColor.black
-            let attributes: [NSAttributedString.Key : Any] = [ .font: UIFont.boldSystemFont(ofSize: 16) ]
+            let attributes: [NSAttributedString.Key : Any] = [ .font: AppFont.size16Bold ]
             barButton.setTitleTextAttributes(attributes, for: .normal)
             navigationItem.rightBarButtonItem = barButton
             
         }else{
             barButton.isEnabled = false
             barButton.tintColor = AppColor.gray02
-            let attributes: [NSAttributedString.Key : Any] = [ .font: UIFont.systemFont(ofSize: 16) ]
+            let attributes: [NSAttributedString.Key : Any] = [ .font: AppFont.size16 ]
             barButton.setTitleTextAttributes(attributes, for: .normal)
             navigationItem.rightBarButtonItem = barButton
         }
