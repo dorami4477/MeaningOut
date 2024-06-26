@@ -25,6 +25,7 @@ final class OnboardingView:BaseView{
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
+    
     let startbutton = PrimaryButton(title: "시작하기", active: true)
     
     override init(frame: CGRect) {

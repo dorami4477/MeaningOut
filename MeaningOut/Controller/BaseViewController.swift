@@ -14,12 +14,9 @@ class BaseViewController: UIViewController {
         view.backgroundColor = .white
         navigationController?.navigationBar.tintColor = .black
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
-        configureHierarchy()
-        configureLayout()
         configureView()
     }
-    func configureHierarchy(){}
-    func configureLayout(){}
+
     func configureView(){}
     
     func showAlert(title:String, message:String, buttonTilte:String, completionHandler:@escaping (UIAlertAction) -> Void){

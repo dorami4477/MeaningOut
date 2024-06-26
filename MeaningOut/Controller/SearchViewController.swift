@@ -43,10 +43,10 @@ final class SearchViewController: BaseViewController {
         let searchCon = UISearchController(searchResultsController: nil)
         searchCon.searchBar.placeholder = "브랜드, 상품 등을 입력하세요."
         self.navigationItem.searchController = searchCon
-        guard let name = UserDefaultsManager.nickName else { return }
-        navigationItem.title = "\(name)'s FavoriteBOX"
         self.navigationController?.navigationBar.shadowImage = nil
         searchCon.searchBar.delegate = self
+        guard let name = UserDefaultsManager.nickName else { return }
+        navigationItem.title = "\(name)'s FavoriteBOX"
     }
     
     //*** 컬렉션 전체 삭제 버튼 만들기
@@ -148,11 +148,12 @@ extension SearchViewController:UITableViewDelegate, UITableViewDataSource{
 // MARK: - SearchBar
 extension SearchViewController:UISearchBarDelegate{
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        let searchVC = SearchResultViewController()
+        print("엔터")
+        let searchResultVC = SearchResultViewController()
         guard let text = searchBar.text else { return }
-        
+        print(text)
         if !text.trimmingCharacters(in: .whitespaces).isEmpty{
-            searchVC.searchTerm = text
+            searchResultVC.searchTerm = text
             
             //중복된 값 제거
             if let index = recentSearchTerms.firstIndex(where:{ $0 == text }){
@@ -162,9 +163,9 @@ extension SearchViewController:UISearchBarDelegate{
             recentSearchTerms.insert(text, at:0)
             UserDefaultsManager.searchTerms = recentSearchTerms
             
-            navigationController?.pushViewController(searchVC, animated: true)
+            navigationController?.pushViewController(searchResultVC, animated: true)
             searchBar.text = ""
+            
         }
     }
-    
 }

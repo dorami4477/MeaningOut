@@ -13,11 +13,9 @@ final class ItemDetailViewController: BaseViewController {
     private let webView = WKWebView()
     var data:Item?{
         didSet{
-            favorite = UserDefaultsManager.favorite[data!.productId] ?? false
+            guard let data else { return }
+            favorite = UserDefaultsManager.favorite[data.productId] ?? false
             configureWebView()
-            if data == nil{
-                self.showToast(message: "네트워크 통신이 실패하였습니다.\n 잠시 후 다시 시도해주세요.")
-            }
         }
     }
 
@@ -26,14 +24,16 @@ final class ItemDetailViewController: BaseViewController {
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureHierarchy()
+        configureLayout()
         configureNavigationItem()
         navigationItem.title = data?.titleBoldTag
     }
     
-    override func configureHierarchy(){
+    func configureHierarchy(){
         view.addSubview(webView)
     }
-    override func configureLayout(){
+    func configureLayout(){
         webView.snp.makeConstraints { make in
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
@@ -51,8 +51,14 @@ final class ItemDetailViewController: BaseViewController {
     }
     
     private func configureWebView(){
-        guard let data else { return }
-        guard let url = URL(string: data.link) else { return }
+        guard let data else {
+            self.showToast(message: "네트워크 통신이 실패하였습니다.\n 잠시 후 다시 시도해주세요.")
+            return
+        }
+        guard let url = URL(string: data.link) else {
+            self.showToast(message: "해당 상품의 경로가 더 이상 유효하지 않습니다.")
+            return
+        }
         let request = URLRequest(url: url)
         webView.load(request)
     }

@@ -26,6 +26,8 @@ final class ProfileImageViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureHierarchy()
+        configureLayout()
         setCollectionView()
     }
 
@@ -34,12 +36,12 @@ final class ProfileImageViewController: BaseViewController {
         self.delegate?.sendImageName(selectedImg)
     }
     
-    override func configureHierarchy(){
+    func configureHierarchy(){
         view.addSubview(profileView)
         view.addSubview(profileCollectionView)
     }
     
-    override func configureLayout(){
+    func configureLayout(){
         profileView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(30)
             make.centerX.equalTo(view.snp.centerX)

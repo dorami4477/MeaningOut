@@ -123,17 +123,10 @@
 		48218CDB2C2940D5003ADF9A /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				48C128A52C1AE86B00EA91F8 /* APIKey.swift */,
 				48218CB12C25021A003ADF9A /* NetworkManger.swift */,
 			);
 			path = Network;
-			sourceTree = "<group>";
-		};
-		48218CDE2C294F24003ADF9A /* Extension */ = {
-			isa = PBXGroup;
-			children = (
-				48C128B72C1B3CD100EA91F8 /* ReusableIdentifier.swift */,
-			);
-			path = Extension;
 			sourceTree = "<group>";
 		};
 		48C128782C1AE56300EA91F8 = {
@@ -156,7 +149,6 @@
 		48C128832C1AE56300EA91F8 /* MeaningOut */ = {
 			isa = PBXGroup;
 			children = (
-				48218CDE2C294F24003ADF9A /* Extension */,
 				48218CDB2C2940D5003ADF9A /* Network */,
 				48C8240A2C1C8DF400E505CF /* Model */,
 				48C128BB2C1B3D1300EA91F8 /* Cell */,
@@ -169,7 +161,6 @@
 				48C1288D2C1AE56400EA91F8 /* Assets.xcassets */,
 				48C1288F2C1AE56400EA91F8 /* LaunchScreen.storyboard */,
 				48C128922C1AE56400EA91F8 /* Info.plist */,
-				48C128A52C1AE86B00EA91F8 /* APIKey.swift */,
 			);
 			path = MeaningOut;
 			sourceTree = "<group>";
@@ -177,6 +168,7 @@
 		48C128A72C1AE97B00EA91F8 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				48C128B72C1B3CD100EA91F8 /* ReusableIdentifier.swift */,
 				482BAF2F2C2AD0B1006E6B41 /* CollectionViewFlowLayout.swift */,
 				48C128A82C1AE9B900EA91F8 /* DesignSystem.swift */,
 				48C8505E2C1C580C005F9CAF /* UserDefaultsManager.swift */,

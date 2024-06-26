@@ -110,7 +110,7 @@ final class SearchResultCell: UICollectionViewCell {
     private func configureData(){
         guard let data else { return }
         let url = URL(string: data.image)
-        mainImageView.kf.setImage(with: url)
+        mainImageView.kf.setImage(with: url, placeholder: UIImage(named: "placeHolder"))
         titleLabel.text = data.titleBoldTag
         mallNameLabel.text = data.mallName
         priceLabel.text = data.price

@@ -16,6 +16,8 @@ final class SettingViewController: BaseViewController {
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureHierarchy()
+        configureLayout()
         configureTableView()
     }
     
@@ -24,10 +26,10 @@ final class SettingViewController: BaseViewController {
         tableView.reloadRows(at: [IndexPath(row: 0, section: 0), IndexPath(row: 1, section: 0)], with: .none)
     }
     
-    override func configureHierarchy(){
+    func configureHierarchy(){
         view.addSubview(tableView)
     }
-    override func configureLayout(){
+    func configureLayout(){
         tableView.snp.makeConstraints { make in
             make.verticalEdges.equalTo(view.safeAreaLayoutGuide)
             make.horizontalEdges.equalToSuperview().inset(20)
