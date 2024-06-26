@@ -7,25 +7,38 @@
 
 import Foundation
 
+
+@propertyWrapper
+struct UserDefault<T>{
+    
+    let key:String
+    let defaultValue: T
+    
+    var wrappedValue: T{
+        get{UserDefaults.standard.object(forKey: key) as? T ?? self.defaultValue }
+        set{UserDefaults.standard.setValue(newValue, forKey: key)}
+    }
+    
+    init(key: String, defaultValue: T) {
+        self.key = key
+        self.defaultValue = defaultValue
+    }
+}
+
 enum UserDefaultsManager{
     
-    static var profileImage:String?{
-        get{
-          return  UserDefaults.standard.string(forKey: "profileImage")
-        }
-        set{
-            UserDefaults.standard.setValue(newValue, forKey: "profileImage")
-        }
-    }
+    @UserDefault(key: "profileImage", defaultValue: nil)
+    static var profileImage:String?
     
-    static var nickName:String?{
-        get{
-          return  UserDefaults.standard.string(forKey: "nickName")
-        }
-        set{
-            UserDefaults.standard.setValue(newValue, forKey: "nickName")
-        }
-    }
+    @UserDefault(key: "nickName", defaultValue: nil)
+    static var nickName:String?
+    
+    @UserDefault(key: "searchTerms", defaultValue: [])
+    static var searchTerms:Array<String>
+    
+    @UserDefault(key: "favorite", defaultValue: [:])
+    static var favorite:Dictionary<String, Bool>
+    
     
     static var signUpDate:String{
         get{
@@ -36,7 +49,7 @@ enum UserDefaultsManager{
             let formatter = DateFormatter()
             formatter.dateFormat = stringFormat
             formatter.locale = Locale(identifier: "ko")
-            guard let tempDate = formatter.date(from: newValue) else { return}
+            guard let tempDate = formatter.date(from: newValue) else { return }
             formatter.dateFormat = "yyyy. MM. dd 가입"
             
             let newDate = formatter.string(from: tempDate)
@@ -45,24 +58,5 @@ enum UserDefaultsManager{
             UserDefaults.standard.setValue(newDate, forKey: "signUpDate")
         }
     }
-    
-    static var searchTerms:Array<String>{
-        get{
-            guard let terms = UserDefaults.standard.array(forKey: "searchTerms") as? [String] else { return []}
-            return terms
-        }
-        set{
-            UserDefaults.standard.setValue(newValue, forKey: "searchTerms")
-        }
-    }
-    
-    static var favorite:Dictionary<String, Bool>{
-        get{
-            guard let fav = UserDefaults.standard.dictionary(forKey: "favorite") as? [String : Bool] else { return [:]}
-            return fav
-        }
-        set{
-            UserDefaults.standard.setValue(newValue, forKey: "favorite")
-        }
-    }
 }
+
