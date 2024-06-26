@@ -10,23 +10,12 @@ import SnapKit
 
 final class OnboardingViewController: BaseViewController {
     
-    private let titleLabel = {
-        let label = UILabel()
-        label.text = "FavoriteBOX"
-        label.font = .systemFont(ofSize: 38, weight: .black)
-        label.textColor = AppColor.primary
-        label.textAlignment = .center
-        return label
-    }()
+    private let mainView = OnboardingView()
     
-    private let mainImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "launch")
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
-    private let startbutton = PrimaryButton(title: "시작하기", active: true)
-
+    override func loadView() {
+        view = mainView
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setButtonAction()
@@ -37,35 +26,12 @@ final class OnboardingViewController: BaseViewController {
         self.navigationController?.navigationBar.isHidden = true;
     }
     
-    override func configureHierarchy(){
-        view.addSubview(mainImageView)
-        view.addSubview(titleLabel)
-        view.addSubview(startbutton)
-    }
-    
-    override func configureLayout(){
-        mainImageView.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview().inset(30)
-            make.centerY.equalTo(view.snp.centerY)
-            make.height.equalTo(mainImageView.snp.width).multipliedBy(0.75)
-        }
-        titleLabel.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview().inset(30)
-            make.bottom.equalTo(mainImageView.snp.top).offset(-50)
-        }
-        startbutton.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview().inset(20)
-            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(20)
-            make.height.equalTo(44)
-        }
-    }
-    
     override func configureView(){
         self.navigationController?.navigationBar.isHidden = true;
     }
 
     private func setButtonAction(){
-        startbutton.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
+        mainView.startbutton.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
     }
     
     @objc private func startButtonTapped(){

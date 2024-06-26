@@ -11,6 +11,8 @@ import SkeletonView
 
 final class SearchResultViewController: BaseViewController{
 
+    private let mainView = SearchResultView()
+    
     var searchTerm = ""
     private var sort = "sim"
     private var startNum = 1
@@ -20,53 +22,18 @@ final class SearchResultViewController: BaseViewController{
     var searhResult:Shopping?{
         didSet{
             guard let searhResult else { return }
-            resultCountLabel.text = searhResult.total.formatted() + "개의 검색 결과"
+            mainView.resultCountLabel.text = searhResult.total.formatted() + "개의 검색 결과"
             if searhResult.total == 0{
-                collectionView.isHidden = true
+                mainView.collectionView.isHidden = true
             }else{
-                collectionView.isHidden = false
+                mainView.collectionView.isHidden = false
             }
         }
     }
     
-    private let emptyImg = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "empty")
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
-    
-    private let emptyLebel = {
-        let label = UILabel()
-        label.font = AppFont.size16Bold
-        label.textAlignment = .center
-        label.text = "찾으시는 상품이 없습니다."
-        return label
-    }()
-    
-    private let resultCountLabel = {
-        let label = UILabel()
-        label.textColor = AppColor.primary
-        label.font = AppFont.size13Bold 
-        return label
-    }()
-    
-    private let filter01Button = FilterButton(title: FilterName.sim.rawValue)
-    private let filter02Button = FilterButton(title: FilterName.date.rawValue)
-    private let filter03Button = FilterButton(title: FilterName.dsc.rawValue)
-    private let filter04Button = FilterButton(title: FilterName.asc.rawValue)
-    
-    private lazy var filterButtons:[FilterButton] = [filter01Button, filter02Button, filter03Button, filter04Button]
-    
-    private lazy var filterStackView = {
-        let sv = UIStackView()
-        sv.axis = .horizontal
-        sv.spacing = 10
-        sv.alignment = .leading
-        return sv
-    }()
-    
-    private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
+    override func loadView() {
+        view = mainView
+    }
     
     // MARK: - viewDidLoad
     override func viewDidLoad() {
@@ -87,43 +54,16 @@ final class SearchResultViewController: BaseViewController{
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        collectionView.reloadData()
+        mainView.collectionView.reloadData()
     }
     
     
-    override func configureHierarchy(){
-        [resultCountLabel, filterStackView, emptyImg, emptyLebel, collectionView ].forEach { view.addSubview($0) }
-        [filter01Button, filter02Button, filter03Button,filter04Button ].forEach { filterStackView.addArrangedSubview($0) }
-    }
-    
-    override func configureLayout(){
-        emptyImg.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview()
-            make.centerY.equalTo(view.snp.centerY)
-            make.height.equalTo(emptyImg.snp.width).multipliedBy(0.75)
-        }
-        emptyLebel.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview()
-            make.top.equalTo(emptyImg.snp.bottom).offset(10)
-        }
-        
-        resultCountLabel.snp.makeConstraints { make in
-            make.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(20)
-        }
-        filterStackView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20)
-            make.top.equalTo(resultCountLabel.snp.bottom).offset(10)
-        }
-        collectionView.snp.makeConstraints { make in
-            make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
-            make.top.equalTo(filterStackView.snp.bottom).offset(10)
-        }
-    }
+
     
 
     private func showSkeletonView(){
-        collectionView.isSkeletonable = true
-        collectionView.showAnimatedGradientSkeleton()
+        mainView.collectionView.isSkeletonable = true
+        mainView.collectionView.showAnimatedGradientSkeleton()
     }
 
     //네트워크
@@ -134,14 +74,14 @@ final class SearchResultViewController: BaseViewController{
             self.searhResult?.items.append(contentsOf: value.items)
         }
     
-        self.collectionView.reloadData()
+        self.mainView.collectionView.reloadData()
         
         if self.startNum == 1 && self.searhResult?.total != 0{
-            self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
+            self.mainView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
         }
         //스켈레톤뷰 종료
-        self.collectionView.stopSkeletonAnimation()
-        self.collectionView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.5))
+        self.mainView.collectionView.stopSkeletonAnimation()
+        self.mainView.collectionView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.5))
     }
     
 }
@@ -151,7 +91,7 @@ final class SearchResultViewController: BaseViewController{
 extension SearchResultViewController{
     
     private func setfilterButton(){
-        filterButtons.forEach {
+        mainView.filterButtons.forEach {
             $0.addTarget(self, action: #selector(filterTapped(_:)), for: .touchUpInside)
         }
     }
@@ -159,13 +99,13 @@ extension SearchResultViewController{
     //필터 액션
     @objc private func filterTapped(_ sender:FilterButton){
         switch sender{
-        case filter01Button:
+        case mainView.filter01Button:
             sort = "\(FilterName.sim)"
-        case filter02Button:
+        case mainView.filter02Button:
             sort = "\(FilterName.date)"
-        case filter03Button:
+        case mainView.filter03Button:
             sort = "\(FilterName.dsc)"
-        case filter04Button:
+        case mainView.filter04Button:
             sort = "\(FilterName.asc)"
         default:
             print("error")
@@ -182,7 +122,7 @@ extension SearchResultViewController{
             }
         }
         
-        filterButtons.forEach {
+        mainView.filterButtons.forEach {
             $0.updateButtonAppearance(false, title: $0.currentTitle!)
         }
         sender.updateButtonAppearance(true, title: sender.currentTitle!)
@@ -194,23 +134,13 @@ extension SearchResultViewController{
 // MARK: - CollectionView Setting
 extension SearchResultViewController{
     private func configureCollectionView(){
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.prefetchDataSource = self
-        collectionView.register(SearchResultCell.self, forCellWithReuseIdentifier: SearchResultCell.identifier)
+        mainView.collectionView.delegate = self
+        mainView.collectionView.dataSource = self
+        mainView.collectionView.prefetchDataSource = self
+        mainView.collectionView.register(SearchResultCell.self, forCellWithReuseIdentifier: SearchResultCell.identifier)
     }
     
-    //컬렉션뷰 레이아웃
-    private func collectionViewLayout() -> UICollectionViewLayout{
-        let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.scrollDirection = .vertical
-        let collectionCellWidth = (UIScreen.main.bounds.width - ShoppingCell.spacingWidth * (ShoppingCell.cellColumns + 1)) / ShoppingCell.cellColumns
-        flowLayout.itemSize = CGSize(width: collectionCellWidth, height: collectionCellWidth * 1.7)
-        flowLayout.minimumLineSpacing = ShoppingCell.spacingWidth
-        flowLayout.minimumInteritemSpacing = ShoppingCell.spacingWidth
-        flowLayout.sectionInset = UIEdgeInsets(top: 0, left: ShoppingCell.spacingWidth, bottom: 0, right: ShoppingCell.spacingWidth)
-        return flowLayout
-    }
+
 }
 
 // MARK: - CollectionView + skeleton Delegate

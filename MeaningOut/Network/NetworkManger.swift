@@ -10,7 +10,6 @@ import Alamofire
 
 
 
-
 class NetworkManger{
     
     static let shared = NetworkManger()
@@ -22,7 +21,9 @@ class NetworkManger{
         
         let header:HTTPHeaders = ["X-Naver-Client-Id": APIInfo.clientId, "X-Naver-Client-Secret": APIInfo.clientSecret]
                 
-        AF.request(url, method: .get, headers: header).responseDecodable(of: Shopping.self){ response in
+        AF.request(url, method: .get, headers: header)
+            .validate(statusCode: 200..<500)
+            .responseDecodable(of: Shopping.self){ response in
             switch response.result{
             case .success(let value):
                 compeltion(.success(value))

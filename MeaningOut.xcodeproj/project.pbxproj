@@ -28,7 +28,7 @@
 		48C128B02C1AF9DF00EA91F8 /* ProfileNickNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C128AF2C1AF9DF00EA91F8 /* ProfileNickNameViewController.swift */; };
 		48C128B22C1AFA5D00EA91F8 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C128B12C1AFA5D00EA91F8 /* ProfileView.swift */; };
 		48C128B42C1B03DB00EA91F8 /* ProfileImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C128B32C1B03DB00EA91F8 /* ProfileImageViewController.swift */; };
-		48C128B62C1B339F00EA91F8 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C128B52C1B339F00EA91F8 /* MainViewController.swift */; };
+		48C128B62C1B339F00EA91F8 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C128B52C1B339F00EA91F8 /* SearchViewController.swift */; };
 		48C128B82C1B3CD100EA91F8 /* ReusableIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C128B72C1B3CD100EA91F8 /* ReusableIdentifier.swift */; };
 		48C128BA2C1B3D0A00EA91F8 /* ProfileImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C128B92C1B3D0A00EA91F8 /* ProfileImageCell.swift */; };
 		48C824052C1C781A00E505CF /* RecentSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C824042C1C781A00E505CF /* RecentSearchCell.swift */; };
@@ -44,6 +44,11 @@
 		48C8505F2C1C580C005F9CAF /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C8505E2C1C580C005F9CAF /* UserDefaultsManager.swift */; };
 		48C850612C1C60B1005F9CAF /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C850602C1C60B1005F9CAF /* TabBarController.swift */; };
 		48C850652C1C61D3005F9CAF /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C850642C1C61D3005F9CAF /* SettingViewController.swift */; };
+		48CC98432C2C02F4003CA962 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CC98422C2C02F4003CA962 /* BaseView.swift */; };
+		48CC98452C2C033D003CA962 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CC98442C2C033D003CA962 /* OnboardingView.swift */; };
+		48CC984A2C2C04AA003CA962 /* ProfileNickNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CC98492C2C04AA003CA962 /* ProfileNickNameView.swift */; };
+		48CC984C2C2C0A95003CA962 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CC984B2C2C0A95003CA962 /* SearchView.swift */; };
+		48CC984E2C2C0CA9003CA962 /* SearchResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CC984D2C2C0CA9003CA962 /* SearchResultView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,7 +71,7 @@
 		48C128AF2C1AF9DF00EA91F8 /* ProfileNickNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNickNameViewController.swift; sourceTree = "<group>"; };
 		48C128B12C1AFA5D00EA91F8 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		48C128B32C1B03DB00EA91F8 /* ProfileImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageViewController.swift; sourceTree = "<group>"; };
-		48C128B52C1B339F00EA91F8 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		48C128B52C1B339F00EA91F8 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		48C128B72C1B3CD100EA91F8 /* ReusableIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableIdentifier.swift; sourceTree = "<group>"; };
 		48C128B92C1B3D0A00EA91F8 /* ProfileImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageCell.swift; sourceTree = "<group>"; };
 		48C824042C1C781A00E505CF /* RecentSearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchCell.swift; sourceTree = "<group>"; };
@@ -81,6 +86,11 @@
 		48C8505E2C1C580C005F9CAF /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		48C850602C1C60B1005F9CAF /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		48C850642C1C61D3005F9CAF /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		48CC98422C2C02F4003CA962 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
+		48CC98442C2C033D003CA962 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		48CC98492C2C04AA003CA962 /* ProfileNickNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNickNameView.swift; sourceTree = "<group>"; };
+		48CC984B2C2C0A95003CA962 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		48CC984D2C2C0CA9003CA962 /* SearchResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,7 +115,7 @@
 				48C128AC2C1AF35500EA91F8 /* PrimaryButton.swift */,
 				48C128B12C1AFA5D00EA91F8 /* ProfileView.swift */,
 				48C8240D2C1D2F4B00E505CF /* FilterButton.swift */,
-				482BAF2F2C2AD0B1006E6B41 /* CollectionViewFlowLayout.swift */,
+				48CC98422C2C02F4003CA962 /* BaseView.swift */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -151,6 +161,7 @@
 				48C8240A2C1C8DF400E505CF /* Model */,
 				48C128BB2C1B3D1300EA91F8 /* Cell */,
 				48C128AE2C1AF99900EA91F8 /* Controller */,
+				48CC98482C2C0453003CA962 /* Views */,
 				481004BF2C1EEA7100583FC7 /* CustomView */,
 				48C128A72C1AE97B00EA91F8 /* Helpers */,
 				48C128842C1AE56300EA91F8 /* AppDelegate.swift */,
@@ -166,6 +177,7 @@
 		48C128A72C1AE97B00EA91F8 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				482BAF2F2C2AD0B1006E6B41 /* CollectionViewFlowLayout.swift */,
 				48C128A82C1AE9B900EA91F8 /* DesignSystem.swift */,
 				48C8505E2C1C580C005F9CAF /* UserDefaultsManager.swift */,
 			);
@@ -178,7 +190,7 @@
 				48C128882C1AE56300EA91F8 /* OnboardingViewController.swift */,
 				48C128AF2C1AF9DF00EA91F8 /* ProfileNickNameViewController.swift */,
 				48C128B32C1B03DB00EA91F8 /* ProfileImageViewController.swift */,
-				48C128B52C1B339F00EA91F8 /* MainViewController.swift */,
+				48C128B52C1B339F00EA91F8 /* SearchViewController.swift */,
 				48C824082C1C899000E505CF /* SearchResultViewController.swift */,
 				48C824152C1D817100E505CF /* ItemDetailViewController.swift */,
 				48C850642C1C61D3005F9CAF /* SettingViewController.swift */,
@@ -209,6 +221,17 @@
 				48C8240B2C1C8E0A00E505CF /* Shopping.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		48CC98482C2C0453003CA962 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				48CC98442C2C033D003CA962 /* OnboardingView.swift */,
+				48CC98492C2C04AA003CA962 /* ProfileNickNameView.swift */,
+				48CC984B2C2C0A95003CA962 /* SearchView.swift */,
+				48CC984D2C2C0CA9003CA962 /* SearchResultView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -302,9 +325,11 @@
 				48C8241A2C1D974500E505CF /* SettingCell.swift in Sources */,
 				482BAF322C2AD2EA006E6B41 /* BaseViewController.swift in Sources */,
 				48C128B22C1AFA5D00EA91F8 /* ProfileView.swift in Sources */,
+				48CC984A2C2C04AA003CA962 /* ProfileNickNameView.swift in Sources */,
 				48C850652C1C61D3005F9CAF /* SettingViewController.swift in Sources */,
 				48C128892C1AE56300EA91F8 /* OnboardingViewController.swift in Sources */,
 				48C8505F2C1C580C005F9CAF /* UserDefaultsManager.swift in Sources */,
+				48CC984C2C2C0A95003CA962 /* SearchView.swift in Sources */,
 				48218D232C29B7A6003ADF9A /* RecentSearchTermCell.swift in Sources */,
 				48C850612C1C60B1005F9CAF /* TabBarController.swift in Sources */,
 				48C824112C1D34ED00E505CF /* SearchResultCell.swift in Sources */,
@@ -316,15 +341,18 @@
 				48C128852C1AE56300EA91F8 /* AppDelegate.swift in Sources */,
 				48C128A62C1AE86B00EA91F8 /* APIKey.swift in Sources */,
 				48C128B82C1B3CD100EA91F8 /* ReusableIdentifier.swift in Sources */,
+				48CC98452C2C033D003CA962 /* OnboardingView.swift in Sources */,
 				48C824072C1C7AE600E505CF /* RecentSearchHeader.swift in Sources */,
 				481005192C22D53F00583FC7 /* BasketListViewController.swift in Sources */,
 				48C824052C1C781A00E505CF /* RecentSearchCell.swift in Sources */,
 				48C128B02C1AF9DF00EA91F8 /* ProfileNickNameViewController.swift in Sources */,
 				48C824182C1D95A500E505CF /* SettingFirstCell.swift in Sources */,
 				48C128872C1AE56300EA91F8 /* SceneDelegate.swift in Sources */,
+				48CC984E2C2C0CA9003CA962 /* SearchResultView.swift in Sources */,
 				48218CB22C25021A003ADF9A /* NetworkManger.swift in Sources */,
+				48CC98432C2C02F4003CA962 /* BaseView.swift in Sources */,
 				48C824092C1C899000E505CF /* SearchResultViewController.swift in Sources */,
-				48C128B62C1B339F00EA91F8 /* MainViewController.swift in Sources */,
+				48C128B62C1B339F00EA91F8 /* SearchViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

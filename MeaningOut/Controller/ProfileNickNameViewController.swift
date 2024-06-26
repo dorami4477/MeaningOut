@@ -7,76 +7,56 @@
 
 import UIKit
 
+enum NicknameValidationError:Error{
+    case lengthOver10
+    case specialLetters
+    case integer
+    case lengthUnder2
+    
+    var message:String{
+        switch self {
+        case .lengthOver10:
+            return "2글자 이상 10글자 미만으로 설정해주세요."
+        case .specialLetters:
+            return "닉네임에 @, #, $, % 는 포함할 수 없어요."
+        case .integer:
+            return "닉네임에 숫자는 포함 할 수 없어요."
+        case .lengthUnder2:
+            return "2글자 이상 10글자 미만으로 설정해주세요."
+        }
+
+    }
+}
+
 final class ProfileNickNameViewController: BaseViewController{
         
+    private let mainView = ProfileNickNameView()
+    
     var profileImgName = ""
     
-    private let profileView = ProfileView()
-    
-    private let nicktextfield = {
-        let tf = UITextField()
-        tf.placeholder = "닉네임을 입력해주세요 :)"
-        return tf
-    }()
-    private let warningLabel = {
-        let label = UILabel()
-        label.font = AppFont.size13
-        return label
-    }()
-    private let doneButton = PrimaryButton(title: "완료", active: false)
+    override func loadView() {
+        view = mainView
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureTextField()
+        configureUI()
         setTapGesture()
         setProfileImg()
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        let border = CALayer()
-        border.frame = CGRect(x: 0, y: nicktextfield.frame.size.height + 8, width: nicktextfield.frame.width, height: 1)
-        border.backgroundColor = AppColor.gray03.cgColor
-        nicktextfield.layer.addSublayer(border)
-    }
-    
-    
-    override func configureHierarchy(){
-        [profileView, nicktextfield, warningLabel, doneButton].forEach{ view.addSubview($0) }
-    }
-    
-    override func configureLayout(){
-        profileView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(30)
-            make.centerX.equalTo(view.snp.centerX)
-            make.width.height.equalTo(100)
-        }
-        nicktextfield.snp.makeConstraints { make in
-            make.top.equalTo(profileView.snp.bottom).offset(30)
-            make.horizontalEdges.equalToSuperview().inset(20)
-        }
-        warningLabel.snp.makeConstraints { make in
-            make.top.equalTo(nicktextfield.snp.bottom).offset(16)
-            make.horizontalEdges.equalToSuperview().inset(20)
-        }
-        doneButton.snp.makeConstraints { make in
-            make.top.equalTo(warningLabel.snp.bottom).offset(30)
-            make.horizontalEdges.equalToSuperview().inset(20)
-            make.height.equalTo(44)
-        }
-    }
     override func configureView(){
-        doneButton.isEnabled = false
         navigationItem.title = "PROFILE SETTING"
-        self.navigationController?.navigationBar.isHidden = false;
+        self.navigationController?.navigationBar.isHidden = false
+        mainView.nicktextfield.delegate = self
     }
     
-    private func configureTextField(){
-        nicktextfield.delegate = self
+    //화면경로 다른 UI 분기처리
+    private func configureUI(){
         if let nickName = UserDefaultsManager.nickName{
-            
-            nicktextfield.text = nickName
-            doneButton.isHidden = true
+            //프로필수정으로 들어온 사용자
+            mainView.nicktextfield.text = nickName
+            mainView.doneButton.isHidden = true
             
             let save = UIBarButtonItem(title:"저장", style: .plain, target: self, action: #selector(doneButtonTapped(_:)))
             save.tintColor = AppColor.black
@@ -84,30 +64,31 @@ final class ProfileNickNameViewController: BaseViewController{
             save.setTitleTextAttributes(attributes, for: .normal)
             navigationItem.rightBarButtonItem = save
             
-            warningLabel.textColor = AppColor.passGreen
-            warningLabel.text = "사용할 수 있는 닉네임이에요."
+            mainView.warningLabel.textColor = AppColor.passGreen
+            mainView.warningLabel.text = "사용할 수 있는 닉네임이에요."
             
         }else{
-            doneButton.isHidden = false
+            //첫이용자
+            mainView.doneButton.isHidden = false
         }
     }
     
     private func setProfileImg(){
         if profileImgName != ""{
-            profileView.profileImageView.image = UIImage(named: profileImgName)
+            mainView.profileView.profileImageView.image = UIImage(named: profileImgName)
         }else{
             let randomNum = Int.random(in: 0...11)
             profileImgName = "profile_\(randomNum)"
-            profileView.profileImageView.image = UIImage(named: profileImgName)
+            mainView.profileView.profileImageView.image = UIImage(named: profileImgName)
         }
     }
     
     //탭 제스쳐 세팅
     private func setTapGesture(){
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(profileViewTapped(_:)))
-        profileView.addGestureRecognizer(tapGestureRecognizer)
+        mainView.profileView.addGestureRecognizer(tapGestureRecognizer)
         
-        doneButton.addTarget(self, action: #selector(doneButtonTapped(_:)), for: .touchUpInside)
+        mainView.doneButton.addTarget(self, action: #selector(doneButtonTapped(_:)), for: .touchUpInside)
     }
     
     //프로필 이미지 클릭 시
@@ -123,16 +104,17 @@ final class ProfileNickNameViewController: BaseViewController{
     //Done or Save 버튼 클릭 시
     @objc private func doneButtonTapped(_ sender: Any) {
         
-        guard let text = nicktextfield.text else { return }
+        guard let text = mainView.nicktextfield.text else { return }
         UserDefaultsManager.nickName = text
         UserDefaultsManager.profileImage = profileImgName
         
-        // save버튼 done버튼 분기
+        
         if let _ = sender as? UIBarButtonItem{
-                navigationController?.popViewController(animated: true)
+            //save버튼 클릭시
+            navigationController?.popViewController(animated: true)
             
         }else{
-            
+            //Done 버튼 클릭시
             UserDefaultsManager.signUpDate = Date().formatted()
             changeRootVC(TabBarController())
         }
@@ -145,7 +127,7 @@ final class ProfileNickNameViewController: BaseViewController{
 extension ProfileNickNameViewController:UserDataDelegate{
     func sendImageName(_ imageName:String) {
         profileImgName = imageName
-        profileView.profileImageView.image = UIImage(named: profileImgName)
+        mainView.profileView.profileImageView.image = UIImage(named: profileImgName)
     }
 }
 
@@ -155,34 +137,34 @@ extension ProfileNickNameViewController:UITextFieldDelegate{
         
         do {
             let result = try validateNickname(textField, range: range, string: string)
-            warningLabel.text = "사용할 수 있는 닉네임이에요."
-            warningLabel.textColor = AppColor.passGreen
-            doneButton.backgroundColor = AppColor.primary
-            activeButton()
+            mainView.warningLabel.text = "사용할 수 있는 닉네임이에요."
+            mainView.warningLabel.textColor = AppColor.passGreen
+            mainView.doneButton.backgroundColor = AppColor.primary
+            mainView.activeButton()
+            isActiveBarButton(true)
             return result
             
         } catch NicknameValidationError.lengthOver10 {
-            setErrorUI(.lengthOver10)
+            mainView.setErrorUI(.lengthOver10)
             return false
             
         } catch NicknameValidationError.specialLetters {
-            setErrorUI(.specialLetters)
+            mainView.setErrorUI(.specialLetters)
             return false
             
         } catch NicknameValidationError.integer {
-            setErrorUI(.integer)
+            mainView.setErrorUI(.integer)
             return false
             
         } catch NicknameValidationError.lengthUnder2 {
-            setErrorUI(.lengthOver10)
+            mainView.setErrorUI(.lengthOver10)
             isActiveBarButton(false)
             return true
             
         } catch{
             return false
         }
-        
-        
+
 
     }
     
@@ -191,7 +173,8 @@ extension ProfileNickNameViewController:UITextFieldDelegate{
         guard Int(string) == nil else{
             //숫자가 지워지고 사용가능한 닉네임인 경우
             if textField.text!.count >=  2 && textField.text!.count < 10{
-                activeButton()
+                mainView.activeButton()
+                isActiveBarButton(true)
             }
             throw NicknameValidationError.integer
         }
@@ -200,7 +183,8 @@ extension ProfileNickNameViewController:UITextFieldDelegate{
         if string == "@" || string == "#" || string == "$" || string == "%" {
             //특수문자가 지워지고 사용 가능한 닉네임인 경우
             if textField.text!.count >=  2 && textField.text!.count < 10{
-                activeButton()
+                mainView.activeButton()
+                isActiveBarButton(true)
             }
             throw NicknameValidationError.specialLetters
         }
@@ -215,7 +199,8 @@ extension ProfileNickNameViewController:UITextFieldDelegate{
         }else if newLength >= 10 {
             //숫자가 지워지고 사용 가능한 닉네임인 경우
             if textField.text!.count < 10{
-                activeButton()
+                mainView.activeButton()
+                isActiveBarButton(true)
             }
             throw NicknameValidationError.lengthOver10
         }
@@ -224,19 +209,7 @@ extension ProfileNickNameViewController:UITextFieldDelegate{
         return true
     }
     
-    private func activeButton(){
-        doneButton.isEnabled = true
-        doneButton.backgroundColor = AppColor.primary
-        isActiveBarButton(true)
-    }
 
-    private func setErrorUI(_ error:NicknameValidationError){
-        warningLabel.text = error.message
-        warningLabel.textColor = AppColor.primary
-        doneButton.backgroundColor = AppColor.primary
-        doneButton.backgroundColor = AppColor.gray03
-
-    }
     
     private func isActiveBarButton(_ active:Bool){
         guard let barButton = navigationItem.rightBarButtonItem else { return }
