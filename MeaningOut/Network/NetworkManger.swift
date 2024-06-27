@@ -14,14 +14,15 @@ class NetworkManger{
     
     static let shared = NetworkManger()
     private init(){}
+    
+    
+    func callRequest(api:ShoppingAPI, compeltion: @escaping (Result<Shopping, Error>) -> Void){
 
-    func callRequest(searchTerm:String, sort:String, startNum:Int, compeltion: @escaping (Result<Shopping, Error>) -> Void){
-        
-        let url = "\(APIInfo.url)query=\(searchTerm)&sort=\(sort)&display=30&start=\(startNum)"
-        
-        let header:HTTPHeaders = ["X-Naver-Client-Id": APIInfo.clientId, "X-Naver-Client-Secret": APIInfo.clientSecret]
-                
-        AF.request(url, method: .get, headers: header)
+        AF.request(api.endPoint,
+                   method: api.method,
+                   parameters: api.parameter,
+                   encoding: URLEncoding(destination: .queryString),
+                   headers: api.header)
             .validate(statusCode: 200..<500)
             .responseDecodable(of: Shopping.self){ response in
             switch response.result{
@@ -35,5 +36,4 @@ class NetworkManger{
         }
     }
 }
-
 

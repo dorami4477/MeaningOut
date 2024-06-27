@@ -14,8 +14,8 @@ final class SearchResultViewController: BaseViewController{
     private let mainView = SearchResultView()
     
     var searchTerm = ""
-    private var sort = "sim"
     private var startNum = 1
+    private lazy var sort:ShoppingAPI = .sim(searchTerm: searchTerm, start: startNum)
     
     let networkManager = NetworkManger.shared
     
@@ -42,7 +42,7 @@ final class SearchResultViewController: BaseViewController{
         configureCollectionView()
         setfilterButton()
         navigationItem.title = searchTerm
-        networkManager.callRequest(searchTerm: searchTerm, sort: sort, startNum: startNum) { result in
+        networkManager.callRequest(api: sort){ result in
             switch result {
             case .success(let value):
                 self.sucessNetwork(value)
@@ -98,22 +98,22 @@ extension SearchResultViewController{
     
     //필터 액션
     @objc private func filterTapped(_ sender:FilterButton){
+
         switch sender{
         case mainView.filter01Button:
-            sort = "\(FilterName.sim)"
+            sort = .sim(searchTerm: searchTerm, start: 1)
         case mainView.filter02Button:
-            sort = "\(FilterName.date)"
+            sort = .date(searchTerm: searchTerm, start: 1)
         case mainView.filter03Button:
-            sort = "\(FilterName.dsc)"
+            sort = .dsc(searchTerm: searchTerm, start: 1)
         case mainView.filter04Button:
-            sort = "\(FilterName.asc)"
+            sort = .asc(searchTerm: searchTerm, start: 1)
         default:
             print("error")
         }
         
-        startNum = 1
         showSkeletonView()
-        networkManager.callRequest(searchTerm: searchTerm, sort: sort, startNum: startNum) { result in
+        networkManager.callRequest(api: sort) { result in
             switch result {
             case .success(let value):
                 self.sucessNetwork(value)
@@ -203,7 +203,7 @@ extension SearchResultViewController:UICollectionViewDataSourcePrefetching{
         for item in indexPaths{
             if searhResult.items.count - 2 == item.item && searhResult.total != startNum{
                 startNum += 30
-                networkManager.callRequest(searchTerm: searchTerm, sort: sort, startNum: startNum) { result in
+                networkManager.callRequest(api: sort){ result in
                     switch result {
                     case .success(let value):
                         self.sucessNetwork(value)
