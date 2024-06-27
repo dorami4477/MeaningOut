@@ -102,7 +102,7 @@ extension SettingViewController:UITableViewDelegate, UITableViewDataSource{
             
         }else if indexPath.row == 5{
          //탈퇴하기 셀 클릭시
-            showAlert(title: "탈퇴하기", message: "탈퇴를 하면 데이터가 모두 초기화됩니다. 탈퇴 하시겠습니까?", buttonTilte: "확인") { _ in
+            showAlert(title: "탈퇴하기", message: "탈퇴를 하면 데이터가 모두 초기화됩니다. 탈퇴 하시겠습니까?", buttonTilte: "탈퇴") { _ in
                 for key in UserDefaults.standard.dictionaryRepresentation().keys {
                     UserDefaults.standard.removeObject(forKey: key.description)
                 }

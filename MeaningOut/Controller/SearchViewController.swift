@@ -29,8 +29,10 @@ final class SearchViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if recentSearchTerms.count == 0{
+            mainView.headerView.isHidden = true
             mainView.collectionView.isHidden = true
         }else{
+            mainView.headerView.isHidden = false
             mainView.collectionView.isHidden = false
         }
         guard let name = UserDefaultsManager.nickName else { return }
@@ -49,12 +51,14 @@ final class SearchViewController: BaseViewController {
         navigationItem.title = "\(name)'s FavoriteBOX"
     }
     
-    //*** 컬렉션 전체 삭제 버튼 만들기
     //전체 삭제 액션
     @objc private func deleteAllButtonClicked(){
-        recentSearchTerms.removeAll()
-        UserDefaultsManager.searchTerms = []
-        //tableView.isHidden = true
+        showAlert(title: "전체 삭제", message: "정말로 삭제하시겠습니까?", buttonTilte: "삭제") { _ in
+            self.recentSearchTerms.removeAll()
+            UserDefaultsManager.searchTerms = []
+            self.mainView.headerView.isHidden = true
+            self.mainView.collectionView.isHidden = true
+        }
     }
     
     //셀 삭제 액션
@@ -62,6 +66,7 @@ final class SearchViewController: BaseViewController {
         recentSearchTerms.remove(at:sender.tag)
         UserDefaultsManager.searchTerms = recentSearchTerms
         if recentSearchTerms.count == 0{
+            mainView.headerView.isHidden = true
             mainView.collectionView.isHidden = true
         }else{
             mainView.collectionView.reloadData()
@@ -71,12 +76,13 @@ final class SearchViewController: BaseViewController {
     private func configureCollectionView(){
         mainView.collectionView.delegate = self
         mainView.collectionView.dataSource = self
+        mainView.deleteButton.addTarget(self, action: #selector(deleteAllButtonClicked), for: .touchUpInside)
         mainView.collectionView.register(RecentSearchTermCell.self, forCellWithReuseIdentifier: RecentSearchTermCell.identifier)
     }
 }
 
 extension SearchViewController:UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
-    
+        
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecentSearchTermCell.identifier, for: indexPath) as? RecentSearchTermCell else {
                     return .zero
@@ -112,46 +118,14 @@ extension SearchViewController:UICollectionViewDelegate, UICollectionViewDataSou
 
 
 
-// MARK: - TableView
-extension SearchViewController:UITableViewDelegate, UITableViewDataSource{
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let cell = tableView.dequeueReusableHeaderFooterView(withIdentifier: RecentSearchHeader.identifier) as! RecentSearchHeader
-        cell.deleteButton.addTarget(self, action: #selector(deleteAllButtonClicked), for: .touchUpInside)
-
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return recentSearchTerms.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: RecentSearchCell.identifier, for: indexPath) as! RecentSearchCell
-        cell.selectionStyle = .none
-        cell.titleLabel.text = recentSearchTerms[indexPath.row]
-        cell.deleteButton.tag = indexPath.row
-        cell.deleteButton.addTarget(self, action: #selector(deleteButtonClicked), for: .touchUpInside)
-        
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let searchVC = SearchResultViewController()
-        searchVC.searchTerm = recentSearchTerms[indexPath.row]
-        navigationController?.pushViewController(searchVC, animated: true)
-    }
-    
-
-}
 
 // MARK: - SearchBar
 extension SearchViewController:UISearchBarDelegate{
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        print("엔터")
+
         let searchResultVC = SearchResultViewController()
         guard let text = searchBar.text else { return }
-        print(text)
+    
         if !text.trimmingCharacters(in: .whitespaces).isEmpty{
             searchResultVC.searchTerm = text
             
