@@ -12,12 +12,11 @@ import SnapKit
 final class SearchViewController: BaseViewController {
 
     private let mainView = SearchView()
+    private var recentSearchTerms:[String] = UserDefaultsManager.searchTerms
     
     override func loadView() {
         view = mainView
     }
-    
-    var recentSearchTerms:[String] = UserDefaultsManager.searchTerms
     
     // MARK: - viewDidLoad
     override func viewDidLoad() {
@@ -37,6 +36,7 @@ final class SearchViewController: BaseViewController {
         }
         guard let name = UserDefaultsManager.nickName else { return }
         navigationItem.title = "\(name)'s FavoriteBOX"
+        let itemCount = recentSearchTerms.count - 1
         mainView.collectionView.reloadData()
     }
     
@@ -46,7 +46,10 @@ final class SearchViewController: BaseViewController {
         searchCon.searchBar.placeholder = "브랜드, 상품 등을 입력하세요."
         self.navigationItem.searchController = searchCon
         self.navigationController?.navigationBar.shadowImage = nil
+        searchCon.searchBar.autocapitalizationType = .none
+        searchCon.searchBar.autocorrectionType = .no
         searchCon.searchBar.delegate = self
+        
         guard let name = UserDefaultsManager.nickName else { return }
         navigationItem.title = "\(name)'s FavoriteBOX"
     }
@@ -81,19 +84,20 @@ final class SearchViewController: BaseViewController {
     }
 }
 
+// MARK: - CollectionView
 extension SearchViewController:UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
         
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecentSearchTermCell.identifier, for: indexPath) as? RecentSearchTermCell else {
-                    return .zero
-                }
-                cell.titleLabel.text = recentSearchTerms[indexPath.row]
-                cell.titleLabel.sizeToFit()
-                cell.deleteButton.sizeToFit()
-                
-                let cellWidth = cell.titleLabel.frame.width + cell.deleteButton.frame.width + 35
-
-                return CGSize(width: cellWidth, height: 55)
+            return .zero
+        }
+        cell.titleLabel.text = recentSearchTerms[indexPath.row]
+        cell.titleLabel.sizeToFit()
+        cell.deleteButton.sizeToFit()
+        
+        let cellWidth = cell.titleLabel.frame.width + cell.deleteButton.frame.width + 35
+        
+        return CGSize(width: cellWidth, height: 55)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

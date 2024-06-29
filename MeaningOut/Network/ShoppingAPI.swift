@@ -42,8 +42,19 @@ enum ShoppingAPI{
         case .asc(let searchTerm, let start):
             return ["query":searchTerm, "sort":"asc", "startNum":start, "display":"30"]
         }
-        
-            
+    }
+    
+    var fitlerNum:Int{
+        switch self {
+        case .sim:
+            return 0
+        case .date:
+            return 1
+        case .dsc:
+            return 2
+        case .asc:
+            return 3
+        }
     }
     
     
