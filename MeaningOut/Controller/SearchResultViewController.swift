@@ -44,10 +44,6 @@ final class SearchResultViewController: BaseViewController{
         fetchData()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        mainView.collectionView.reloadData()
-    }
-    
 
     private func showSkeletonView(){
         mainView.collectionView.isSkeletonable = true
@@ -181,6 +177,7 @@ extension SearchResultViewController:SkeletonCollectionViewDelegate, SkeletonCol
         guard let resultItems = searhResult?.items else { return }
         let detailVC = ItemDetailViewController()
         detailVC.data = resultItems[indexPath.item]
+        detailVC.delegate = self
         navigationController?.pushViewController(detailVC, animated: true)
     }
 }
@@ -202,3 +199,9 @@ extension SearchResultViewController:UICollectionViewDataSourcePrefetching{
     
 }
 
+extension SearchResultViewController:FavoriteDelegate{
+    func resetFavButton(_ id:String) {
+        guard let index = searhResult?.items.firstIndex(where: { $0.productId == id }) else { return }
+        mainView.collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
+    }
+}

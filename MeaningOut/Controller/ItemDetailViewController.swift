@@ -8,18 +8,22 @@
 import UIKit
 import WebKit
 
+protocol FavoriteDelegate:AnyObject{
+    func resetFavButton(_ id:String)
+}
+
 final class ItemDetailViewController: BaseViewController {
 
     private let webView = WKWebView()
+    private var favorite:Bool = false
+    weak var delegate:FavoriteDelegate?
+    
     var data:Item?{
         didSet{
             guard let data else { return }
             favorite = UserDefaultsManager.favorite[data.productId] ?? false
-            configureWebView()
         }
     }
-
-    var favorite:Bool = false
     
     // MARK: - viewDidLoad
     override func viewDidLoad() {
@@ -27,6 +31,7 @@ final class ItemDetailViewController: BaseViewController {
         configureHierarchy()
         configureLayout()
         configureNavigationItem()
+        configureWebView()
         navigationItem.title = data?.titleBoldTag
     }
     
@@ -69,6 +74,7 @@ final class ItemDetailViewController: BaseViewController {
         configureNavigationItem()
         guard let data else { return }
         UserDefaultsManager.favorite[data.productId] = favorite
+        delegate?.resetFavButton(data.productId)
     }
 
 }

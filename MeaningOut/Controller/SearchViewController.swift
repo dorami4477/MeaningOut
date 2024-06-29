@@ -36,8 +36,6 @@ final class SearchViewController: BaseViewController {
         }
         guard let name = UserDefaultsManager.nickName else { return }
         navigationItem.title = "\(name)'s FavoriteBOX"
-        let itemCount = recentSearchTerms.count - 1
-        mainView.collectionView.reloadData()
     }
     
     
@@ -143,7 +141,7 @@ extension SearchViewController:UISearchBarDelegate{
             
             navigationController?.pushViewController(searchResultVC, animated: true)
             searchBar.text = ""
-            
+            mainView.collectionView.reloadData()
         }
     }
 }
