@@ -11,6 +11,7 @@ import SkeletonView
 
 final class SearchResultViewController: BaseViewController{
 
+    let repository = ShoppingRepository()
     private let mainView = SearchResultView()
     var searchTerm = ""
     private var startNum = 1
@@ -159,14 +160,19 @@ extension SearchResultViewController:SkeletonCollectionViewDelegate, SkeletonCol
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchResultCell.identifier, for: indexPath) as! SearchResultCell
         guard let resultItems = searhResult?.items else { return UICollectionViewCell() }
-        
-        if let fav = UserDefaultsManager.favorite[resultItems[indexPath.item].productId]{
+        //**여기서 데이터 베이스에 연결
+        /*if let fav = UserDefaultsManager.favorite[resultItems[indexPath.item].productId]{
             cell.favorite = fav
         }else{
             UserDefaultsManager.favorite[resultItems[indexPath.item].productId] = false
             cell.favorite = false
-        }
+        }*/
         
+        if repository.fetchSingleItem(resultItems[indexPath.item].productId) != nil{
+            cell.favorite = true
+        }else{
+            cell.favorite = false
+        }
         cell.data = resultItems[indexPath.item]
         cell.changeText(text: searchTerm)
         return cell
@@ -200,8 +206,16 @@ extension SearchResultViewController:UICollectionViewDataSourcePrefetching{
 }
 
 extension SearchResultViewController:FavoriteDelegate{
-    func resetFavButton(_ id:String) {
-        guard let index = searhResult?.items.firstIndex(where: { $0.productId == id }) else { return }
+    func resetFavButton(_ id:String, isFavorite:Bool) {
+        guard let searhResult else { return }
+        guard let index = searhResult.items.firstIndex(where: { $0.productId == id }) else { return }
+        let data = searhResult.items[index]
+        let newData = ShoppingTable(productId: data.productId, title: data.title, link: data.link, image: data.image, lprice: data.lprice, hprice: data.hprice, mallName: data.mallName, productType: data.productType, brand: data.brand, maker: data.maker, category1: data.category1, category2: data.category2, category3: data.category2, category4: data.category4)
+        if isFavorite{
+            repository.createData(data:newData)
+        }else{
+            repository.deleteData(data:newData)
+        }
         mainView.collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
     }
 }

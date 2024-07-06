@@ -17,6 +17,7 @@ final class SearchResultCell: UICollectionViewCell {
         }
     }
 
+    let repository = ShoppingRepository()
     var favorite = false
     
     let mainImageView = {
@@ -121,7 +122,15 @@ final class SearchResultCell: UICollectionViewCell {
         favorite.toggle()
         setFavoriteUI()
         guard let data else { return }
-        UserDefaultsManager.favorite[data.productId] = favorite
+        //UserDefaultsManager.favorite[data.productId] = favorite
+        let newData = ShoppingTable(productId: data.productId, title: data.title, link: data.link, image: data.image, lprice: data.lprice, hprice: data.hprice, mallName: data.mallName, productType: data.productType, brand: data.brand, maker: data.maker, category1: data.category1, category2: data.category2, category3: data.category2, category4: data.category4)
+        if favorite{
+            repository.createData(data:newData)
+        }else{
+            repository.deleteData(data:newData)
+        }
+        //**여기서 데이터 베이스에 저장
+        
     }
     
     private func setFavoriteUI(){

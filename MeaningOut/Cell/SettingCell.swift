@@ -9,6 +9,8 @@ import UIKit
 
 final class SettingCell: UITableViewCell {
 
+    let repository = ShoppingRepository()
+    
     let titleLabel = {
         let label = UILabel()
         label.font = AppFont.size14
@@ -36,7 +38,8 @@ final class SettingCell: UITableViewCell {
     }
     
     func favoriteCounts(){
-        let onlyTrue = UserDefaultsManager.favorite.filter { $1 == true }
+        //let onlyTrue = UserDefaultsManager.favorite.filter { $1 == true }
+        let onlyTrue = repository.fetchAllItem()
         favNumLabel.text = onlyTrue.count.formatted() + "개의 상품"
         guard let labelText = favNumLabel.text else { return }
         let attributedStr = NSMutableAttributedString(string: labelText)
