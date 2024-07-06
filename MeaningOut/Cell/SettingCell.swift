@@ -40,10 +40,10 @@ final class SettingCell: UITableViewCell {
     func favoriteCounts(){
         //let onlyTrue = UserDefaultsManager.favorite.filter { $1 == true }
         let onlyTrue = repository.fetchAllItem()
-        favNumLabel.text = onlyTrue.count.formatted() + "개의 상품"
+        favNumLabel.text = (onlyTrue?.count ?? 0).formatted() + "개의 상품"
         guard let labelText = favNumLabel.text else { return }
         let attributedStr = NSMutableAttributedString(string: labelText)
-        attributedStr.addAttribute(.font, value: AppFont.size14Bold, range: (labelText as NSString).range(of: onlyTrue.count.formatted() + "개"))
+        attributedStr.addAttribute(.font, value: AppFont.size14Bold, range: (labelText as NSString).range(of: (onlyTrue?.count ?? 0).formatted() + "개"))
         favNumLabel.attributedText = attributedStr
     }
     

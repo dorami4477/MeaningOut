@@ -33,7 +33,7 @@ class ShoppingRepository{
     }
     
     //read all
-    func fetchAllItem() -> [ShoppingTable]{
+    func fetchAllItem() -> [ShoppingTable]?{
         let value = realm.objects(ShoppingTable.self)
         return Array(value)
     }
