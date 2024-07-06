@@ -12,6 +12,8 @@ class ShoppingRepository{
     let realm = try! Realm()
     //print(realm.configuration.fileURL)
     
+    
+    //create
     func createData(data:ShoppingTable){
         
         try! realm.write {
@@ -19,6 +21,7 @@ class ShoppingRepository{
         }
     }
 
+    //delete
     func deleteData(data:ShoppingTable){
         let data = realm.object(ofType: ShoppingTable.self, forPrimaryKey: data.productId)!
         try! realm.write {

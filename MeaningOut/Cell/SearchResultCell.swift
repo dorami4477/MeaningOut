@@ -10,7 +10,7 @@ import Kingfisher
 
 final class SearchResultCell: UICollectionViewCell {
     
-    var data:Any?{
+    var data:Item?{
         didSet{
             configureData()
             setFavoriteUI()
@@ -109,42 +109,26 @@ final class SearchResultCell: UICollectionViewCell {
     }
     
     private func configureData(){
-        if let data = data as? Item{
-            let url = URL(string: data.image)
-            mainImageView.kf.setImage(with: url, placeholder: UIImage(named: "placeHolder"))
-            titleLabel.text = data.titleBoldTag
-            mallNameLabel.text = data.mallName
-            priceLabel.text = data.price
-        }else if let data = data as? ShoppingTable{
-            let url = URL(string: data.image)
-            mainImageView.kf.setImage(with: url, placeholder: UIImage(named: "placeHolder"))
-            titleLabel.text = data.title
-            mallNameLabel.text = data.mallName
-            priceLabel.text = data.lprice + "원"
-        }
+        guard let data else { return  }
+        let url = URL(string: data.image)
+        mainImageView.kf.setImage(with: url, placeholder: UIImage(named: "placeHolder"))
+        titleLabel.text = data.titleBoldTag
+        mallNameLabel.text = data.mallName
+        priceLabel.text = data.price
+        
     }
     
     @objc private func favButtonTapped(){
         favorite.toggle()
         setFavoriteUI()
         guard let data else { return }
-        //UserDefaultsManager.favorite[data.productId] = favorite
-        if let data = data as? Item{
-            let newData = ShoppingTable(productId: data.productId, title: data.title, link: data.link, image: data.image, lprice: data.lprice, hprice: data.hprice, mallName: data.mallName, productType: data.productType, brand: data.brand, maker: data.maker, category1: data.category1, category2: data.category2, category3: data.category2, category4: data.category4)
-            if favorite{
-                repository.createData(data:newData)
-            }else{
-                repository.deleteData(data:newData)
-            }
-        }else if let data = data as? ShoppingTable{
-            if favorite{
-                repository.createData(data:data)
-            }else{
-                repository.deleteData(data:data)
-            }
+        let newData = ShoppingTable(productId: data.productId, title: data.title, link: data.link, image: data.image, lprice: data.lprice, hprice: data.hprice, mallName: data.mallName, productType: data.productType, brand: data.brand, maker: data.maker, category1: data.category1, category2: data.category2, category3: data.category2, category4: data.category4)
+        if favorite{
+            repository.createData(data:newData)
+        }else{
+            repository.deleteData(data:newData)
         }
-        //**여기서 데이터 베이스에 저장
-        
+   
     }
     
     private func setFavoriteUI(){

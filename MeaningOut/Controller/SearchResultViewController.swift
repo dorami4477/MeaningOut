@@ -11,7 +11,7 @@ import SkeletonView
 
 final class SearchResultViewController: BaseViewController{
 
-    let repository = ShoppingRepository()
+    private let repository = ShoppingRepository()
     private let mainView = SearchResultView()
     var searchTerm = ""
     private var startNum = 1
@@ -49,6 +49,13 @@ final class SearchResultViewController: BaseViewController{
     private func showSkeletonView(){
         mainView.collectionView.isSkeletonable = true
         mainView.collectionView.showAnimatedGradientSkeleton()
+    }
+    
+    private func configureCollectionView(){
+        mainView.collectionView.delegate = self
+        mainView.collectionView.dataSource = self
+        mainView.collectionView.prefetchDataSource = self
+        mainView.collectionView.register(SearchResultCell.self, forCellWithReuseIdentifier: SearchResultCell.identifier)
     }
 
     //네트워크
@@ -120,17 +127,7 @@ extension SearchResultViewController{
 }
 
 
-// MARK: - CollectionView Setting
-extension SearchResultViewController{
-    private func configureCollectionView(){
-        mainView.collectionView.delegate = self
-        mainView.collectionView.dataSource = self
-        mainView.collectionView.prefetchDataSource = self
-        mainView.collectionView.register(SearchResultCell.self, forCellWithReuseIdentifier: SearchResultCell.identifier)
-    }
-    
 
-}
 
 // MARK: - CollectionView + skeleton Delegate
 extension SearchResultViewController:SkeletonCollectionViewDelegate, SkeletonCollectionViewDataSource{
@@ -160,14 +157,6 @@ extension SearchResultViewController:SkeletonCollectionViewDelegate, SkeletonCol
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchResultCell.identifier, for: indexPath) as! SearchResultCell
         guard let resultItems = searhResult?.items else { return UICollectionViewCell() }
-        //**여기서 데이터 베이스에 연결
-        /*if let fav = UserDefaultsManager.favorite[resultItems[indexPath.item].productId]{
-            cell.favorite = fav
-        }else{
-            UserDefaultsManager.favorite[resultItems[indexPath.item].productId] = false
-            cell.favorite = false
-        }*/
-        
         if repository.fetchSingleItem(resultItems[indexPath.item].productId) != nil{
             cell.favorite = true
         }else{

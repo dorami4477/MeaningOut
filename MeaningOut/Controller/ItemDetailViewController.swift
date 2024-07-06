@@ -22,7 +22,6 @@ final class ItemDetailViewController: BaseViewController {
     var data:Item?{
         didSet{
             guard let data else { return }
-           // favorite = UserDefaultsManager.favorite[data.productId] ?? false
             if repository.fetchSingleItem(data.productId) != nil {
                 favorite = true
             }else{
@@ -79,9 +78,8 @@ final class ItemDetailViewController: BaseViewController {
         favorite.toggle()
         configureNavigationItem()
         guard let data else { return }
-        //UserDefaultsManager.favorite[data.productId] = favorite
         delegate?.resetFavButton(data.productId, isFavorite: favorite)
-        //**여기서 데이터 베이스에 저장
+
     }
 
 }
