@@ -13,16 +13,24 @@ final class BasketListViewController: BaseViewController {
     
     private let mainView = SearchResultView()
     let repository = ShoppingRepository()
+    var favoriteList:[Item] = []{
+        didSet{
+            searhResult = favoriteList
+        }
+    }
     var searhResult:[Item] = []{
         didSet{
             mainView.resultCountLabel.text = searhResult.count.formatted() + "개의 즐겨찾기"
             if searhResult.count == 0{
+                mainView.resultCountLabel.isHidden = true
                 mainView.collectionView.isHidden = true
             }else{
+                mainView.resultCountLabel.isHidden = false
                 mainView.collectionView.isHidden = false
             }
         }
     }
+    
     
     override func loadView() {
         view = mainView
@@ -32,24 +40,23 @@ final class BasketListViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
-        setfilterButton()
         navigationItem.title = "즐겨찾기"
+        congfigureSearchBar()
+        mainView.filterStackView.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
         fetchItems()
     }
 
-    
-    private func setfilterButton(){
-        mainView.filterButtons.forEach {
-            $0.addTarget(self, action: #selector(filterTapped(_:)), for: .touchUpInside)
-        }
-    }
-    
-    //필터 액션
-    @objc private func filterTapped(_ sender:FilterButton){
-
+    func congfigureSearchBar(){
+        let searchCon = UISearchController(searchResultsController: nil)
+        searchCon.searchBar.placeholder = "즐겨찾기한 상품을 검색하세요."
+        self.navigationItem.searchController = searchCon
+        self.navigationController?.navigationBar.shadowImage = nil
+        searchCon.searchBar.autocapitalizationType = .none
+        searchCon.searchBar.autocorrectionType = .no
+        searchCon.searchBar.delegate = self
     }
     
     private func configureCollectionView(){
@@ -63,7 +70,7 @@ final class BasketListViewController: BaseViewController {
         
         favoriteData?.forEach{ data in
             let item = Item(title: data.title, link: data.link, image: data.image, lprice: data.lprice, hprice: data.hprice, mallName: data.mallName, productId: data.productId, productType: data.productType, brand: data.brand, maker: data.maker, category1: data.category1, category2: data.category2, category3: data.category3, category4: data.category4)
-            searhResult.append(item)
+            favoriteList.append(item)
         }
     }
     
@@ -110,5 +117,19 @@ extension BasketListViewController:FavoriteDelegate{
             repository.deleteData(data:newData)
         }
         mainView.collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
+    }
+}
+
+
+extension BasketListViewController:UISearchBarDelegate{
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        searhResult = favoriteList.filter{$0.titleBoldTag.lowercased().contains(searchText.lowercased())}
+        mainView.collectionView.reloadData()
+    }
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searhResult = favoriteList
+        searchBar.text = ""
+        
+        mainView.collectionView.reloadData()
     }
 }

@@ -38,11 +38,18 @@ class SearchResultView: BaseView {
     
     lazy var filterButtons:[FilterButton] = [filter01Button, filter02Button, filter03Button, filter04Button]
     
-    private lazy var filterStackView = {
+    lazy var filterStackView = {
         let sv = UIStackView()
         sv.axis = .horizontal
-        sv.spacing = 10
+        sv.spacing = 5
         sv.alignment = .leading
+        return sv
+    }()
+    
+    private lazy var filterCollectionSV = {
+        let sv = UIStackView()
+        sv.axis = .vertical
+        sv.spacing = 10
         return sv
     }()
     
@@ -54,8 +61,9 @@ class SearchResultView: BaseView {
     }
     
     override func configureHierarchy(){
-        [resultCountLabel, filterStackView, emptyImg, emptyLebel, collectionView ].forEach { addSubview($0) }
+        [resultCountLabel, emptyImg, emptyLebel, filterCollectionSV ].forEach { addSubview($0) }
         [filter01Button, filter02Button, filter03Button,filter04Button ].forEach { filterStackView.addArrangedSubview($0) }
+        [filterStackView, collectionView ].forEach { filterCollectionSV.addArrangedSubview($0) }
     }
     
     override func configureLayout(){
@@ -72,9 +80,15 @@ class SearchResultView: BaseView {
         resultCountLabel.snp.makeConstraints { make in
             make.top.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(20)
         }
-        filterStackView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20)
+        filterCollectionSV.snp.makeConstraints { make in
             make.top.equalTo(resultCountLabel.snp.bottom).offset(10)
+            make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(10)
+            make.bottom.equalTo(safeAreaLayoutGuide)
+        }
+        
+        filterStackView.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview()
+            make.top.equalToSuperview()
         }
         collectionView.snp.makeConstraints { make in
             make.horizontalEdges.bottom.equalTo(safeAreaLayoutGuide)

@@ -36,7 +36,7 @@ class NetworkManger{
             switch response.result{
             case .success(let value):
                 compeltion(.success(value))
-            case .failure(let error):
+            case .failure:
                 let statusCode = response.response?.statusCode
                 switch statusCode {
                 case 400:
